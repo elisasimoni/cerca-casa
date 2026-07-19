@@ -253,11 +253,28 @@ async function loadAnnunci(refetch) {
       const res = await fetch('data/annunci.json', { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       annunciData = await res.json();
+      popolaFonti();
     } catch (e) {
       if (!annunciData) annunciData = { errore: String(e) };
     }
   }
   renderAnnunci();
+}
+
+function popolaFonti() {
+  const sel = $('#annunci-fonte');
+  const attuale = sel.value;
+  const fonti = [...new Set((annunciData.annunci || []).map(a => a.fonte))].sort();
+  sel.innerHTML = '';
+  const tutte = document.createElement('option');
+  tutte.value = ''; tutte.textContent = 'Tutte le fonti';
+  sel.append(tutte);
+  fonti.forEach(f => {
+    const o = document.createElement('option');
+    o.value = f; o.textContent = f;
+    sel.append(o);
+  });
+  if (fonti.includes(attuale)) sel.value = attuale;
 }
 
 function annuncioCard(a) {

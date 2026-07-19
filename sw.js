@@ -1,4 +1,4 @@
-const CACHE = 'cercacasa-v3';
+const CACHE = 'cercacasa-v4';
 const ASSETS = [
   './',
   './index.html',

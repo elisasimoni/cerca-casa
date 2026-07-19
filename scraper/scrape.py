@@ -185,6 +185,87 @@ def scrape_subito(ricerca):
     return out
 
 
+# ----------------------------------------------------------------- Trovit
+# Aggregatore: contiene anche gli annunci di Immobiliare.it/Idealista (che
+# bloccano lo scraping diretto). Ogni card dichiara il portale d'origine in
+# <small>: scartiamo quelli di Casa.it/Subito perché già presi direttamente.
+FONTI_GIA_COPERTE = {"CASA.IT", "SUBITO", "SUBITO.IT"}
+
+
+def _trovit_card(card):
+    did = re.search(r'data-id="(trovit-[^"]+)"', card)
+    if not did:
+        return None
+    fonte_orig = re.search(r"<small>([^<]{2,40})</small>", card)
+    fonte_orig = fonte_orig.group(1).strip() if fonte_orig else None
+    if fonte_orig and fonte_orig.upper() in FONTI_GIA_COPERTE:
+        return None
+    titolo = re.search(r'title="([^"]{3,120})"\s+class="js-listing"', card)
+    prezzo = re.search(r'class="price__actual"[^>]*>([^<]+)<', card)
+    luogo = re.search(r'class="address_property-type"><b>([^<]*)</b>[^<]*?([^<]*)<', card)
+    foto = re.search(r'<img[^>]+src="(https://images\.trovit\.com/[^"]+)"', card)
+    locali = re.search(r"ic-room[^>]*>\s*<p>(\d+)", card)
+    bagni = re.search(r"ic-bath[^>]*>\s*<p>(\d+)", card)
+    mq = re.search(r"ic-size[^>]*>\s*<p>([\d.,]+)\s*m", card)
+
+    quartiere = comune = None
+    if luogo:
+        testo = luogo.group(2).strip()
+        if testo.startswith("a "):  # "Appartamento a 47013, Dovadola, ..."
+            testo = testo[2:]
+        parti = [p.strip() for p in testo.split(",") if p.strip()]
+        parti = [p for p in parti
+                 if not p.lower().startswith("provincia") and not p.isdigit()]
+        if parti:
+            comune = parti[-1]
+            if len(parti) > 1:
+                quartiere = parti[0].replace("Quartiere ", "")
+
+    label = (fonte_orig or "Trovit").title().replace(".It", ".it")
+    return {
+        "id": did.group(1),
+        "fonte": f"{label} · Trovit",
+        "titolo": titolo.group(1) if titolo else (luogo.group(1) if luogo else "Annuncio"),
+        "prezzo": to_int(prezzo.group(1)) if prezzo else None,
+        "mq": to_int(mq.group(1)) if mq else None,
+        "locali": to_int(locali.group(1)) if locali else None,
+        "bagni": to_int(bagni.group(1)) if bagni else None,
+        "piano": None,
+        "indirizzo": None,
+        "quartiere": quartiere,
+        "comune": comune,
+        "lat": None,
+        "lon": None,
+        "url": f"https://case.trovit.it/detail/{did.group(1)}",
+        "foto": foto.group(1) if foto else None,
+        "asta": "asta" in (titolo.group(1).lower() if titolo else ""),
+        "data": None,
+        "descr": "",
+    }
+
+
+def scrape_trovit(ricerca):
+    conf = ricerca.get("trovit")
+    if not conf:
+        return []
+    canale = "affitto" if ricerca["contratto"] == "affitto" else "vendita"
+    base = f"https://case.trovit.it/{canale}-{conf['slug']}"
+    out = []
+    for page in range(1, int(conf.get("pagine", 4)) + 1):
+        url = base if page == 1 else f"{base}.{page}"
+        html = fetch(url)
+        cards = html.split("<article")[1:]
+        if not cards:
+            break
+        for card in cards:
+            card = card.split("</article>")[0]
+            item = _trovit_card(card)
+            if item:
+                out.append(item)
+        time.sleep(1.5)
+    return out
+
+
 # ------------------------------------------------------------------- main
 def main():
     config = json.loads((ROOT / "config" / "ricerche.json").read_text("utf-8"))
@@ -193,7 +274,8 @@ def main():
     for ricerca in config["ricerche"]:
         annunci = []
         errori = []
-        for nome, fn in (("Casa.it", scrape_casait), ("Subito.it", scrape_subito)):
+        for nome, fn in (("Casa.it", scrape_casait), ("Subito.it", scrape_subito),
+                         ("Trovit", scrape_trovit)):
             try:
                 trovati = fn(ricerca)
                 annunci.extend(trovati)
