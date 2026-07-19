@@ -1,14 +1,19 @@
 {
-  "_istruzioni": "Ogni ricerca viene eseguita dallo scraper automatico. Modifica questo file (anche da GitHub web) per cambiare comune/contratto. 'casait.slug' è il comune nell'URL di casa.it; per subito servono regione/provincia/comune come appaiono negli URL di subito.it. prezzoMin/prezzoMax in euro (null = nessun limite).",
+  "_istruzioni": "Ogni ricerca viene eseguita dallo scraper (dal Mac, via launchd). 'casait.slug' è la località nell'URL di casa.it (comune o '<provincia>-provincia'); per subito servono regione/provincia (e comune, opzionale: null = tutta la provincia) come negli URL di subito.it. linksEsterni sono i portali che bloccano lo scraping, mostrati come scorciatoie nel tab Annunci. prezzoMin/prezzoMax in euro (null = nessun limite).",
   "ricerche": [
     {
-      "id": "firenze-vendita",
-      "label": "Firenze · vendita",
+      "id": "forli-cesena-vendita",
+      "label": "Forlì-Cesena · vendita",
       "contratto": "vendita",
-      "casait": { "slug": "firenze", "pagine": 3 },
-      "subito": { "regione": "toscana", "provincia": "firenze", "comune": "firenze" },
+      "casait": { "slug": "forli-cesena-provincia", "pagine": 3 },
+      "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": null },
       "prezzoMin": null,
-      "prezzoMax": null
+      "prezzoMax": null,
+      "linksEsterni": [
+        { "nome": "Immobiliare.it", "url": "https://www.immobiliare.it/vendita-case/forli-cesena-provincia/" },
+        { "nome": "Idealista", "url": "https://www.idealista.it/vendita-case/forli-cesena-provincia/" },
+        { "nome": "Wikicasa", "url": "https://www.wikicasa.it/vendita/case/provincia-forli-cesena/" }
+      ]
     }
   ]
 }

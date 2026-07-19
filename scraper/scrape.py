@@ -131,7 +131,9 @@ def scrape_subito(ricerca):
         return []
     canale = "affitto" if ricerca["contratto"] == "affitto" else "vendita"
     page_url = (f"https://www.subito.it/annunci-{conf['regione']}/{canale}/"
-                f"appartamenti/{conf['provincia']}/{conf['comune']}/")
+                f"appartamenti/{conf['provincia']}/")
+    if conf.get("comune"):
+        page_url += f"{conf['comune']}/"
     html = fetch(page_url)
     m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
                   html, re.S)
@@ -144,10 +146,11 @@ def scrape_subito(ricerca):
         "t": "u" if canale == "affitto" else "s",
         "r": geo["region"]["id"],
         "ci": geo["city"]["id"],
-        "to": geo["town"]["id"],
         "lim": "100",
         "sort": "datedesc",
     }
+    if geo.get("town"):  # assente per ricerche su tutta la provincia
+        params["to"] = geo["town"]["id"]
     api = "https://hades.subito.it/v1/search/items?" + urllib.parse.urlencode(params)
     data = json.loads(fetch(api, accept="application/json"))
     out = []
@@ -214,7 +217,8 @@ def main():
         tutte.extend(unici)
         meta.append({"id": ricerca["id"], "label": ricerca["label"],
                      "contratto": ricerca["contratto"],
-                     "count": len(unici), "errori": errori})
+                     "count": len(unici), "errori": errori,
+                     "linksEsterni": ricerca.get("linksEsterni") or []})
 
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

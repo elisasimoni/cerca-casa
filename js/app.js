@@ -303,7 +303,8 @@ function annuncioCard(a) {
 
   const badges = el('div', 'card-badges');
   badges.append(el('span', 'badge badge-sito', a.fonte));
-  if (a.quartiere) badges.append(el('span', 'badge', a.quartiere));
+  if (a.comune) badges.append(el('span', 'badge', a.comune));
+  if (a.quartiere && a.quartiere !== a.comune) badges.append(el('span', 'badge', a.quartiere));
   body.append(badges);
 
   const actions = el('div', 'card-actions');
@@ -376,6 +377,18 @@ function renderAnnunci() {
       gruppi.forEach(g => { if (g[i]) items.push(g[i]); });
     }
   }
+
+  // Portali che bloccano lo scraping: scorciatoie alla ricerca configurata
+  const linksWrap = $('#annunci-links');
+  linksWrap.innerHTML = '';
+  const visti = new Set();
+  (annunciData.ricerche || []).flatMap(r => r.linksEsterni || []).forEach(l => {
+    if (visti.has(l.nome)) return;
+    visti.add(l.nome);
+    const link = el('a', null, l.nome + ' ↗');
+    link.href = l.url; link.target = '_blank'; link.rel = 'noopener';
+    linksWrap.append(link);
+  });
 
   const quando = annunciData.updated
     ? new Date(annunciData.updated).toLocaleString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })

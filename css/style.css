@@ -149,6 +149,8 @@ select:focus, input:focus, textarea:focus { outline: none; border-color: var(--a
 /* ---------- Annunci (scraper) ---------- */
 .annunci-head { margin-bottom: 12px; }
 .annunci-head input { margin: 8px 0; }
+#annunci-links { margin-top: 10px; }
+#annunci-links a { font-size: 12.5px; padding: 6px 12px; }
 .annuncio-wrap { display: flex; gap: 12px; }
 .annuncio-foto {
   width: 108px; height: 88px; object-fit: cover; border-radius: 10px;
