@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cerca Casa</title>
+  <meta name="description" content="La mia ricerca casa: annunci salvati per zona, prezzi, portali immobiliari.">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cerca Casa">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Schermata PIN -->
+  <div id="lock-screen">
+    <div class="lock-box">
+      <div class="lock-icon">🏠</div>
+      <h1>Cerca Casa</h1>
+      <p>Inserisci il PIN per entrare</p>
+      <form id="pin-form" autocomplete="off">
+        <input type="password" id="pin-input" placeholder="PIN" autocomplete="off" autofocus>
+        <button type="submit" class="btn btn-primary btn-block">Sblocca</button>
+      </form>
+      <p id="pin-error" class="pin-error hidden">PIN sbagliato, riprova</p>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="app" class="hidden">
+    <header class="app-header">
+      <span class="app-title">🏠 Cerca Casa</span>
+      <span id="header-count" class="header-count"></span>
+    </header>
+
+    <!-- TAB: Case -->
+    <main id="tab-case" class="tab active">
+      <div class="filters">
+        <div id="zone-chips" class="chips"></div>
+        <div class="filter-row">
+          <select id="filter-stato">
+            <option value="">Tutti gli stati</option>
+            <option value="da-valutare">Da valutare</option>
+            <option value="contattata">Contattata</option>
+            <option value="visita">Visita fissata</option>
+            <option value="visitata">Visitata</option>
+            <option value="preferita">⭐ Preferita</option>
+            <option value="scartata">Scartata</option>
+          </select>
+          <select id="sort-by">
+            <option value="zona">Per zona</option>
+            <option value="prezzo-asc">Prezzo ↑</option>
+            <option value="prezzo-desc">Prezzo ↓</option>
+            <option value="mq-desc">Mq ↓</option>
+            <option value="eurmq-asc">€/mq ↑</option>
+            <option value="recenti">Più recenti</option>
+          </select>
+        </div>
+      </div>
+      <div id="house-list"></div>
+    </main>
+
+    <!-- TAB: Portali -->
+    <main id="tab-portali" class="tab">
+      <div class="portali-head">
+        <p class="hint">Cerca in una zona su tutti i portali immobiliari:</p>
+        <div class="contract-toggle" id="contract-toggle">
+          <button data-contract="vendita" class="active">Compra</button>
+          <button data-contract="affitto">Affitto</button>
+        </div>
+        <input type="text" id="portali-zona" placeholder="Zona / comune (es. Firenze)" list="zone-datalist">
+      </div>
+      <div id="portali-list"></div>
+      <h3 class="section-title">Agenzie immobiliari</h3>
+      <div id="agenzie-list" class="agenzie"></div>
+    </main>
+
+    <!-- TAB: Altro -->
+    <main id="tab-altro" class="tab">
+      <h3 class="section-title">Le mie zone</h3>
+      <p class="hint">Le zone si creano anche in automatico quando salvi una casa.</p>
+      <form id="zona-form" class="inline-form">
+        <input type="text" id="zona-input" placeholder="Nuova zona (es. Campo di Marte)">
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+      </form>
+      <div id="zone-manage" class="chips chips-wrap"></div>
+
+      <h3 class="section-title">Backup</h3>
+      <div class="btn-row">
+        <button id="btn-export" class="btn">⬇️ Esporta dati</button>
+        <button id="btn-import" class="btn">⬆️ Importa dati</button>
+        <input type="file" id="import-file" accept=".json" class="hidden">
+      </div>
+
+      <h3 class="section-title">App</h3>
+      <div class="btn-row">
+        <button id="btn-install" class="btn hidden">📲 Installa app</button>
+        <button id="btn-lock" class="btn">🔒 Blocca</button>
+      </div>
+      <p class="hint" id="app-info">I dati restano solo su questo dispositivo (localStorage). Usa Esporta per fare un backup o passarli a un altro dispositivo.</p>
+    </main>
+
+    <datalist id="zone-datalist"></datalist>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-tab="case"><span>🏠</span>Case</button>
+      <button class="nav-btn nav-add" id="btn-add">＋</button>
+      <button class="nav-btn" data-tab="portali"><span>🔍</span>Portali</button>
+      <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>
+    </nav>
+
+    <!-- Dialog aggiungi/modifica casa -->
+    <dialog id="house-dialog">
+      <form id="house-form" method="dialog">
+        <h2 id="dialog-title">Aggiungi casa</h2>
+        <input type="hidden" id="h-id">
+        <label>Link annuncio
+          <input type="url" id="h-link" placeholder="https://... (incolla e riconosco il sito)">
+        </label>
+        <label>Titolo
+          <input type="text" id="h-titolo" placeholder="es. Trilocale luminoso con balcone">
+        </label>
+        <div class="form-grid">
+          <label>Zona *
+            <input type="text" id="h-zona" list="zone-datalist" placeholder="es. Novoli" required>
+          </label>
+          <label>Sito
+            <select id="h-sito"></select>
+          </label>
+        </div>
+        <label>Indirizzo
+          <input type="text" id="h-indirizzo" placeholder="es. Via Roma 12, Firenze">
+        </label>
+        <div class="form-grid">
+          <label>Prezzo (€)
+            <input type="number" id="h-prezzo" min="0" step="1000" placeholder="250000">
+          </label>
+          <label>Metri quadri
+            <input type="number" id="h-mq" min="0" placeholder="85">
+          </label>
+        </div>
+        <div class="form-grid form-grid-3">
+          <label>Locali
+            <input type="number" id="h-locali" min="0" placeholder="4">
+          </label>
+          <label>Bagni
+            <input type="number" id="h-bagni" min="0" placeholder="2">
+          </label>
+          <label>Piano
+            <input type="text" id="h-piano" placeholder="2°">
+          </label>
+        </div>
+        <label>Stato
+          <select id="h-stato">
+            <option value="da-valutare">Da valutare</option>
+            <option value="contattata">Contattata</option>
+            <option value="visita">Visita fissata</option>
+            <option value="visitata">Visitata</option>
+            <option value="preferita">⭐ Preferita</option>
+            <option value="scartata">Scartata</option>
+          </select>
+        </label>
+        <label>Note
+          <textarea id="h-note" rows="2" placeholder="es. no ascensore, da ristrutturare bagno..."></textarea>
+        </label>
+        <div class="btn-row dialog-actions">
+          <button type="button" class="btn" id="btn-cancel">Annulla</button>
+          <button type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
