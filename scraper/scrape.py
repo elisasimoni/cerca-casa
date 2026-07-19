@@ -39,9 +39,30 @@ def fetch(url, accept="text/html,application/xhtml+xml,*/*;q=0.8", retries=2):
     raise RuntimeError(f"fetch fallita: {url} ({last})")
 
 
+def fetch_post_json(url, payload, retries=2):
+    cmd = ["curl", "-sS", "--compressed", "--max-time", "30",
+           "-w", "\n%{http_code}",
+           "-H", f"User-Agent: {UA}",
+           "-H", "Accept: application/json",
+           "-H", "Content-Type: application/json",
+           "-X", "POST", "-d", json.dumps(payload),
+           url]
+    last = None
+    for attempt in range(retries + 1):
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        body, _, code = res.stdout.rpartition("\n")
+        if res.returncode == 0 and code == "200":
+            return json.loads(body)
+        last = f"HTTP {code or '?'} (curl exit {res.returncode})"
+        time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"POST fallita: {url} ({last})")
+
+
 def to_int(val):
     if val is None:
         return None
+    if isinstance(val, (int, float)):
+        return int(val)
     digits = re.sub(r"[^\d]", "", str(val))
     return int(digits) if digits else None
 
@@ -266,6 +287,73 @@ def scrape_trovit(ricerca):
     return out
 
 
+# -------------------------------------------------------- Aste PVP (Giustizia)
+# Portale Vendite Pubbliche del Ministero: per legge TUTTE le aste giudiziarie
+# passano da qui, quindi copre anche astalegale/asteannunci/canaleaste.
+# Nota: l'endpoint contiene hash di deploy che possono cambiare — in tal caso
+# la fonte va in errore (visibile nell'app) e va aggiornato PVP_RIC_BASE.
+PVP_RIC_BASE = "https://pvp.giustizia.it/ric-496b258c-986a1b71/ric-ms"
+PVP_DETTAGLIO = "https://pvp.giustizia.it/pvp/it/detail_annuncio.page?idAnnuncio="
+
+CATEGORIE_BENE = {
+    "APPARTAMENTO": "Appartamento", "ABITAZIONE_TIPO_POP": "Abitazione popolare",
+    "VILLA": "Villa", "VILLETTA_SCHIERA": "Villetta a schiera",
+    "ABITAZ_VILLINI": "Villino", "CASTELLO_PALAZZO": "Palazzo",
+    "POSTO_AUTO": "Posto auto", "GARAGE_AUTORIMESSA": "Garage",
+    "TERRENO": "Terreno", "ABITAZIONE_RURALE": "Casa rurale",
+}
+
+
+def scrape_pvp(ricerca):
+    conf = ricerca.get("pvp")
+    if not conf or ricerca["contratto"] != "vendita":
+        return []
+    payload = {
+        "tipoLotto": "IMMOBILI",
+        "codiceTribunale": conf["codiceTribunale"],
+        "categoriaLotto": "IMMOBILE_RESIDENZIALE",
+    }
+    url = (PVP_RIC_BASE + "/ricerca/vendite"
+           "?language=it&page=0&size=100&sort=dataOraVendita,desc")
+    data = fetch_post_json(url, payload)
+    oggi = datetime.now(timezone.utc).date().isoformat()
+    prov_filtro = (conf.get("provincia") or "").lower()
+    out = []
+    for lotto in (data.get("body") or {}).get("content") or []:
+        if (lotto.get("dataVendita") or "") < oggi:
+            continue  # vendita già passata
+        ind = lotto.get("indirizzo") or {}
+        if prov_filtro and (ind.get("provincia") or "").lower() != prov_filtro:
+            continue  # il tribunale gestisce anche immobili fuori provincia
+        beni = [CATEGORIE_BENE.get(b, b.replace("_", " ").capitalize())
+                for b in lotto.get("categoriaBene") or []]
+        coord = ind.get("coordinate") or {}
+        indirizzo = ", ".join(x for x in (ind.get("via"), ind.get("citta")) if x)
+        vendita = lotto.get("dataVendita") or "?"
+        minima = lotto.get("offertaMinima")
+        extra = f"Vendita il {vendita}"
+        if minima:
+            extra += f" · offerta minima € {int(minima):,}".replace(",", ".")
+        out.append({
+            "id": f"pvp-{lotto['id']}",
+            "fonte": "Aste PVP",
+            "titolo": "Asta: " + (" + ".join(beni) or "Immobile") + f" a {ind.get('citta') or '?'}",
+            "prezzo": to_int(lotto.get("prezzoBaseAsta")),
+            "mq": None, "locali": None, "bagni": None, "piano": None,
+            "indirizzo": indirizzo or None,
+            "quartiere": None,
+            "comune": ind.get("citta"),
+            "lat": coord.get("latitudine"),
+            "lon": coord.get("longitudine"),
+            "url": PVP_DETTAGLIO + str(lotto["id"]),
+            "foto": lotto.get("immagineCover") or lotto.get("immagine"),
+            "asta": True,
+            "data": lotto.get("dataPubblicazione"),
+            "descr": extra + " — " + (lotto.get("descLotto") or "")[:150],
+        })
+    return out
+
+
 # ------------------------------------------------------------------- main
 def main():
     config = json.loads((ROOT / "config" / "ricerche.json").read_text("utf-8"))
@@ -275,7 +363,7 @@ def main():
         annunci = []
         errori = []
         for nome, fn in (("Casa.it", scrape_casait), ("Subito.it", scrape_subito),
-                         ("Trovit", scrape_trovit)):
+                         ("Trovit", scrape_trovit), ("Aste PVP", scrape_pvp)):
             try:
                 trovati = fn(ricerca)
                 annunci.extend(trovati)

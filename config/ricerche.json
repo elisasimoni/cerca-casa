@@ -8,6 +8,7 @@
       "casait": { "slug": "forli-cesena-provincia", "pagine": 3 },
       "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": null },
       "trovit": { "slug": "provincia-forli-cesena", "pagine": 5 },
+      "pvp": { "codiceTribunale": "0400120092", "provincia": "Forlì-Cesena" },
       "prezzoMin": null,
       "prezzoMax": null,
       "linksEsterni": [
