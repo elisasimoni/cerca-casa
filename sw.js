@@ -1,4 +1,4 @@
-const CACHE = 'cercacasa-v1';
+const CACHE = 'cercacasa-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -24,6 +24,20 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || !e.request.url.startsWith(self.location.origin)) return;
+
+  // Dati annunci: sempre rete (con fallback cache per l'offline)
+  if (e.request.url.includes('/data/annunci.json')) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
 
   // HTML: prima la rete (per gli aggiornamenti), cache come fallback offline
   if (e.request.mode === 'navigate') {

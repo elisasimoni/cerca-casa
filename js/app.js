@@ -93,6 +93,7 @@ function unlock() {
   $('#app').classList.remove('hidden');
   sessionStorage.setItem(UNLOCK_KEY, '1');
   renderAll();
+  loadAnnunci();
 }
 
 $('#pin-form').addEventListener('submit', async e => {
@@ -116,6 +117,7 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     $('#tab-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'annunci') loadAnnunci(true);
   });
 });
 
@@ -241,6 +243,160 @@ function renderZoneChips() {
     wrap.append(c);
   });
 }
+
+// ---------- Render: annunci (scraper automatico) ----------
+let annunciData = null;
+
+async function loadAnnunci(refetch) {
+  if (!annunciData || refetch) {
+    try {
+      const res = await fetch('data/annunci.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      annunciData = await res.json();
+    } catch (e) {
+      if (!annunciData) annunciData = { errore: String(e) };
+    }
+  }
+  renderAnnunci();
+}
+
+function annuncioCard(a) {
+  const card = el('div', 'card');
+  const wrap = el('div', 'annuncio-wrap');
+
+  if (a.foto) {
+    const img = el('img', 'annuncio-foto');
+    img.src = a.foto; img.alt = ''; img.loading = 'lazy';
+    img.addEventListener('error', () => img.remove());
+    wrap.append(img);
+  }
+
+  const body = el('div', 'annuncio-body');
+  const top = el('div', 'card-top');
+  top.append(el('div', 'card-title', a.titolo));
+  if (a.asta) top.append(el('span', 'stato-badge stato-scartata', 'Asta'));
+  body.append(top);
+
+  if (a.prezzo) {
+    const pr = el('div', 'card-price');
+    pr.append(el('span', 'price', '€ ' + a.prezzo.toLocaleString('it-IT')));
+    if (a.mq) pr.append(el('span', 'price-mq', Math.round(a.prezzo / a.mq).toLocaleString('it-IT') + ' €/mq'));
+    body.append(pr);
+  }
+
+  const meta = [];
+  if (a.mq) meta.push('📐 ' + a.mq + ' mq');
+  if (a.locali) meta.push('🚪 ' + a.locali + ' locali');
+  if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
+  if (a.piano) meta.push('🏢 piano ' + a.piano);
+  if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
+
+  const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
+  if (luogo) {
+    const addr = el('div', 'card-addr');
+    const link = el('a', null, '📍 ' + luogo);
+    link.href = 'https://www.google.com/maps/search/?api=1&query=' + enc(luogo);
+    link.target = '_blank'; link.rel = 'noopener';
+    addr.append(link);
+    body.append(addr);
+  }
+
+  const badges = el('div', 'card-badges');
+  badges.append(el('span', 'badge badge-sito', a.fonte));
+  if (a.quartiere) badges.append(el('span', 'badge', a.quartiere));
+  body.append(badges);
+
+  const actions = el('div', 'card-actions');
+  const vedi = el('a', 'primary', 'Annuncio ↗');
+  vedi.href = a.url; vedi.target = '_blank'; vedi.rel = 'noopener';
+  actions.append(vedi);
+
+  const giaSalvata = state.houses.some(h => h.link === a.url);
+  const salva = el('button', giaSalvata ? 'saved' : null, giaSalvata ? '✓ Salvata' : '💾 Salva');
+  salva.disabled = giaSalvata;
+  salva.addEventListener('click', () => {
+    state.houses.push({
+      id: String(Date.now()),
+      created: Date.now(),
+      link: a.url,
+      titolo: a.titolo,
+      zona: a.quartiere || a.comune || 'Da smistare',
+      sito: a.fonte,
+      indirizzo: luogo,
+      prezzo: a.prezzo, mq: a.mq, locali: a.locali, bagni: a.bagni,
+      piano: a.piano || '',
+      stato: 'da-valutare',
+      note: '',
+    });
+    save(); renderAll(); renderAnnunci();
+  });
+  actions.append(salva);
+  body.append(actions);
+
+  wrap.append(body);
+  card.append(wrap);
+  return card;
+}
+
+function renderAnnunci() {
+  const list = $('#annunci-list');
+  const info = $('#annunci-updated');
+  if (!list || !annunciData) return;
+  list.innerHTML = '';
+
+  if (annunciData.errore || !Array.isArray(annunciData.annunci)) {
+    info.textContent = 'Annunci non ancora disponibili: lo scraper non ha ancora pubblicato i dati.';
+    return;
+  }
+
+  let items = [...annunciData.annunci];
+  const fonte = $('#annunci-fonte').value;
+  if (fonte) items = items.filter(a => a.fonte === fonte);
+  const q = $('#annunci-q').value.trim().toLowerCase();
+  if (q) {
+    items = items.filter(a =>
+      [a.titolo, a.quartiere, a.indirizzo, a.comune, a.descr]
+        .filter(Boolean).join(' ').toLowerCase().includes(q));
+  }
+
+  const sort = $('#annunci-sort').value;
+  const num = v => Number(v) || 0;
+  const eurmq = a => (a.prezzo && a.mq) ? a.prezzo / a.mq : Infinity;
+  if (sort === 'prezzo-asc') items.sort((a, b) => (num(a.prezzo) || Infinity) - (num(b.prezzo) || Infinity));
+  else if (sort === 'prezzo-desc') items.sort((a, b) => num(b.prezzo) - num(a.prezzo));
+  else if (sort === 'mq-desc') items.sort((a, b) => num(b.mq) - num(a.mq));
+  else if (sort === 'eurmq-asc') items.sort((a, b) => eurmq(a) - eurmq(b));
+  else {
+    // "recenti": alterna le fonti (ognuna è già ordinata per data dal più nuovo)
+    const perFonte = {};
+    items.forEach(a => (perFonte[a.fonte] = perFonte[a.fonte] || []).push(a));
+    const gruppi = Object.values(perFonte);
+    items = [];
+    for (let i = 0; gruppi.some(g => i < g.length); i++) {
+      gruppi.forEach(g => { if (g[i]) items.push(g[i]); });
+    }
+  }
+
+  const quando = annunciData.updated
+    ? new Date(annunciData.updated).toLocaleString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    : '?';
+  const errori = (annunciData.ricerche || []).flatMap(r => r.errori || []);
+  info.textContent = `${items.length} annunci · aggiornati ${quando}` +
+    (errori.length ? ` · ⚠️ ${errori.length} fonte/i in errore` : '');
+
+  if (!items.length) {
+    const empty = el('div', 'empty-state');
+    empty.append(el('div', 'big', '📭'));
+    empty.append(el('div', null, 'Nessun annuncio con questi filtri.'));
+    list.append(empty);
+    return;
+  }
+  items.forEach(a => list.append(annuncioCard(a)));
+}
+
+$('#annunci-q').addEventListener('input', renderAnnunci);
+$('#annunci-fonte').addEventListener('change', renderAnnunci);
+$('#annunci-sort').addEventListener('change', renderAnnunci);
 
 // ---------- Render: portali ----------
 function renderPortali() {

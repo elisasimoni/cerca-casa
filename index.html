@@ -64,6 +64,29 @@
       <div id="house-list"></div>
     </main>
 
+    <!-- TAB: Annunci (scraper automatico) -->
+    <main id="tab-annunci" class="tab">
+      <div class="annunci-head">
+        <p class="hint" id="annunci-updated">Caricamento annunci…</p>
+        <input type="text" id="annunci-q" placeholder="Filtra: zona, via, parola chiave…">
+        <div class="filter-row">
+          <select id="annunci-fonte">
+            <option value="">Tutte le fonti</option>
+            <option value="Casa.it">Casa.it</option>
+            <option value="Subito.it">Subito.it</option>
+          </select>
+          <select id="annunci-sort">
+            <option value="recenti">Più recenti</option>
+            <option value="prezzo-asc">Prezzo ↑</option>
+            <option value="prezzo-desc">Prezzo ↓</option>
+            <option value="mq-desc">Mq ↓</option>
+            <option value="eurmq-asc">€/mq ↑</option>
+          </select>
+        </div>
+      </div>
+      <div id="annunci-list"></div>
+    </main>
+
     <!-- TAB: Portali -->
     <main id="tab-portali" class="tab">
       <div class="portali-head">
@@ -109,6 +132,7 @@
     <!-- Bottom nav -->
     <nav class="bottom-nav">
       <button class="nav-btn active" data-tab="case"><span>🏠</span>Case</button>
+      <button class="nav-btn" data-tab="annunci"><span>📰</span>Annunci</button>
       <button class="nav-btn nav-add" id="btn-add">＋</button>
       <button class="nav-btn" data-tab="portali"><span>🔍</span>Portali</button>
       <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>

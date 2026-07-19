@@ -6,6 +6,7 @@ PWA personale per organizzare la ricerca casa: annunci salvati per zona con prez
 
 ## Funzioni
 
+- 📰 **Annunci automatici**: uno scraper (GitHub Actions, 3 volte al giorno) scarica gli annunci reali da **Casa.it** e **Subito.it** per le ricerche configurate in `config/ricerche.json` e li pubblica in `data/annunci.json`; l'app li mostra con filtri, foto, prezzo, €/mq e "Salva" per portarli tra le proprie case. Immobiliare.it, Idealista e Wikicasa bloccano le richieste automatiche (403 anti-bot) e restano disponibili come link rapidi nel tab Portali.
 - 🔒 Accesso con PIN (nel codice c'è solo l'hash SHA-256, mai il PIN in chiaro)
 - 🏠 Lista case raggruppate per zona, con prezzo, €/mq, mq, locali, bagni, piano
 - 📍 Indirizzo cliccabile → si apre su Google Maps

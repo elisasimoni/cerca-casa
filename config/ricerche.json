@@ -1,0 +1,14 @@
+{
+  "_istruzioni": "Ogni ricerca viene eseguita dallo scraper automatico. Modifica questo file (anche da GitHub web) per cambiare comune/contratto. 'casait.slug' è il comune nell'URL di casa.it; per subito servono regione/provincia/comune come appaiono negli URL di subito.it. prezzoMin/prezzoMax in euro (null = nessun limite).",
+  "ricerche": [
+    {
+      "id": "firenze-vendita",
+      "label": "Firenze · vendita",
+      "contratto": "vendita",
+      "casait": { "slug": "firenze", "pagine": 3 },
+      "subito": { "regione": "toscana", "provincia": "firenze", "comune": "firenze" },
+      "prezzoMin": null,
+      "prezzoMax": null
+    }
+  ]
+}
