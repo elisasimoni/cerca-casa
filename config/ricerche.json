@@ -9,6 +9,7 @@
       "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": null },
       "trovit": { "slug": "provincia-forli-cesena", "pagine": 5 },
       "pvp": { "codiceTribunale": "0400120092", "provincia": "Forlì-Cesena" },
+      "riferimento": { "lat": 44.2227, "lon": 12.0407, "label": "Forlì centro" },
       "prezzoMin": null,
       "prezzoMax": null,
       "linksEsterni": [

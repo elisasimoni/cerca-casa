@@ -354,6 +354,119 @@ def scrape_pvp(ricerca):
     return out
 
 
+# ------------------------------------- Arricchimento geografico (alt + guida)
+# Altitudine da Open-Meteo (filtro anti-montagna) e minuti di guida reali dal
+# punto di riferimento via OSRM/OpenStreetMap (le strade tortuose si vedono
+# dal tempo). Waze non ha API pubbliche. Cache per non rifare le chiamate.
+CACHE_GEO = ROOT / "scraper" / "geo_cache.json"
+
+# centroide approssimativo + altitudine dei comuni FC (fallback quando
+# l'annuncio non ha coordinate proprie)
+COMUNI_FC = {
+    "forli": (44.222, 12.041, 34), "cesena": (44.139, 12.243, 44),
+    "cesenatico": (44.200, 12.395, 2), "savignano sul rubicone": (44.090, 12.395, 29),
+    "san mauro pascoli": (44.108, 12.417, 20), "gatteo": (44.110, 12.388, 25),
+    "gambettola": (44.121, 12.339, 20), "longiano": (44.073, 12.326, 179),
+    "montiano": (44.083, 12.305, 159), "roncofreddo": (44.041, 12.317, 314),
+    "sogliano al rubicone": (43.996, 12.303, 382), "borghi": (44.031, 12.353, 270),
+    "mercato saraceno": (43.959, 12.196, 161), "sarsina": (43.919, 12.143, 243),
+    "bagno di romagna": (43.831, 11.958, 491), "verghereto": (43.795, 12.006, 812),
+    "santa sofia": (43.947, 11.907, 257), "galeata": (43.997, 11.913, 235),
+    "civitella di romagna": (44.006, 11.938, 219), "premilcuore": (43.978, 11.780, 459),
+    "predappio": (44.101, 11.982, 133), "meldola": (44.127, 12.061, 57),
+    "bertinoro": (44.148, 12.135, 257), "forlimpopoli": (44.188, 12.127, 31),
+    "castrocaro terme e terra del sole": (44.174, 11.941, 68),
+    "castrocaro terme": (44.174, 11.941, 68), "dovadola": (44.121, 11.885, 140),
+    "rocca san casciano": (44.060, 11.845, 210),
+    "portico e san benedetto": (44.026, 11.782, 309), "tredozio": (44.079, 11.746, 334),
+    "modigliana": (44.157, 11.790, 185),
+}
+
+
+def norm_comune(nome):
+    if not nome:
+        return ""
+    import unicodedata
+    s = unicodedata.normalize("NFD", nome.lower())
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return s.replace("'", "").replace("’", "").strip()
+
+
+def coord_annuncio(a):
+    if a.get("lat") and a.get("lon"):
+        return round(a["lat"], 4), round(a["lon"], 4), None
+    c = COMUNI_FC.get(norm_comune(a.get("comune")))
+    if c:
+        return c[0], c[1], c[2]
+    return None, None, None
+
+
+def arricchisci_geo(annunci, ricerca):
+    try:
+        cache = json.loads(CACHE_GEO.read_text("utf-8"))
+    except (OSError, json.JSONDecodeError):
+        cache = {}
+    rif = ricerca.get("riferimento") or {"lat": 44.2227, "lon": 12.0407}
+
+    punti = {}  # chiave -> (lat, lon, alt_fallback)
+    for a in annunci:
+        lat, lon, alt_fb = coord_annuncio(a)
+        if lat is None:
+            continue
+        punti[f"{lat},{lon}"] = (lat, lon, alt_fb)
+
+    da_fare = [k for k in punti if k not in cache]
+
+    # altitudine (Open-Meteo, batch da 90)
+    for i in range(0, len(da_fare), 90):
+        blocco = da_fare[i:i + 90]
+        lats = ",".join(str(punti[k][0]) for k in blocco)
+        lons = ",".join(str(punti[k][1]) for k in blocco)
+        try:
+            data = json.loads(fetch(
+                f"https://api.open-meteo.com/v1/elevation?latitude={lats}&longitude={lons}",
+                accept="application/json"))
+            for k, alt in zip(blocco, data.get("elevation") or []):
+                cache.setdefault(k, {})["alt"] = round(alt)
+        except Exception as e:
+            print(f"  open-meteo non raggiungibile: {e}", file=sys.stderr)
+            break
+
+    # minuti di guida dal riferimento (OSRM table, batch da 80)
+    for i in range(0, len(da_fare), 80):
+        blocco = da_fare[i:i + 80]
+        coords = f"{rif['lon']},{rif['lat']};" + ";".join(
+            f"{punti[k][1]},{punti[k][0]}" for k in blocco)
+        dests = ";".join(str(n + 1) for n in range(len(blocco)))
+        try:
+            data = json.loads(fetch(
+                f"https://router.project-osrm.org/table/v1/driving/{coords}"
+                f"?sources=0&destinations={dests}",
+                accept="application/json"))
+            durate = (data.get("durations") or [[]])[0]
+            for k, sec in zip(blocco, durate):
+                if sec is not None:
+                    cache.setdefault(k, {})["minuti"] = round(sec / 60)
+        except Exception as e:
+            print(f"  OSRM non raggiungibile: {e}", file=sys.stderr)
+            break
+        time.sleep(1)
+
+    n_ok = 0
+    for a in annunci:
+        lat, lon, alt_fb = coord_annuncio(a)
+        if lat is None:
+            a["alt"] = a["minuti"] = None
+            continue
+        info = cache.get(f"{lat},{lon}", {})
+        a["alt"] = info.get("alt", alt_fb)
+        a["minuti"] = info.get("minuti")
+        if a["alt"] is not None:
+            n_ok += 1
+    CACHE_GEO.write_text(json.dumps(cache, ensure_ascii=False, indent=0), "utf-8")
+    print(f"Geo: altitudine/guida per {n_ok}/{len(annunci)} annunci")
+
+
 # ------------------------------------------- Classificatore tipologia (AI)
 # Gli annunci mentono: "casa indipendente" nel titolo, "porzione di
 # bifamiliare" nella descrizione. Doppio motore: Claude CLI (se autenticata
@@ -516,6 +629,8 @@ def main():
                      "linksEsterni": ricerca.get("linksEsterni") or []})
 
     classificatore = classifica_tutti(tutte) if tutte else "regole"
+    if tutte:
+        arricchisci_geo(tutte, config["ricerche"][0])
 
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

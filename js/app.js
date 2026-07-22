@@ -323,6 +323,8 @@ function annuncioCard(a) {
   if (a.locali) meta.push('🚪 ' + a.locali + ' locali');
   if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
   if (a.piano) meta.push('🏢 piano ' + a.piano);
+  if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
+  if (a.minuti != null) meta.push('🚗 ' + a.minuti + ' min');
   if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
 
   const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
@@ -403,6 +405,10 @@ function renderAnnunci() {
   if (prezzoMax) items = items.filter(a => !a.prezzo || a.prezzo <= prezzoMax);
   const mqMin = Number($('#annunci-mq-min').value);
   if (mqMin) items = items.filter(a => a.mq && a.mq >= mqMin);
+  const altMax = Number($('#annunci-alt-max').value);
+  if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
+  const minMax = Number($('#annunci-min-max').value);
+  if (minMax) items = items.filter(a => a.minuti == null || a.minuti <= minMax);
   const q = $('#annunci-q').value.trim().toLowerCase();
   if (q) {
     items = items.filter(a =>
@@ -465,6 +471,8 @@ $('#annunci-tipo').addEventListener('change', renderAnnunci);
 $('#annunci-comune').addEventListener('change', renderAnnunci);
 $('#annunci-prezzo-max').addEventListener('input', renderAnnunci);
 $('#annunci-mq-min').addEventListener('input', renderAnnunci);
+$('#annunci-alt-max').addEventListener('input', renderAnnunci);
+$('#annunci-min-max').addEventListener('input', renderAnnunci);
 
 // ---------- Aggiornamento on-demand (helper locale sul Mac) ----------
 const HELPER_URL = 'http://127.0.0.1:8787';
