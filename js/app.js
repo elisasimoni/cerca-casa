@@ -257,13 +257,15 @@ const TIPI_LABEL = {
   altro: '❓ Altro',
 };
 
-// ---------- Distanza dal punto di riferimento ----------
-// Riferimenti dinamici scelti da Elisa (posizione attuale o indirizzo del
-// lavoro): distanza in linea d'aria (haversine) calcolata nel browser.
-// Lavoro predefinito di Elisa (modificabile dall'app): Perfect Pack, Rimini
+// ---------- Distanza dai punti di riferimento ----------
+// Due riferimenti indipendenti, mostrabili insieme: il lavoro (predefinito
+// Perfect Pack, modificabile) e la posizione attuale (GPS). Distanza in linea
+// d'aria (haversine) calcolata nel browser.
 const LAVORO_DEFAULT = { lat: 44.051612, lon: 12.520371, nome: 'Perfect Pack' };
-let puntoRif = 'lavoro';       // null | 'gps' | 'lavoro'
-let posGps = null;             // {lat, lon} temporanea (posizione attuale)
+let mostraLavoro = true;       // mostra la distanza dal lavoro (default sì)
+let mostraGps = false;         // mostra la distanza dalla posizione attuale
+let posGps = null;             // {lat, lon} posizione attuale
+let posGpsNome = '';           // dove ti ha localizzato (reverse geocoding)
 let posLavoro = LAVORO_DEFAULT; // {lat, lon, nome} salvata o predefinita
 try {
   const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
@@ -278,25 +280,32 @@ function haversineKm(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.asin(Math.sqrt(s));
 }
 
-function puntoAttivo() {
-  if (puntoRif === 'gps') return posGps;
-  if (puntoRif === 'lavoro') return posLavoro;
-  return null;
-}
+const fmtKm = km => (km < 10 ? km.toFixed(1) : Math.round(km)) + ' km';
 
-function distanzaKm(a) {
-  const p = puntoAttivo();
+function distKmDa(p, a) {
   if (!p || a.lat == null || a.lon == null) return null;
   return haversineKm(p.lat, p.lon, a.lat, a.lon);
 }
 
-// Testo distanza per la card, secondo il riferimento attivo
-function etichettaDistanza(a) {
-  const km = distanzaKm(a);
-  if (km == null) return null;
-  const icona = puntoRif === 'gps' ? '📍' : '💼';
-  const val = km < 10 ? km.toFixed(1) : Math.round(km);
-  return `${icona} ${val} km`;
+// Distanza per ordinare/filtrare: la posizione se attiva, altrimenti il lavoro
+function distanzaKm(a) {
+  if (mostraGps && posGps) return distKmDa(posGps, a);
+  if (mostraLavoro && posLavoro) return distKmDa(posLavoro, a);
+  return null;
+}
+
+// Etichette distanza per la card: entrambi i riferimenti attivi, insieme
+function etichetteDistanza(a) {
+  const out = [];
+  if (mostraLavoro && posLavoro) {
+    const km = distKmDa(posLavoro, a);
+    if (km != null) out.push('💼 ' + fmtKm(km));
+  }
+  if (mostraGps && posGps) {
+    const km = distKmDa(posGps, a);
+    if (km != null) out.push('📍 ' + fmtKm(km));
+  }
+  return out;
 }
 
 async function loadAnnunci(refetch) {
@@ -368,8 +377,7 @@ function annuncioCard(a) {
   if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
   if (a.piano) meta.push('🏢 piano ' + a.piano);
   if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
-  const dist = etichettaDistanza(a);
-  if (dist) meta.push(dist);
+  etichetteDistanza(a).forEach(d => meta.push(d));
   if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
 
   const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
@@ -485,7 +493,7 @@ function renderAnnunci() {
   const altMax = num('#annunci-alt-max');
   if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
   const kmMax = num('#annunci-km-max');
-  if (kmMax && puntoAttivo()) {
+  if (kmMax && (mostraGps && posGps || mostraLavoro && posLavoro)) {
     items = items.filter(a => { const d = distanzaKm(a); return d == null || d <= kmMax; });
   }
   const condizione = $('#annunci-condizione').value;
@@ -494,6 +502,7 @@ function renderAnnunci() {
   if (aste === 'no') items = items.filter(a => !a.asta);
   if (aste === 'solo') items = items.filter(a => a.asta);
   if ($('#annunci-no-centro').checked) items = items.filter(a => !a.centro);
+  if ($('#annunci-con-prezzo').checked) items = items.filter(a => a.prezzo);
   if (caratRichieste.size) {
     items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
   }
@@ -605,22 +614,31 @@ FILTRI_ID.forEach(id => {
 });
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 $('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+$('#annunci-con-prezzo').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 
-// ---------- Punto di riferimento per la distanza ----------
+// ---------- Punti di riferimento per la distanza ----------
 function aggiornaChipRif() {
-  document.querySelectorAll('.chip-rif').forEach(c =>
-    c.classList.toggle('active', c.dataset.rif === puntoRif));
-  $('#chip-lavoro').textContent = posLavoro
-    ? '💼 ' + posLavoro.nome : '💼 Imposta lavoro';
+  $('#chip-lavoro').classList.toggle('active', mostraLavoro);
+  $('#chip-lavoro').textContent = '💼 ' + (posLavoro ? posLavoro.nome : 'Lavoro');
+  const g = document.querySelector('.chip-rif[data-rif="gps"]');
+  g.classList.toggle('active', mostraGps);
+  // riga di conferma: dove ti ha localizzato il GPS
+  const conf = $('#rif-conferma');
+  if (mostraGps && posGpsNome) {
+    conf.textContent = '📍 Sei vicino a: ' + posGpsNome + '. Non è giusto? Tocca di nuovo 📍 per riprovare.';
+    conf.classList.remove('hidden');
+  } else {
+    conf.classList.add('hidden');
+  }
 }
 
 function ottieniPosizione() {
   return new Promise((risolvi, rifiuta) => {
     if (!navigator.geolocation) return rifiuta(new Error('geolocalizzazione non disponibile'));
     navigator.geolocation.getCurrentPosition(
-      p => risolvi({ lat: p.coords.latitude, lon: p.coords.longitude }),
+      p => risolvi({ lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy }),
       e => rifiuta(e),
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
   });
 }
 
@@ -634,29 +652,40 @@ async function geocodaIndirizzo(testo) {
   return { lat: Number(d.lat), lon: Number(d.lon), nome: (d.display_name || testo).split(',')[0] };
 }
 
-document.querySelectorAll('.chip-rif').forEach(chip => {
-  chip.addEventListener('click', async () => {
-    const rif = chip.dataset.rif;
-    if (rif === 'gps') {
-      // toccando di nuovo "posizione" quando è già attiva, la si spegne
-      if (puntoRif === 'gps') { puntoRif = null; aggiornaChipRif(); renderAnnunci(); return; }
-      chip.textContent = '📍 Individuo…';
-      try {
-        posGps = await ottieniPosizione();
-        puntoRif = 'gps';
-      } catch (e) {
-        alert('Non riesco a leggere la posizione: ' + (e.message || 'permesso negato'));
-      }
-      chip.textContent = '📍 La mia posizione';
-    } else if (rif === 'lavoro') {
-      if (!posLavoro) { apriEditorLavoro(); return; }
-      // già attivo → apri l'editor per cambiare indirizzo
-      if (puntoRif === 'lavoro') { apriEditorLavoro(); return; }
-      puntoRif = 'lavoro';
-    }
-    aggiornaChipRif();
-    renderAnnunci();
-  });
+// Reverse geocoding: da coordinate al nome del luogo (per confermare il GPS)
+async function nomeDaCoord(lat, lon) {
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&zoom=16&lat=${lat}&lon=${lon}`;
+    const r = await fetch(url, { headers: { 'Accept-Language': 'it' } });
+    const d = await r.json();
+    const a = d.address || {};
+    return [a.road, a.suburb || a.village || a.town || a.city, a.county]
+      .filter(Boolean).slice(0, 2).join(', ') || 'posizione rilevata';
+  } catch (e) { return 'posizione rilevata'; }
+}
+
+$('#chip-lavoro').addEventListener('click', () => {
+  // se è già l'unico riferimento attivo, un tocco apre l'editor
+  if (mostraLavoro && !mostraGps) { apriEditorLavoro(); return; }
+  mostraLavoro = !mostraLavoro;
+  aggiornaChipRif();
+  renderAnnunci();
+});
+$('#btn-edit-lavoro').addEventListener('click', apriEditorLavoro);
+
+document.querySelector('.chip-rif[data-rif="gps"]').addEventListener('click', async function () {
+  if (mostraGps) { mostraGps = false; aggiornaChipRif(); renderAnnunci(); return; }
+  this.textContent = '📍 Individuo…';
+  try {
+    posGps = await ottieniPosizione();
+    posGpsNome = await nomeDaCoord(posGps.lat, posGps.lon);
+    mostraGps = true;
+  } catch (e) {
+    alert('Non riesco a leggere la posizione: ' + (e.message || 'permesso negato'));
+  }
+  this.textContent = '📍 La mia posizione';
+  aggiornaChipRif();
+  renderAnnunci();
 });
 
 function apriEditorLavoro() {
@@ -677,7 +706,7 @@ async function salvaLavoro() {
   if (!p) { alert('Indirizzo non trovato. Aggiungi la città, es. "Via Emilia 10, Cesena".'); return; }
   posLavoro = p;
   localStorage.setItem('cercacasa_lavoro', JSON.stringify(p));
-  puntoRif = 'lavoro';
+  mostraLavoro = true;
   $('#lavoro-edit').classList.add('hidden');
   aggiornaChipRif();
   renderAnnunci();
@@ -747,6 +776,9 @@ function aggiornaContaFiltri() {
   if ($('#annunci-no-centro').checked) {
     chip('🚫 Fuori dai centri', () => { $('#annunci-no-centro').checked = false; });
   }
+  if ($('#annunci-con-prezzo').checked) {
+    chip('💶 Con prezzo', () => { $('#annunci-con-prezzo').checked = false; });
+  }
   if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
 
   const n = bar.children.length;
@@ -761,7 +793,8 @@ function aggiornaContaFiltri() {
 
 function salvaFiltri() {
   const stato = { carat: [...caratRichieste], zona: zonaAttiva,
-    noCentro: $('#annunci-no-centro').checked, sort: $('#annunci-sort').value };
+    noCentro: $('#annunci-no-centro').checked,
+    conPrezzo: $('#annunci-con-prezzo').checked, sort: $('#annunci-sort').value };
   FILTRI_ID.forEach(id => { stato[id] = $('#' + id).value; });
   localStorage.setItem(FILTRI_KEY, JSON.stringify(stato));
 }
@@ -775,6 +808,7 @@ function ripristinaFiltri() {
   FILTRI_ID.forEach(id => { if (stato[id]) $('#' + id).value = stato[id]; });
   if (stato.sort) $('#annunci-sort').value = stato.sort;
   $('#annunci-no-centro').checked = !!stato.noCentro;
+  $('#annunci-con-prezzo').checked = !!stato.conPrezzo;
   caratRichieste = new Set(stato.carat || []);
   zonaAttiva = stato.zona || '';
   document.querySelectorAll('.chip-zona').forEach(x =>
@@ -784,6 +818,7 @@ function ripristinaFiltri() {
 $('#btn-azzera').addEventListener('click', () => {
   FILTRI_ID.forEach(id => { $('#' + id).value = ''; });
   $('#annunci-no-centro').checked = false;
+  $('#annunci-con-prezzo').checked = false;
   caratRichieste.clear();
   zonaAttiva = '';
   areaPoligono = null;

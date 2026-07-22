@@ -190,6 +190,11 @@ select:focus, input:focus, textarea:focus {
   text-transform: uppercase; letter-spacing: var(--tracking-wider);
 }
 .chip-rif { flex: 0 0 auto; padding: 7px 12px; font-size: 12.5px; }
+.chip-rif-set { flex: 0 0 auto; padding: 7px 10px; }
+.rif-conferma {
+  font-size: 12px; color: var(--accent-dark); background: var(--accent-soft);
+  border-radius: var(--rm); padding: 8px 10px; margin-top: 8px; line-height: 1.4;
+}
 .lavoro-edit { display: flex; gap: 8px; margin-top: 8px; }
 .lavoro-edit input { flex: 1; }
 

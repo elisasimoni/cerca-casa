@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=cc55ad99">
+  <link rel="stylesheet" href="css/style.css?v=393d9608">
 </head>
 <body>
 
@@ -84,9 +84,11 @@
 
         <div class="rif-row">
           <span class="rif-label">Distanza da:</span>
+          <button class="chip chip-rif active" data-rif="lavoro" id="chip-lavoro">💼 Lavoro</button>
           <button class="chip chip-rif" data-rif="gps">📍 La mia posizione</button>
-          <button class="chip chip-rif" data-rif="lavoro" id="chip-lavoro">💼 Imposta lavoro</button>
+          <button class="chip chip-rif-set" id="btn-edit-lavoro" title="Cambia l'indirizzo del lavoro">✏️</button>
         </div>
+        <p id="rif-conferma" class="rif-conferma hidden"></p>
         <div id="lavoro-edit" class="lavoro-edit hidden">
           <input type="text" id="lavoro-input" placeholder="Via e città del lavoro (es. Via Emilia 12, Cesena)">
           <button class="btn btn-small btn-primary" id="btn-salva-lavoro">Salva</button>
@@ -191,6 +193,10 @@
           <label class="check-row">
             <input type="checkbox" id="annunci-no-centro">
             🚫 Evita i centri città
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="annunci-con-prezzo">
+            💶 Solo annunci con prezzo
           </label>
 
           <button id="btn-azzera" class="btn btn-small btn-block">↺ Azzera tutti i filtri</button>
@@ -331,6 +337,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=83123e45"></script>
+  <script src="js/app.js?v=23e6469b"></script>
 </body>
 </html>
