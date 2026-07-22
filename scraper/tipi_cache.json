@@ -1308,5 +1308,2240 @@
 "tipo": "indipendente",
 "avviso": null,
 "via": "regole"
+},
+"casait-54435670": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54434418": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421433": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54415899": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54414682": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54406896": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54404172": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54387314": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54383919": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54381461": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54377077": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54376824": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54375148": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54364641": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54354875": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54354664": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54353120": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54311322": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54295581": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54294686": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54293042": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54292965": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54292201": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54290582": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54290176": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54281945": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54277611": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54276284": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54274863": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54265709": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54265258": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54263292": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54249577": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"casait-54233853": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"casait-54173057": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54168273": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54168123": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54167930": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54167713": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"casait-54167409": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54167041": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54165915": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54153897": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54153637": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"casait-54153621": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54129190": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54117515": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54107038": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54088262": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54088261": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54063792": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54035666": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54012931": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53966889": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-53908319": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53863900": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-53837237": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611533157": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611413657": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611179178": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611100802": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610962228": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610481183": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610469445": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314489": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610247743": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610234246": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077851": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077808": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077452": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883625": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608705565": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604903683": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1580000782814592670": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1060000780568299450": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5430000783765071287": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5220000772101067273": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2380000779790857004": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3270004760181291448": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7260000775125193828": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4670000784542623702": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8440000772793099417": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4430001749811944956": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5740001767265870039": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1000001744294266673": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5810000781172960904": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3660000782987584734": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7820000784024376452": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8350000775125114553": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1440005757587431739": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1240003763636697700": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7570004725625985539": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6700000781864300882": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5480001734698822381": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2640000773400138239": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4910000774347696847": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4520002732798941830": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4510002732798941829": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8580003748096949042": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5440001782641492384": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1740005778666859599": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7150004762946654308": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5430001782641492383": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8180003758279719850": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5630005749121813188": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2250000782901160554": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4990000779358589285": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4550002732798941834": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1400005777630412641": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8210083727700985159": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2660003757074464489": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7090005756985758194": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7150000782642037254": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5780002729686212030": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2660004777803037140": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3800001779531253305": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441767": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54438852": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54438796": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54435608": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54434774": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54432280": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54430317": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54430315": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54430144": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54429479": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54428786": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54428526": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54427038": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421439": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421144": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421043": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54418761": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416395": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54411950": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54410464": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54409530": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54409304": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54407930": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54407432": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54407255": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54406242": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54405829": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54405292": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54404163": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54403578": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54401264": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54401164": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54400756": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"casait-54399707": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54396848": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54396787": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54393060": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54390114": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54387882": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54387562": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54385653": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54385651": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54381720": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54381483": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54376306": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54369204": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54358015": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611437551": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611410700": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611406807": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611404098": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611370224": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611354439": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-480737321": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611203042": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611203073": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611203021": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611203078": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202872": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202768": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202862": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202775": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202980": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202656": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202511": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202698": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202659": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202599": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202486": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202377": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202574": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202390": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202474": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202421": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202379": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202167": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202294": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202164": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202086": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202074": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202039": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611169952": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611101222": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611097246": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610976608": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610884795": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610859716": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610810050": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610791273": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782684": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782983": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782923": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782881": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782850": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782648": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610782430": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610755126": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610381723": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610731458": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610726627": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610726143": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610518055": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610436400": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610418480": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610369390": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610179425": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610152513": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610116292": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610116243": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610116164": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078360": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078359": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078354": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078371": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078275": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078248": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078205": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078232": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078215": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078127": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078038": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078012": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078000": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077981": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077948": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077893": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077902": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077889": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077857": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077827": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077826": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077791": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077750": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077726": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077712": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077705": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077675": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077616": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077589": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077517": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077518": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077439": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077461": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077431": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077436": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6650002750503717019": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8130000782554954368": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8570000781086201156": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6470001751453066345": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6220001751453066322": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6060001751453066308": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4220001768474211029": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6360003757416576621": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4990005758019077427": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4950002762512856143": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7370000781605156894": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5450000781605138646": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5420002733835339308": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2680000780136303873": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2210000783678590479": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2190000783678590478": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2050000783678540903": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-9170005757501178945": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7580000781605156910": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6850002747155148625": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6770000784110604343": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6700000783678482989": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8820000781950687796": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5240000769079348363": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8600000781086201158": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1760000775902445055": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6750003763465637836": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1150002761215925936": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1520000782901159296": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6710000778062481893": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5640000781950678009": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5510002761215536468": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4770000781086493839": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7180000778321618701": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6380000771672477554": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7090003765709330677": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6630000774434047290": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7780000781000334049": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1340001743511261767": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-9140000772015057422": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3530002729686514168": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3030000778926666530": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1530000781950706325": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6000000783159898454": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3890003769684230318": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4220000775902539477": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3730000782814586349": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5890000783073976394": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441684": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54437957": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54425901": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54423910": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54407119": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54370735": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54337032": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54327531": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54311346": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54311297": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54286998": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54282225": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54266803": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54260699": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"casait-54241591": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54227734": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54223781": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54136699": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54133064": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54133042": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54096792": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54088242": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54076835": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54038718": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53980355": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-53977860": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-53967750": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53947033": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-53922525": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-53875438": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"casait-53812751": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53786140": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53749874": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53736545": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53736539": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53736528": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53736490": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53719579": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-53695843": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946442": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610664545": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609116934": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608012518": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-599915220": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7340002738241339548": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3300008724935136747": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7370001759749545022": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2790000779876908022": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8770002769597868804": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7420000773484944395": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8880001743080457932": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1820000781086381436": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4940000776248396157": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4250000783333119303": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7070000781950688273": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4170000783333119297": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4040000783333119288": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5360002765967611420": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3900000783333119278": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4680002770374252602": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4340000778321575216": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6430001760612591807": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3040000773744153561": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4330000783333119309": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1660000781086046746": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2390000775902580360": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8570002771584986901": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4520000776766674916": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5300002729686155912": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3750000771929154649": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4130000783333119295": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1040000782469105742": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6010000774520087149": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8300000781086033696": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7890000779704203103": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4020000779963525120": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54442356": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441685": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441389": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441384": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54441383": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54440007": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"casait-54439447": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54438695": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54433774": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54433551": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54433204": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54428417": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54428004": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54426966": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54425614": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54424309": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54423572": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54422979": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54422441": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421046": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421042": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421039": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54421011": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54420498": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54418821": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54418369": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54418365": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54418310": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416885": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416425": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416233": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416182": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416083": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"casait-54416019": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611139788": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611533863": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517770": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517462": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611446045": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441821": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441806": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611432596": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430759": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430757": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430662": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611427208": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611418517": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611418413": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4520000784283390868": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2080003746984134889": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1620000778062761375": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8850002767178718512": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8620000780568398766": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5280000783937866633": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4460003746984215367": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5640000782382598887": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5540000782382598880": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5190000782382598854": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5090000782382598847": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5440000782382598873": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1360002767178663335": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3610002745070135049": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
 }
 }
