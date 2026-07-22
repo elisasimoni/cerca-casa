@@ -1294,18 +1294,18 @@
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-7260000780136302953": {
+"trovit-IT-7030002739279625996": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5180001768388307646": {
 "tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-6380000782901135977": {
+"trovit-IT-8260002737635899610": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-4240002771585413007": {
-"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 }
