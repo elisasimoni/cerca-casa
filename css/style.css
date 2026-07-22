@@ -180,6 +180,18 @@ select:focus, input:focus, textarea:focus {
 }
 .quick-row::-webkit-scrollbar { display: none; }
 
+.rif-row {
+  display: flex; align-items: center; gap: 6px; margin-top: 10px;
+  overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+}
+.rif-row::-webkit-scrollbar { display: none; }
+.rif-label {
+  flex: 0 0 auto; font-size: 10.5px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider);
+}
+.chip-rif { flex: 0 0 auto; padding: 7px 12px; font-size: 12.5px; }
+.chip-rif-set { flex: 0 0 auto; padding: 7px 10px; }
+
 .area-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .area-chip {
   font-size: 12.5px; font-weight: 700; padding: 6px 8px 6px 12px;

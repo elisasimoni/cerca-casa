@@ -257,6 +257,49 @@ const TIPI_LABEL = {
   altro: '❓ Altro',
 };
 
+// ---------- Distanza dal punto di riferimento ----------
+// Forlì usa i minuti di guida precalcolati; posizione e lavoro sono dinamici,
+// quindi si calcola la distanza in linea d'aria (haversine) nel browser.
+let puntoRif = 'forli';        // 'forli' | 'gps' | 'lavoro'
+let posGps = null;             // {lat, lon} temporanea (posizione attuale)
+let posLavoro = null;          // {lat, lon, nome} salvata
+try {
+  const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
+  if (l && l.lat) posLavoro = l;
+} catch (e) { /* niente lavoro salvato */ }
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371, rad = Math.PI / 180;
+  const dLat = (lat2 - lat1) * rad, dLon = (lon2 - lon1) * rad;
+  const s = Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.asin(Math.sqrt(s));
+}
+
+function puntoAttivo() {
+  if (puntoRif === 'gps') return posGps;
+  if (puntoRif === 'lavoro') return posLavoro;
+  return null; // Forlì: si usano i minuti precalcolati
+}
+
+function distanzaKm(a) {
+  const p = puntoAttivo();
+  if (!p || a.lat == null || a.lon == null) return null;
+  return haversineKm(p.lat, p.lon, a.lat, a.lon);
+}
+
+// Testo distanza per la card, secondo il riferimento attivo
+function etichettaDistanza(a) {
+  if (puntoRif === 'forli') {
+    return a.minuti != null ? '🚗 ' + a.minuti + ' min' : null;
+  }
+  const km = distanzaKm(a);
+  if (km == null) return null;
+  const icona = puntoRif === 'gps' ? '📍' : '💼';
+  const val = km < 10 ? km.toFixed(1) : Math.round(km);
+  return `${icona} ${val} km`;
+}
+
 async function loadAnnunci(refetch) {
   if (!annunciData || refetch) {
     try {
@@ -326,7 +369,8 @@ function annuncioCard(a) {
   if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
   if (a.piano) meta.push('🏢 piano ' + a.piano);
   if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
-  if (a.minuti != null) meta.push('🚗 ' + a.minuti + ' min');
+  const dist = etichettaDistanza(a);
+  if (dist) meta.push(dist);
   if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
 
   const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
@@ -469,7 +513,12 @@ function renderAnnunci() {
   else if (sort === 'mq-desc') items.sort((a, b) => val(b.mq) - val(a.mq));
   else if (sort === 'eurmq-asc') items.sort((a, b) => eurmq(a) - eurmq(b));
   else if (sort === 'vicini') {
-    items.sort((a, b) => (a.minuti ?? 999) - (b.minuti ?? 999));
+    // ordina secondo il riferimento attivo: minuti da Forlì, oppure km
+    if (puntoRif === 'forli') {
+      items.sort((a, b) => (a.minuti ?? 9999) - (b.minuti ?? 9999));
+    } else {
+      items.sort((a, b) => (distanzaKm(a) ?? 9999) - (distanzaKm(b) ?? 9999));
+    }
   } else {
     // "recenti": alterna le fonti (ognuna è già ordinata per data dal più nuovo)
     const perFonte = {};
@@ -541,6 +590,73 @@ FILTRI_ID.forEach(id => {
 });
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 $('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+
+// ---------- Punto di riferimento per la distanza ----------
+function aggiornaChipRif() {
+  document.querySelectorAll('.chip-rif').forEach(c =>
+    c.classList.toggle('active', c.dataset.rif === puntoRif));
+  const cl = $('#chip-lavoro');
+  cl.textContent = posLavoro ? '💼 ' + posLavoro.nome : '💼 Lavoro';
+}
+
+function ottieniPosizione() {
+  return new Promise((risolvi, rifiuta) => {
+    if (!navigator.geolocation) return rifiuta(new Error('geolocalizzazione non disponibile'));
+    navigator.geolocation.getCurrentPosition(
+      p => risolvi({ lat: p.coords.latitude, lon: p.coords.longitude }),
+      e => rifiuta(e),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+  });
+}
+
+async function geocodaIndirizzo(testo) {
+  const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=it&q='
+    + encodeURIComponent(testo);
+  const r = await fetch(url, { headers: { 'Accept-Language': 'it' } });
+  const dati = await r.json();
+  if (!dati.length) return null;
+  const d = dati[0];
+  return { lat: Number(d.lat), lon: Number(d.lon), nome: (d.display_name || testo).split(',')[0] };
+}
+
+document.querySelectorAll('.chip-rif').forEach(chip => {
+  chip.addEventListener('click', async () => {
+    const rif = chip.dataset.rif;
+    if (rif === 'gps') {
+      chip.textContent = '📍 Individuo…';
+      try {
+        posGps = await ottieniPosizione();
+        puntoRif = 'gps';
+      } catch (e) {
+        alert('Non riesco a leggere la posizione: ' + (e.message || 'permesso negato'));
+      }
+      chip.textContent = '📍 La mia posizione';
+    } else if (rif === 'lavoro') {
+      if (!posLavoro) { impostaLavoro(); return; }
+      puntoRif = 'lavoro';
+    } else {
+      puntoRif = 'forli';
+    }
+    aggiornaChipRif();
+    renderAnnunci();
+  });
+});
+
+async function impostaLavoro() {
+  const testo = prompt('Indirizzo del lavoro (es. "Piazza Saffi, Forlì" oppure "Bios Line, Bertinoro"):',
+    posLavoro ? posLavoro.nome : '');
+  if (!testo) return;
+  const p = await geocodaIndirizzo(testo).catch(() => null);
+  if (!p) { alert('Indirizzo non trovato, riprova con più dettagli (via, città).'); return; }
+  posLavoro = p;
+  localStorage.setItem('cercacasa_lavoro', JSON.stringify(p));
+  puntoRif = 'lavoro';
+  aggiornaChipRif();
+  renderAnnunci();
+}
+
+$('#btn-imposta-lavoro').addEventListener('click', impostaLavoro);
+aggiornaChipRif();
 
 $('#btn-altri-filtri').addEventListener('click', () => {
   $('#altri-filtri').classList.toggle('hidden');

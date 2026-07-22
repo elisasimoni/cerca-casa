@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=f38ec92c">
+  <link rel="stylesheet" href="css/style.css?v=41307e29">
 </head>
 <body>
 
@@ -82,6 +82,14 @@
           <button class="chip chip-zona" data-zona="forli">Forlì</button>
         </div>
 
+        <div class="rif-row">
+          <span class="rif-label">Distanza da:</span>
+          <button class="chip chip-rif active" data-rif="forli">🏛️ Forlì</button>
+          <button class="chip chip-rif" data-rif="gps">📍 La mia posizione</button>
+          <button class="chip chip-rif" data-rif="lavoro" id="chip-lavoro">💼 Lavoro</button>
+          <button class="chip chip-rif-set" id="btn-imposta-lavoro" title="Imposta l'indirizzo del lavoro">⚙️</button>
+        </div>
+
         <div class="filter-row">
           <select id="annunci-tipo">
             <option value="">Tutte le tipologie</option>
@@ -98,7 +106,7 @@
             <option value="prezzo-desc">Ordina: prezzo ↓</option>
             <option value="mq-desc">Ordina: mq ↓</option>
             <option value="eurmq-asc">Ordina: €/mq ↑</option>
-            <option value="vicini">Ordina: più vicini a Forlì</option>
+            <option value="vicini">Ordina: più vicini</option>
           </select>
         </div>
 
@@ -319,6 +327,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=8f2ed151"></script>
+  <script src="js/app.js?v=1dfee97c"></script>
 </body>
 </html>
