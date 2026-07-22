@@ -370,6 +370,7 @@ CARATTERISTICHE = {
     "climatizzato": r"aria condizionat|climatizzat|condizionator",
     "panoramico": r"panoramic|vista mare|vista collin",
     "fotovoltaico": r"fotovoltaic|pannelli solari",
+    "fibra": r"fibra ottica|\bftth\b|fibra internet|connessione in fibra",
 }
 CONDIZIONI = [
     ("da-ristrutturare", r"da ristruttur|da riattare|necessita di ristruttur|"

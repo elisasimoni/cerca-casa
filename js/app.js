@@ -364,6 +364,21 @@ function annuncioCard(a) {
   vedi.href = a.url; vedi.target = '_blank'; vedi.rel = 'noopener';
   actions.append(vedi);
 
+  // OpenFiber blocca le richieste automatiche: copio l'indirizzo negli appunti
+  // e apro il loro verificatore, dove basta incollare.
+  if (luogo) {
+    const fibra = el('button', null, '📶 Fibra');
+    fibra.title = 'Copia l\'indirizzo e apri la verifica copertura Open Fiber';
+    fibra.addEventListener('click', async () => {
+      const testo = [a.indirizzo, a.comune].filter(Boolean).join(', ') || luogo;
+      try { await navigator.clipboard.writeText(testo); } catch (e) { /* senza appunti si incolla a mano */ }
+      fibra.textContent = '📋 Copiato!';
+      setTimeout(() => { fibra.textContent = '📶 Fibra'; }, 2000);
+      window.open('https://openfiber.it/verifica-copertura/', '_blank', 'noopener');
+    });
+    actions.append(fibra);
+  }
+
   const giaSalvata = state.houses.some(h => h.link === a.url);
   const salva = el('button', giaSalvata ? 'saved' : null, giaSalvata ? '✓ Salvata' : '💾 Salva');
   salva.disabled = giaSalvata;
@@ -508,6 +523,7 @@ const CARAT_LABEL = {
   cantina: '📦 Cantina/taverna', piscina: '🏊 Piscina', camino: '🔥 Camino',
   arredato: '🛋️ Arredato', climatizzato: '❄️ Aria condizionata',
   panoramico: '🌅 Panoramico', fotovoltaico: '☀️ Fotovoltaico',
+  fibra: '📶 Fibra ottica',
 };
 const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-tipo', 'annunci-comune',
   'annunci-prezzo-max', 'annunci-prezzo-min', 'annunci-mq-min', 'annunci-eurmq-max',
