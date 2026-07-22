@@ -260,13 +260,15 @@ const TIPI_LABEL = {
 // ---------- Distanza dal punto di riferimento ----------
 // Riferimenti dinamici scelti da Elisa (posizione attuale o indirizzo del
 // lavoro): distanza in linea d'aria (haversine) calcolata nel browser.
-let puntoRif = null;           // null | 'gps' | 'lavoro'
+// Lavoro predefinito di Elisa (modificabile dall'app): Perfect Pack, Rimini
+const LAVORO_DEFAULT = { lat: 44.051612, lon: 12.520371, nome: 'Perfect Pack' };
+let puntoRif = 'lavoro';       // null | 'gps' | 'lavoro'
 let posGps = null;             // {lat, lon} temporanea (posizione attuale)
-let posLavoro = null;          // {lat, lon, nome} salvata
+let posLavoro = LAVORO_DEFAULT; // {lat, lon, nome} salvata o predefinita
 try {
   const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
-  if (l && l.lat) { posLavoro = l; puntoRif = 'lavoro'; }
-} catch (e) { /* niente lavoro salvato */ }
+  if (l && l.lat) posLavoro = l;
+} catch (e) { /* si usa il lavoro predefinito */ }
 
 function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371, rad = Math.PI / 180;
