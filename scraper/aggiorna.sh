@@ -16,10 +16,10 @@ if ! python3 scraper/scrape.py; then
   exit 0
 fi
 
-if git diff --quiet -- data/annunci.json; then
+if git diff --quiet -- data/annunci.json scraper/tipi_cache.json; then
   echo "Nessun cambiamento negli annunci."
 else
-  git add data/annunci.json
+  git add data/annunci.json scraper/tipi_cache.json
   git commit --quiet -m "Aggiorna annunci ($(date '+%Y-%m-%d %H:%M'))"
   git push --quiet
   echo "Annunci pubblicati."

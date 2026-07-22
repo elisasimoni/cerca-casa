@@ -148,7 +148,25 @@ select:focus, input:focus, textarea:focus { outline: none; border-color: var(--a
 
 /* ---------- Annunci (scraper) ---------- */
 .annunci-head { margin-bottom: 12px; }
-.annunci-head input { margin: 8px 0; }
+.annunci-head input { margin: 8px 0 0; }
+.annunci-head .filter-row { margin-top: 8px; }
+.updated-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.btn-small { padding: 7px 12px; font-size: 12.5px; flex: 0 0 auto; }
+.btn-small:disabled { opacity: 0.7; }
+
+.badge-tipo { font-weight: 700; }
+.tipo-indipendente { background: #dcfce7; color: #166534; }
+.tipo-porzione { background: #fef3c7; color: #92400e; }
+.tipo-appartamento { background: #e0e7ff; color: #3730a3; }
+.tipo-rustico { background: #fef9c3; color: #713f12; }
+.tipo-terreno { background: #f1f5f9; color: #475569; }
+.tipo-altro { background: #f1f5f9; color: #64748b; }
+
+.card-avviso {
+  margin-top: 8px; padding: 8px 10px; border-radius: 9px;
+  background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412;
+  font-size: 13px; font-weight: 500;
+}
 #annunci-links { margin-top: 10px; }
 #annunci-links a { font-size: 12.5px; padding: 6px 12px; }
 .annuncio-wrap { display: flex; gap: 12px; }

@@ -67,8 +67,29 @@
     <!-- TAB: Annunci (scraper automatico) -->
     <main id="tab-annunci" class="tab">
       <div class="annunci-head">
-        <p class="hint" id="annunci-updated">Caricamento annunci…</p>
+        <div class="updated-row">
+          <p class="hint" id="annunci-updated">Caricamento annunci…</p>
+          <button id="btn-refresh" class="btn btn-small hidden">🔄 Aggiorna ora</button>
+        </div>
         <input type="text" id="annunci-q" placeholder="Filtra: zona, via, parola chiave…">
+        <div class="filter-row">
+          <select id="annunci-tipo">
+            <option value="">Tutte le tipologie</option>
+            <option value="indipendente">🏡 Indipendente</option>
+            <option value="porzione">🏘️ Porzione / schiera</option>
+            <option value="appartamento">🏢 Appartamento</option>
+            <option value="rustico">🌾 Rustico / casale</option>
+            <option value="terreno">📐 Terreno</option>
+            <option value="altro">❓ Altro</option>
+          </select>
+          <select id="annunci-comune">
+            <option value="">Tutti i comuni</option>
+          </select>
+        </div>
+        <div class="filter-row">
+          <input type="number" id="annunci-prezzo-max" placeholder="Prezzo max €" min="0" step="10000">
+          <input type="number" id="annunci-mq-min" placeholder="Mq min" min="0" step="10">
+        </div>
         <div class="filter-row">
           <select id="annunci-fonte">
             <option value="">Tutte le fonti</option>

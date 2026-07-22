@@ -94,6 +94,7 @@ function unlock() {
   sessionStorage.setItem(UNLOCK_KEY, '1');
   renderAll();
   loadAnnunci();
+  controllaHelper();
 }
 
 $('#pin-form').addEventListener('submit', async e => {
@@ -247,6 +248,15 @@ function renderZoneChips() {
 // ---------- Render: annunci (scraper automatico) ----------
 let annunciData = null;
 
+const TIPI_LABEL = {
+  indipendente: '🏡 Indipendente',
+  porzione: '🏘️ Porzione/schiera',
+  appartamento: '🏢 Appartamento',
+  rustico: '🌾 Rustico',
+  terreno: '📐 Terreno',
+  altro: '❓ Altro',
+};
+
 async function loadAnnunci(refetch) {
   if (!annunciData || refetch) {
     try {
@@ -261,20 +271,27 @@ async function loadAnnunci(refetch) {
   renderAnnunci();
 }
 
-function popolaFonti() {
-  const sel = $('#annunci-fonte');
+function popolaSelect(sel, valori, primaVoce) {
   const attuale = sel.value;
-  const fonti = [...new Set((annunciData.annunci || []).map(a => a.fonte))].sort();
   sel.innerHTML = '';
-  const tutte = document.createElement('option');
-  tutte.value = ''; tutte.textContent = 'Tutte le fonti';
-  sel.append(tutte);
-  fonti.forEach(f => {
+  const prima = document.createElement('option');
+  prima.value = ''; prima.textContent = primaVoce;
+  sel.append(prima);
+  valori.forEach(v => {
     const o = document.createElement('option');
-    o.value = f; o.textContent = f;
+    o.value = v; o.textContent = v;
     sel.append(o);
   });
-  if (fonti.includes(attuale)) sel.value = attuale;
+  if (valori.includes(attuale)) sel.value = attuale;
+}
+
+function popolaFonti() {
+  const ann = annunciData.annunci || [];
+  popolaSelect($('#annunci-fonte'),
+    [...new Set(ann.map(a => a.fonte))].sort(), 'Tutte le fonti');
+  popolaSelect($('#annunci-comune'),
+    [...new Set(ann.map(a => a.comune).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'it')),
+    'Tutti i comuni');
 }
 
 function annuncioCard(a) {
@@ -319,10 +336,18 @@ function annuncioCard(a) {
   }
 
   const badges = el('div', 'card-badges');
+  if (a.tipo) badges.append(el('span', 'badge badge-tipo tipo-' + a.tipo, TIPI_LABEL[a.tipo] || a.tipo));
   badges.append(el('span', 'badge badge-sito', a.fonte));
   if (a.comune) badges.append(el('span', 'badge', a.comune));
   if (a.quartiere && a.quartiere !== a.comune) badges.append(el('span', 'badge', a.quartiere));
   body.append(badges);
+
+  if (a.avviso) body.append(el('div', 'card-avviso', '⚠️ ' + a.avviso));
+
+  if (a.descr) {
+    const clip = a.descr.length > 160 ? a.descr.slice(0, 160) + '…' : a.descr;
+    body.append(el('div', 'card-note', clip));
+  }
 
   const actions = el('div', 'card-actions');
   const vedi = el('a', 'primary', 'Annuncio ↗');
@@ -370,6 +395,14 @@ function renderAnnunci() {
   let items = [...annunciData.annunci];
   const fonte = $('#annunci-fonte').value;
   if (fonte) items = items.filter(a => a.fonte === fonte);
+  const tipo = $('#annunci-tipo').value;
+  if (tipo) items = items.filter(a => a.tipo === tipo);
+  const comune = $('#annunci-comune').value;
+  if (comune) items = items.filter(a => a.comune === comune);
+  const prezzoMax = Number($('#annunci-prezzo-max').value);
+  if (prezzoMax) items = items.filter(a => !a.prezzo || a.prezzo <= prezzoMax);
+  const mqMin = Number($('#annunci-mq-min').value);
+  if (mqMin) items = items.filter(a => a.mq && a.mq >= mqMin);
   const q = $('#annunci-q').value.trim().toLowerCase();
   if (q) {
     items = items.filter(a =>
@@ -411,7 +444,8 @@ function renderAnnunci() {
     ? new Date(annunciData.updated).toLocaleString('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
     : '?';
   const errori = (annunciData.ricerche || []).flatMap(r => r.errori || []);
-  info.textContent = `${items.length} annunci · aggiornati ${quando}` +
+  const clf = annunciData.classificatore === 'regole' ? 'tipologie stimate' : 'tipologie AI';
+  info.textContent = `${items.length} annunci · aggiornati ${quando} · ${clf}` +
     (errori.length ? ` · ⚠️ ${errori.length} fonte/i in errore` : '');
 
   if (!items.length) {
@@ -427,6 +461,40 @@ function renderAnnunci() {
 $('#annunci-q').addEventListener('input', renderAnnunci);
 $('#annunci-fonte').addEventListener('change', renderAnnunci);
 $('#annunci-sort').addEventListener('change', renderAnnunci);
+$('#annunci-tipo').addEventListener('change', renderAnnunci);
+$('#annunci-comune').addEventListener('change', renderAnnunci);
+$('#annunci-prezzo-max').addEventListener('input', renderAnnunci);
+$('#annunci-mq-min').addEventListener('input', renderAnnunci);
+
+// ---------- Aggiornamento on-demand (helper locale sul Mac) ----------
+const HELPER_URL = 'http://127.0.0.1:8787';
+
+async function controllaHelper() {
+  try {
+    const r = await fetch(HELPER_URL + '/ping', { signal: AbortSignal.timeout(1500) });
+    if (r.ok) $('#btn-refresh').classList.remove('hidden');
+  } catch (e) { /* helper non attivo: si usano i dati pubblicati */ }
+}
+
+$('#btn-refresh').addEventListener('click', async () => {
+  const btn = $('#btn-refresh');
+  btn.disabled = true;
+  btn.textContent = '⏳ Scarico e classifico…';
+  try {
+    const r = await fetch(HELPER_URL + '/aggiorna', {
+      method: 'POST',
+      signal: AbortSignal.timeout(300000),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    annunciData = await r.json();
+    popolaFonti();
+    renderAnnunci();
+  } catch (e) {
+    alert('Aggiornamento fallito: ' + e.message);
+  }
+  btn.disabled = false;
+  btn.textContent = '🔄 Aggiorna ora';
+});
 
 // ---------- Render: portali ----------
 function renderPortali() {

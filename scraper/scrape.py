@@ -132,7 +132,7 @@ def scrape_casait(ricerca):
                 "foto": foto,
                 "asta": bool(it.get("isAuction")),
                 "data": None,
-                "descr": (it.get("description") or "")[:180],
+                "descr": (it.get("description") or "")[:400],
             })
         time.sleep(1.5)
     return out
@@ -201,7 +201,7 @@ def scrape_subito(ricerca):
             "foto": foto,
             "asta": False,
             "data": (ad.get("dates") or {}).get("display_iso8601"),
-            "descr": (ad.get("body") or "")[:180].replace("\n", " "),
+            "descr": (ad.get("body") or "")[:400].replace("\n", " "),
         })
     return out
 
@@ -349,9 +349,134 @@ def scrape_pvp(ricerca):
             "foto": lotto.get("immagineCover") or lotto.get("immagine"),
             "asta": True,
             "data": lotto.get("dataPubblicazione"),
-            "descr": extra + " — " + (lotto.get("descLotto") or "")[:150],
+            "descr": extra + " — " + (lotto.get("descLotto") or "")[:400],
         })
     return out
+
+
+# ------------------------------------------- Classificatore tipologia (AI)
+# Gli annunci mentono: "casa indipendente" nel titolo, "porzione di
+# bifamiliare" nella descrizione. Doppio motore: Claude CLI (se autenticata
+# sul Mac) legge titolo+descrizione; altrimenti regole linguistiche.
+# La cache evita di riclassificare gli annunci già visti.
+CACHE_TIPI = ROOT / "scraper" / "tipi_cache.json"
+TIPI_VALIDI = {"indipendente", "porzione", "appartamento", "rustico",
+               "terreno", "altro"}
+
+RE_INDIP_TITOLO = re.compile(
+    r"indipendente|casa singola|unifamiliare|villa singola", re.I)
+
+
+def classifica_regole(titolo, descr):
+    t = f"{titolo} {descr}".lower()
+
+    def ha(*parole):
+        return any(p in t for p in parole)
+
+    if ha("porzione", "bifamiliare", "trifamiliare", "quadrifamiliare",
+          "schiera", "semindipendente", "semi-indipendente", "in aderenza",
+          "terratetto"):
+        tipo = "porzione"
+    elif ha("appartament", "trilocale", "bilocale", "quadrilocale",
+            "monolocale", "attico", "mansarda", "condomini", "palazzina"):
+        tipo = "appartamento"
+    elif ha("rustico", "casale", "colonic", "podere", "cascina"):
+        tipo = "rustico"
+    elif t.strip().startswith("terreno") or ha("terreno edificabile"):
+        tipo = "terreno"
+    elif ha("indipendente", "casa singola", "unifamiliare", "villa",
+            "villino", "villetta"):
+        tipo = "indipendente"
+    else:
+        tipo = "altro"
+
+    avviso = None
+    if tipo in ("porzione", "appartamento") and RE_INDIP_TITOLO.search(titolo):
+        avviso = f"Il titolo dice \"indipendente\" ma il testo suggerisce: {tipo}"
+    return {"tipo": tipo, "avviso": avviso, "via": "regole"}
+
+
+def classifica_ai_batch(items):
+    """Classifica con `claude -p` (haiku). Ritorna {} se la CLI non è loggata."""
+    compatti = [{"id": a["id"], "titolo": a["titolo"],
+                 "descr": (a.get("descr") or "")[:350]} for a in items]
+    prompt = (
+        "Classifica questi annunci immobiliari italiani. Per ognuno decidi la "
+        "tipologia REALE leggendo titolo e descrizione (spesso il titolo mente: "
+        "dice 'casa indipendente' ma la descrizione rivela una porzione di "
+        "bifamiliare o un appartamento).\n"
+        "Tipologie: indipendente (casa davvero singola, villa singola), "
+        "porzione (porzione di bi/trifamiliare, schiera, terratetto in "
+        "aderenza, semindipendente), appartamento, rustico (casale/colonica da "
+        "ristrutturare), terreno, altro.\n"
+        "Rispondi SOLO con un array JSON, un elemento per annuncio: "
+        '[{"id": "...", "tipo": "...", "avviso": null oppure "breve nota se il '
+        'titolo promette una tipologia diversa da quella reale"}]\n\n'
+        + json.dumps(compatti, ensure_ascii=False)
+    )
+    res = subprocess.run(["claude", "-p", "--model", "haiku", prompt],
+                         capture_output=True, text=True, timeout=180)
+    if res.returncode != 0 or "Not logged in" in res.stdout + res.stderr:
+        return {}
+    testo = res.stdout
+    i, j = testo.find("["), testo.rfind("]")
+    if i < 0 or j <= i:
+        return {}
+    try:
+        dati = json.loads(testo[i:j + 1])
+    except json.JSONDecodeError:
+        return {}
+    out = {}
+    for d in dati:
+        if isinstance(d, dict) and d.get("id") and d.get("tipo") in TIPI_VALIDI:
+            out[d["id"]] = {"tipo": d["tipo"],
+                            "avviso": d.get("avviso") or None, "via": "ai"}
+    return out
+
+
+def classifica_tutti(annunci):
+    try:
+        cache = json.loads(CACHE_TIPI.read_text("utf-8"))
+    except (OSError, json.JSONDecodeError):
+        cache = {}
+
+    da_ai = [a for a in annunci
+             if a["id"] not in cache or cache[a["id"]].get("via") == "regole"]
+    ai_disponibile = True
+    for i in range(0, len(da_ai), 40):
+        if not ai_disponibile:
+            break
+        batch = da_ai[i:i + 40]
+        try:
+            risultati = classifica_ai_batch(batch)
+        except Exception:
+            risultati = {}
+        if not risultati:
+            ai_disponibile = False
+            break
+        cache.update(risultati)
+        print(f"  classificati con AI: {len(risultati)}/{len(batch)}")
+
+    n_ai = n_regole = 0
+    for a in annunci:
+        info = cache.get(a["id"])
+        if not info:
+            info = classifica_regole(a["titolo"], a.get("descr") or "")
+            cache[a["id"]] = info
+        a["tipo"] = info["tipo"]
+        a["avviso"] = info.get("avviso")
+        if info.get("via") == "ai":
+            n_ai += 1
+        else:
+            n_regole += 1
+
+    # tieni in cache solo gli id ancora vivi (evita crescita infinita)
+    vivi = {a["id"] for a in annunci}
+    cache = {k: v for k, v in cache.items() if k in vivi}
+    CACHE_TIPI.write_text(json.dumps(cache, ensure_ascii=False, indent=0),
+                          "utf-8")
+    print(f"Tipologie: {n_ai} via AI, {n_regole} via regole")
+    return "ai" if n_regole == 0 else ("misto" if n_ai else "regole")
 
 
 # ------------------------------------------------------------------- main
@@ -390,8 +515,11 @@ def main():
                      "count": len(unici), "errori": errori,
                      "linksEsterni": ricerca.get("linksEsterni") or []})
 
+    classificatore = classifica_tutti(tutte) if tutte else "regole"
+
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "classificatore": classificatore,
         "ricerche": meta,
         "annunci": tutte,
     }
