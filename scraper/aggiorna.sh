@@ -9,17 +9,17 @@ cd "$REPO"
 
 echo "=== $(date '+%Y-%m-%d %H:%M:%S') avvio aggiornamento"
 
-git pull --rebase --quiet || true
+git pull --rebase --autostash --quiet || true
 
 if ! python3 scraper/scrape.py; then
   echo "Scraper fallito (offline o portali giù): non committo nulla."
   exit 0
 fi
 
-if git diff --quiet -- data/annunci.json scraper/tipi_cache.json; then
+if git diff --quiet -- data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json; then
   echo "Nessun cambiamento negli annunci."
 else
-  git add data/annunci.json scraper/tipi_cache.json
+  git add data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json
   git commit --quiet -m "Aggiorna annunci ($(date '+%Y-%m-%d %H:%M'))"
   git push --quiet
   echo "Annunci pubblicati."
