@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=41307e29">
+  <link rel="stylesheet" href="css/style.css?v=cc55ad99">
 </head>
 <body>
 
@@ -84,10 +84,12 @@
 
         <div class="rif-row">
           <span class="rif-label">Distanza da:</span>
-          <button class="chip chip-rif active" data-rif="forli">🏛️ Forlì</button>
           <button class="chip chip-rif" data-rif="gps">📍 La mia posizione</button>
-          <button class="chip chip-rif" data-rif="lavoro" id="chip-lavoro">💼 Lavoro</button>
-          <button class="chip chip-rif-set" id="btn-imposta-lavoro" title="Imposta l'indirizzo del lavoro">⚙️</button>
+          <button class="chip chip-rif" data-rif="lavoro" id="chip-lavoro">💼 Imposta lavoro</button>
+        </div>
+        <div id="lavoro-edit" class="lavoro-edit hidden">
+          <input type="text" id="lavoro-input" placeholder="Via e città del lavoro (es. Via Emilia 12, Cesena)">
+          <button class="btn btn-small btn-primary" id="btn-salva-lavoro">Salva</button>
         </div>
 
         <div class="filter-row">
@@ -133,11 +135,12 @@
               <option value="100">🏞️ Solo pianura</option>
               <option value="300">🌄 Pianura e collina</option>
             </select>
-            <select id="annunci-min-max">
+            <select id="annunci-km-max">
               <option value="">Qualsiasi distanza</option>
-              <option value="15">🚗 Entro 15 min da Forlì</option>
-              <option value="30">🚗 Entro 30 min da Forlì</option>
-              <option value="45">🚗 Entro 45 min da Forlì</option>
+              <option value="5">📍 Entro 5 km</option>
+              <option value="10">📍 Entro 10 km</option>
+              <option value="20">📍 Entro 20 km</option>
+              <option value="30">📍 Entro 30 km</option>
             </select>
           </div>
 
@@ -195,6 +198,7 @@
 
         <div id="annunci-links" class="agenzie"></div>
       </div>
+      <div id="filtri-attivi" class="filtri-attivi"></div>
       <div id="annunci-list"></div>
     </main>
 
@@ -327,6 +331,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=1dfee97c"></script>
+  <script src="js/app.js?v=fce9e91a"></script>
 </body>
 </html>

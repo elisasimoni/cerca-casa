@@ -190,7 +190,27 @@ select:focus, input:focus, textarea:focus {
   text-transform: uppercase; letter-spacing: var(--tracking-wider);
 }
 .chip-rif { flex: 0 0 auto; padding: 7px 12px; font-size: 12.5px; }
-.chip-rif-set { flex: 0 0 auto; padding: 7px 10px; }
+.lavoro-edit { display: flex; gap: 8px; margin-top: 8px; }
+.lavoro-edit input { flex: 1; }
+
+/* barra dei filtri attivi: sempre visibile, ogni chip si tocca per togliere */
+.filtri-attivi {
+  display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 4px;
+  max-width: var(--app-max-width); margin: 0 auto;
+}
+.filtri-attivi.vuota { display: none; }
+.attivo-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 5px 8px 5px 11px;
+  border-radius: var(--r-pill); border: none; cursor: pointer;
+  background: var(--accent); color: #fff; font-family: inherit;
+}
+.attivo-x { font-size: 11px; opacity: 0.85; }
+.attivo-azzera {
+  font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: var(--r-pill);
+  border: 1.5px solid var(--border); background: var(--card); color: var(--muted);
+  cursor: pointer; font-family: inherit;
+}
 
 .area-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .area-chip {

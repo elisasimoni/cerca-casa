@@ -258,14 +258,14 @@ const TIPI_LABEL = {
 };
 
 // ---------- Distanza dal punto di riferimento ----------
-// Forlì usa i minuti di guida precalcolati; posizione e lavoro sono dinamici,
-// quindi si calcola la distanza in linea d'aria (haversine) nel browser.
-let puntoRif = 'forli';        // 'forli' | 'gps' | 'lavoro'
+// Riferimenti dinamici scelti da Elisa (posizione attuale o indirizzo del
+// lavoro): distanza in linea d'aria (haversine) calcolata nel browser.
+let puntoRif = null;           // null | 'gps' | 'lavoro'
 let posGps = null;             // {lat, lon} temporanea (posizione attuale)
 let posLavoro = null;          // {lat, lon, nome} salvata
 try {
   const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
-  if (l && l.lat) posLavoro = l;
+  if (l && l.lat) { posLavoro = l; puntoRif = 'lavoro'; }
 } catch (e) { /* niente lavoro salvato */ }
 
 function haversineKm(lat1, lon1, lat2, lon2) {
@@ -279,7 +279,7 @@ function haversineKm(lat1, lon1, lat2, lon2) {
 function puntoAttivo() {
   if (puntoRif === 'gps') return posGps;
   if (puntoRif === 'lavoro') return posLavoro;
-  return null; // Forlì: si usano i minuti precalcolati
+  return null;
 }
 
 function distanzaKm(a) {
@@ -290,9 +290,6 @@ function distanzaKm(a) {
 
 // Testo distanza per la card, secondo il riferimento attivo
 function etichettaDistanza(a) {
-  if (puntoRif === 'forli') {
-    return a.minuti != null ? '🚗 ' + a.minuti + ' min' : null;
-  }
   const km = distanzaKm(a);
   if (km == null) return null;
   const icona = puntoRif === 'gps' ? '📍' : '💼';
@@ -485,8 +482,10 @@ function renderAnnunci() {
   if (bagniMin) items = items.filter(a => a.bagni && a.bagni >= bagniMin);
   const altMax = num('#annunci-alt-max');
   if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
-  const minMax = num('#annunci-min-max');
-  if (minMax) items = items.filter(a => a.minuti == null || a.minuti <= minMax);
+  const kmMax = num('#annunci-km-max');
+  if (kmMax && puntoAttivo()) {
+    items = items.filter(a => { const d = distanzaKm(a); return d == null || d <= kmMax; });
+  }
   const condizione = $('#annunci-condizione').value;
   if (condizione) items = items.filter(a => a.condizione === condizione);
   const aste = $('#annunci-aste').value;
@@ -513,12 +512,8 @@ function renderAnnunci() {
   else if (sort === 'mq-desc') items.sort((a, b) => val(b.mq) - val(a.mq));
   else if (sort === 'eurmq-asc') items.sort((a, b) => eurmq(a) - eurmq(b));
   else if (sort === 'vicini') {
-    // ordina secondo il riferimento attivo: minuti da Forlì, oppure km
-    if (puntoRif === 'forli') {
-      items.sort((a, b) => (a.minuti ?? 9999) - (b.minuti ?? 9999));
-    } else {
-      items.sort((a, b) => (distanzaKm(a) ?? 9999) - (distanzaKm(b) ?? 9999));
-    }
+    // più vicini al riferimento attivo (posizione o lavoro), in km
+    items.sort((a, b) => (distanzaKm(a) ?? 9999) - (distanzaKm(b) ?? 9999));
   } else {
     // "recenti": alterna le fonti (ognuna è già ordinata per data dal più nuovo)
     const perFonte = {};
@@ -576,8 +571,26 @@ const CARAT_LABEL = {
 };
 const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-tipo', 'annunci-comune',
   'annunci-prezzo-max', 'annunci-prezzo-min', 'annunci-mq-min', 'annunci-eurmq-max',
-  'annunci-locali-min', 'annunci-bagni-min', 'annunci-alt-max', 'annunci-min-max',
+  'annunci-locali-min', 'annunci-bagni-min', 'annunci-alt-max', 'annunci-km-max',
   'annunci-condizione', 'annunci-aste'];
+
+// etichette leggibili per la barra dei filtri attivi
+const FILTRI_ETICHETTE = {
+  'annunci-q': v => `“${v}”`,
+  'annunci-tipo': v => TIPI_LABEL[v] || v,
+  'annunci-comune': v => '📍 ' + v,
+  'annunci-fonte': v => v,
+  'annunci-prezzo-max': v => '≤ €' + Number(v).toLocaleString('it-IT'),
+  'annunci-prezzo-min': v => '≥ €' + Number(v).toLocaleString('it-IT'),
+  'annunci-mq-min': v => '≥ ' + v + ' mq',
+  'annunci-eurmq-max': v => '≤ ' + v + ' €/mq',
+  'annunci-locali-min': v => '≥ ' + v + ' locali',
+  'annunci-bagni-min': v => '≥ ' + v + ' bagni',
+  'annunci-alt-max': v => ({ '100': '🏞️ Solo pianura', '300': '🌄 Pianura e collina' }[v] || v + ' m'),
+  'annunci-km-max': v => '📍 entro ' + v + ' km',
+  'annunci-condizione': v => ({ nuovo: '✨ Nuovo', ristrutturato: '🔨 Ristrutturato', 'da-ristrutturare': '🧱 Da ristrutturare' }[v] || v),
+  'annunci-aste': v => ({ no: '🚫 No aste', solo: '⚖️ Solo aste' }[v] || v),
+};
 const FILTRI_KEY = 'cercacasa_filtri';
 let caratRichieste = new Set();
 let zonaAttiva = '';
@@ -595,8 +608,8 @@ $('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salv
 function aggiornaChipRif() {
   document.querySelectorAll('.chip-rif').forEach(c =>
     c.classList.toggle('active', c.dataset.rif === puntoRif));
-  const cl = $('#chip-lavoro');
-  cl.textContent = posLavoro ? '💼 ' + posLavoro.nome : '💼 Lavoro';
+  $('#chip-lavoro').textContent = posLavoro
+    ? '💼 ' + posLavoro.nome : '💼 Imposta lavoro';
 }
 
 function ottieniPosizione() {
@@ -623,6 +636,8 @@ document.querySelectorAll('.chip-rif').forEach(chip => {
   chip.addEventListener('click', async () => {
     const rif = chip.dataset.rif;
     if (rif === 'gps') {
+      // toccando di nuovo "posizione" quando è già attiva, la si spegne
+      if (puntoRif === 'gps') { puntoRif = null; aggiornaChipRif(); renderAnnunci(); return; }
       chip.textContent = '📍 Individuo…';
       try {
         posGps = await ottieniPosizione();
@@ -632,30 +647,42 @@ document.querySelectorAll('.chip-rif').forEach(chip => {
       }
       chip.textContent = '📍 La mia posizione';
     } else if (rif === 'lavoro') {
-      if (!posLavoro) { impostaLavoro(); return; }
+      if (!posLavoro) { apriEditorLavoro(); return; }
+      // già attivo → apri l'editor per cambiare indirizzo
+      if (puntoRif === 'lavoro') { apriEditorLavoro(); return; }
       puntoRif = 'lavoro';
-    } else {
-      puntoRif = 'forli';
     }
     aggiornaChipRif();
     renderAnnunci();
   });
 });
 
-async function impostaLavoro() {
-  const testo = prompt('Indirizzo del lavoro (es. "Piazza Saffi, Forlì" oppure "Bios Line, Bertinoro"):',
-    posLavoro ? posLavoro.nome : '');
+function apriEditorLavoro() {
+  const box = $('#lavoro-edit');
+  box.classList.remove('hidden');
+  const inp = $('#lavoro-input');
+  inp.value = posLavoro ? posLavoro.nome : '';
+  inp.focus();
+}
+
+async function salvaLavoro() {
+  const testo = $('#lavoro-input').value.trim();
   if (!testo) return;
+  const btn = $('#btn-salva-lavoro');
+  btn.disabled = true; btn.textContent = 'Cerco…';
   const p = await geocodaIndirizzo(testo).catch(() => null);
-  if (!p) { alert('Indirizzo non trovato, riprova con più dettagli (via, città).'); return; }
+  btn.disabled = false; btn.textContent = 'Salva';
+  if (!p) { alert('Indirizzo non trovato. Aggiungi la città, es. "Via Emilia 10, Cesena".'); return; }
   posLavoro = p;
   localStorage.setItem('cercacasa_lavoro', JSON.stringify(p));
   puntoRif = 'lavoro';
+  $('#lavoro-edit').classList.add('hidden');
   aggiornaChipRif();
   renderAnnunci();
 }
 
-$('#btn-imposta-lavoro').addEventListener('click', impostaLavoro);
+$('#btn-salva-lavoro').addEventListener('click', salvaLavoro);
+$('#lavoro-input').addEventListener('keydown', e => { if (e.key === 'Enter') salvaLavoro(); });
 aggiornaChipRif();
 
 $('#btn-altri-filtri').addEventListener('click', () => {
@@ -686,10 +713,48 @@ function costruisciCaratChips() {
 }
 
 function aggiornaContaFiltri() {
-  let n = FILTRI_ID.filter(id => $('#' + id).value).length
-    + caratRichieste.size + (zonaAttiva ? 1 : 0)
-    + ($('#annunci-no-centro').checked ? 1 : 0) + (areaPoligono ? 1 : 0);
-  $('#conta-filtri').textContent = n ? `(${n} attivi)` : '';
+  // barra dei filtri attivi: ogni filtro è un chip che si tocca per toglierlo
+  const bar = $('#filtri-attivi');
+  bar.innerHTML = '';
+  const chip = (testo, rimuovi) => {
+    const c = el('button', 'attivo-chip', testo);
+    c.append(el('span', 'attivo-x', '✕'));
+    c.addEventListener('click', () => { rimuovi(); renderAnnunci(); salvaFiltri(); });
+    bar.append(c);
+  };
+
+  if (zonaAttiva) {
+    const nome = document.querySelector(`.chip-zona[data-zona="${zonaAttiva}"]`)?.textContent || zonaAttiva;
+    chip(nome, () => {
+      zonaAttiva = '';
+      document.querySelectorAll('.chip-zona').forEach(x => x.classList.toggle('active', !x.dataset.zona));
+    });
+  }
+  FILTRI_ID.forEach(id => {
+    const v = $('#' + id).value;
+    if (!v) return;
+    const et = FILTRI_ETICHETTE[id] ? FILTRI_ETICHETTE[id](v) : v;
+    chip(et, () => { $('#' + id).value = ''; });
+  });
+  caratRichieste.forEach(k => chip(CARAT_LABEL[k] || k, () => {
+    caratRichieste.delete(k);
+    document.querySelectorAll('#carat-chips .chip').forEach(c => {
+      if ((CARAT_LABEL[k] || k) === c.textContent) c.classList.remove('active');
+    });
+  }));
+  if ($('#annunci-no-centro').checked) {
+    chip('🚫 Fuori dai centri', () => { $('#annunci-no-centro').checked = false; });
+  }
+  if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
+
+  const n = bar.children.length;
+  bar.classList.toggle('vuota', n === 0);
+  if (n > 1) {
+    const azzera = el('button', 'attivo-azzera', '↺ Azzera tutto');
+    azzera.addEventListener('click', () => $('#btn-azzera').click());
+    bar.append(azzera);
+  }
+  $('#conta-filtri').textContent = n ? `(${n})` : '';
 }
 
 function salvaFiltri() {
