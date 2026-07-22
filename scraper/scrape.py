@@ -354,6 +354,49 @@ def scrape_pvp(ricerca):
     return out
 
 
+# --------------------------------------------- Caratteristiche e condizione
+# Estratte dal testo (titolo + descrizione): i portali le espongono in modi
+# diversi, il testo libero è il minimo comune denominatore.
+CARATTERISTICHE = {
+    "giardino": r"giardin|corte esclusiv|parco privat",
+    "terrazzo": r"terrazz|altana|lastric",
+    "balcone": r"balcon|loggia|logge",
+    "garage": r"garage|autorimess|box auto|posto auto|posti auto",
+    "ascensore": r"ascensor",
+    "cantina": r"cantina|taverna|seminterrat",
+    "piscina": r"piscina",
+    "camino": r"camino|stufa a pellet|termocamino",
+    "arredato": r"arredat",
+    "climatizzato": r"aria condizionat|climatizzat|condizionator",
+    "panoramico": r"panoramic|vista mare|vista collin",
+    "fotovoltaico": r"fotovoltaic|pannelli solari",
+}
+CONDIZIONI = [
+    ("da-ristrutturare", r"da ristruttur|da riattare|necessita di ristruttur|"
+                        r"da rimodernare|grezzo|al grezzo"),
+    ("nuovo", r"nuova costruzion|di nuova realizzazion|mai abitat|in costruzion"),
+    ("ristrutturato", r"ristruttur|rinnovat|rimodernat|ottimo stato|"
+                     r"ottime condizioni|come nuovo|finemente"),
+]
+RE_CLASSE = re.compile(r"class[ei]\s+energetic\w*\s*:?\s*[«\"']?\s*([A-G]\d?\+?)\b", re.I)
+RE_CENTRO = re.compile(r"centro storico|pieno centro|centralissim|in centro|"
+                       r"zona centro|centro citt|centro paese", re.I)
+
+
+def estrai_caratteristiche(a):
+    testo = f"{a.get('titolo') or ''} {a.get('descr') or ''}".lower()
+    a["carat"] = sorted(k for k, pat in CARATTERISTICHE.items()
+                        if re.search(pat, testo))
+    a["condizione"] = next((nome for nome, pat in CONDIZIONI
+                            if re.search(pat, testo)), None)
+    m = RE_CLASSE.search(testo)
+    a["classe"] = m.group(1).upper() if m else None
+    # "centro" dal quartiere dichiarato dal portale o dal testo
+    quart = (a.get("quartiere") or "").lower()
+    a["centro"] = bool(quart == "centro" or "centro stor" in quart
+                       or RE_CENTRO.search(testo))
+
+
 # ------------------------------------- Arricchimento geografico (alt + guida)
 # Altitudine da Open-Meteo (filtro anti-montagna) e minuti di guida reali dal
 # punto di riferimento via OSRM/OpenStreetMap (le strade tortuose si vedono
@@ -380,7 +423,32 @@ COMUNI_FC = {
     "rocca san casciano": (44.060, 11.845, 210),
     "portico e san benedetto": (44.026, 11.782, 309), "tredozio": (44.079, 11.746, 334),
     "modigliana": (44.157, 11.790, 185),
+    # frazioni che interessano a Elisa (trattate come località a sé)
+    "santa maria nuova": (44.169, 12.139, 44),
 }
+
+# Località su cui Elisa sta cercando: usate per il filtro rapido "Le mie zone".
+# Santa Maria Nuova è frazione di Bertinoro: la riconosco anche dal quartiere.
+ZONE_PREFERITE = {
+    "santa maria nuova": ("bertinoro", "santa maria nuova"),
+    "cesena": ("cesena", None),
+    "gambettola": ("gambettola", None),
+    "forli": ("forli", None),
+}
+
+
+def zona_preferita(a):
+    """Ritorna l'etichetta della zona preferita che combacia, se c'è."""
+    comune = norm_comune(a.get("comune"))
+    quart = norm_comune(a.get("quartiere"))
+    testo = norm_comune(f"{a.get('titolo') or ''} {a.get('indirizzo') or ''}")
+    for label, (com_atteso, frazione) in ZONE_PREFERITE.items():
+        if frazione:
+            if frazione in quart or frazione in testo:
+                return label
+        elif comune == com_atteso:
+            return label
+    return None
 
 
 def norm_comune(nome):
@@ -401,12 +469,12 @@ def coord_annuncio(a):
     return None, None, None
 
 
-def arricchisci_geo(annunci, ricerca):
+def arricchisci_geo(annunci, config):
     try:
         cache = json.loads(CACHE_GEO.read_text("utf-8"))
     except (OSError, json.JSONDecodeError):
         cache = {}
-    rif = ricerca.get("riferimento") or {"lat": 44.2227, "lon": 12.0407}
+    rif = config.get("riferimento") or {"lat": 44.2227, "lon": 12.0407}
 
     punti = {}  # chiave -> (lat, lon, alt_fallback)
     for a in annunci:
@@ -454,13 +522,16 @@ def arricchisci_geo(annunci, ricerca):
 
     n_ok = 0
     for a in annunci:
+        esatta = a.get("lat") is not None and a.get("lon") is not None
         lat, lon, alt_fb = coord_annuncio(a)
         if lat is None:
-            a["alt"] = a["minuti"] = None
+            a["alt"] = a["minuti"] = a["pos"] = None
             continue
         info = cache.get(f"{lat},{lon}", {})
         a["alt"] = info.get("alt", alt_fb)
         a["minuti"] = info.get("minuti")
+        a["lat"], a["lon"] = lat, lon
+        a["pos"] = "esatta" if esatta else "comune"
         if a["alt"] is not None:
             n_ok += 1
     CACHE_GEO.write_text(json.dumps(cache, ensure_ascii=False, indent=0), "utf-8")
@@ -597,6 +668,7 @@ def main():
     config = json.loads((ROOT / "config" / "ricerche.json").read_text("utf-8"))
     tutte = []
     meta = []
+    visti = set()  # dedup globale: lo stesso annuncio esce da più ricerche
     for ricerca in config["ricerche"]:
         annunci = []
         errori = []
@@ -615,7 +687,6 @@ def main():
                        if a["prezzo"] is None
                        or ((not pmin or a["prezzo"] >= pmin)
                            and (not pmax or a["prezzo"] <= pmax))]
-        visti = set()
         unici = []
         for a in annunci:
             if a["id"] not in visti:
@@ -630,7 +701,10 @@ def main():
 
     classificatore = classifica_tutti(tutte) if tutte else "regole"
     if tutte:
-        arricchisci_geo(tutte, config["ricerche"][0])
+        for a in tutte:
+            estrai_caratteristiche(a)
+            a["zona"] = zona_preferita(a)
+        arricchisci_geo(tutte, config)
 
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

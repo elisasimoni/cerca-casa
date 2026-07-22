@@ -1,15 +1,15 @@
 {
-  "_istruzioni": "Ogni ricerca viene eseguita dallo scraper (dal Mac, via launchd). 'casait.slug' è la località nell'URL di casa.it (comune o '<provincia>-provincia'); per subito servono regione/provincia (e comune, opzionale: null = tutta la provincia) come negli URL di subito.it. linksEsterni sono i portali che bloccano lo scraping, mostrati come scorciatoie nel tab Annunci. prezzoMin/prezzoMax in euro (null = nessun limite).",
+  "_istruzioni": "Ogni ricerca viene eseguita dallo scraper (dal Mac, via launchd). La prima batte tutta la provincia (più le aste PVP); le altre battono a fondo i comuni che interessano davvero. 'casait.slug' e 'trovit.slug' sono la località negli URL dei due siti; per subito servono regione/provincia/comune. Il 'riferimento' è il punto da cui si calcolano i minuti di guida. Gli annunci doppi tra ricerche vengono uniti automaticamente.",
+  "riferimento": { "lat": 44.2227, "lon": 12.0407, "label": "Forlì centro" },
   "ricerche": [
     {
       "id": "forli-cesena-vendita",
-      "label": "Forlì-Cesena · vendita",
+      "label": "Tutta la provincia · vendita",
       "contratto": "vendita",
       "casait": { "slug": "forli-cesena-provincia", "pagine": 3 },
       "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": null },
       "trovit": { "slug": "provincia-forli-cesena", "pagine": 5 },
       "pvp": { "codiceTribunale": "0400120092", "provincia": "Forlì-Cesena" },
-      "riferimento": { "lat": 44.2227, "lon": 12.0407, "label": "Forlì centro" },
       "prezzoMin": null,
       "prezzoMax": null,
       "linksEsterni": [
@@ -17,6 +17,38 @@
         { "nome": "Idealista", "url": "https://www.idealista.it/vendita-case/forli-cesena-provincia/" },
         { "nome": "Wikicasa", "url": "https://www.wikicasa.it/vendita/case/provincia-forli-cesena/" }
       ]
+    },
+    {
+      "id": "bertinoro",
+      "label": "Bertinoro / Santa Maria Nuova",
+      "contratto": "vendita",
+      "casait": { "slug": "bertinoro", "pagine": 3 },
+      "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": "bertinoro" },
+      "trovit": { "slug": "bertinoro", "pagine": 3 }
+    },
+    {
+      "id": "cesena",
+      "label": "Cesena",
+      "contratto": "vendita",
+      "casait": { "slug": "cesena", "pagine": 3 },
+      "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": "cesena" },
+      "trovit": { "slug": "cesena", "pagine": 3 }
+    },
+    {
+      "id": "gambettola",
+      "label": "Gambettola",
+      "contratto": "vendita",
+      "casait": { "slug": "gambettola", "pagine": 2 },
+      "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": "gambettola" },
+      "trovit": { "slug": "gambettola", "pagine": 2 }
+    },
+    {
+      "id": "forli",
+      "label": "Forlì",
+      "contratto": "vendita",
+      "casait": { "slug": "forli", "pagine": 3 },
+      "subito": { "regione": "emilia-romagna", "provincia": "forli-cesena", "comune": "forli" },
+      "trovit": { "slug": "forli", "pagine": 3 }
     }
   ]
 }

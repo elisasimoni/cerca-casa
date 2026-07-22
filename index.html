@@ -12,6 +12,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
+  <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -71,7 +72,16 @@
           <p class="hint" id="annunci-updated">Caricamento annunci…</p>
           <button id="btn-refresh" class="btn btn-small hidden">🔄 Aggiorna ora</button>
         </div>
-        <input type="text" id="annunci-q" placeholder="Filtra: zona, via, parola chiave…">
+        <input type="text" id="annunci-q" placeholder="Cerca: via, zona, parola chiave…">
+
+        <div class="quick-row">
+          <button class="chip chip-zona" data-zona="">Ovunque</button>
+          <button class="chip chip-zona" data-zona="santa maria nuova">Santa Maria Nuova</button>
+          <button class="chip chip-zona" data-zona="cesena">Cesena</button>
+          <button class="chip chip-zona" data-zona="gambettola">Gambettola</button>
+          <button class="chip chip-zona" data-zona="forli">Forlì</button>
+        </div>
+
         <div class="filter-row">
           <select id="annunci-tipo">
             <option value="">Tutte le tipologie</option>
@@ -82,30 +92,99 @@
             <option value="terreno">📐 Terreno</option>
             <option value="altro">❓ Altro</option>
           </select>
-          <select id="annunci-comune">
-            <option value="">Tutti i comuni</option>
-          </select>
-        </div>
-        <div class="filter-row">
-          <input type="number" id="annunci-prezzo-max" placeholder="Prezzo max €" min="0" step="10000">
-          <input type="number" id="annunci-mq-min" placeholder="Mq min" min="0" step="10">
-        </div>
-        <div class="filter-row">
-          <input type="number" id="annunci-alt-max" placeholder="⛰️ Altitudine max (m)" min="0" step="50">
-          <input type="number" id="annunci-min-max" placeholder="🚗 Max min da Forlì" min="0" step="5">
-        </div>
-        <div class="filter-row">
-          <select id="annunci-fonte">
-            <option value="">Tutte le fonti</option>
-          </select>
           <select id="annunci-sort">
-            <option value="recenti">Più recenti</option>
-            <option value="prezzo-asc">Prezzo ↑</option>
-            <option value="prezzo-desc">Prezzo ↓</option>
-            <option value="mq-desc">Mq ↓</option>
-            <option value="eurmq-asc">€/mq ↑</option>
+            <option value="recenti">Ordina: più recenti</option>
+            <option value="prezzo-asc">Ordina: prezzo ↑</option>
+            <option value="prezzo-desc">Ordina: prezzo ↓</option>
+            <option value="mq-desc">Ordina: mq ↓</option>
+            <option value="eurmq-asc">Ordina: €/mq ↑</option>
+            <option value="vicini">Ordina: più vicini a Forlì</option>
           </select>
         </div>
+
+        <div class="filter-row">
+          <label class="campo">💶 Prezzo massimo
+            <input type="number" id="annunci-prezzo-max" placeholder="es. 250000" min="0" step="10000">
+          </label>
+          <label class="campo">📐 Metri quadri minimi
+            <input type="number" id="annunci-mq-min" placeholder="es. 100" min="0" step="10">
+          </label>
+        </div>
+
+        <div class="area-row">
+          <button id="btn-mappa" class="btn btn-small">🗺️ Disegna un'area sulla mappa</button>
+          <span id="area-attiva" class="area-chip hidden">Area disegnata <button id="btn-area-off">✕</button></span>
+        </div>
+
+        <button id="btn-altri-filtri" class="btn btn-small btn-block">⚙️ Altri filtri <span id="conta-filtri"></span></button>
+
+        <div id="altri-filtri" class="hidden">
+          <div class="filter-row">
+            <select id="annunci-alt-max">
+              <option value="">Pianura e montagna</option>
+              <option value="100">🏞️ Solo pianura</option>
+              <option value="300">🌄 Pianura e collina</option>
+            </select>
+            <select id="annunci-min-max">
+              <option value="">Qualsiasi distanza</option>
+              <option value="15">🚗 Entro 15 min da Forlì</option>
+              <option value="30">🚗 Entro 30 min da Forlì</option>
+              <option value="45">🚗 Entro 45 min da Forlì</option>
+            </select>
+          </div>
+
+          <div class="filter-row">
+            <select id="annunci-comune">
+              <option value="">Tutti i comuni</option>
+            </select>
+            <select id="annunci-fonte">
+              <option value="">Tutte le fonti</option>
+            </select>
+          </div>
+
+          <div class="filter-row">
+            <label class="campo">💶 Prezzo minimo
+              <input type="number" id="annunci-prezzo-min" placeholder="es. 80000" min="0" step="10000">
+            </label>
+            <label class="campo">💶 €/mq massimo
+              <input type="number" id="annunci-eurmq-max" placeholder="es. 2000" min="0" step="100">
+            </label>
+          </div>
+
+          <div class="filter-row">
+            <label class="campo">🚪 Locali minimi
+              <input type="number" id="annunci-locali-min" placeholder="es. 4" min="0" step="1">
+            </label>
+            <label class="campo">🛁 Bagni minimi
+              <input type="number" id="annunci-bagni-min" placeholder="es. 2" min="0" step="1">
+            </label>
+          </div>
+
+          <div class="filter-row">
+            <select id="annunci-condizione">
+              <option value="">Qualsiasi stato</option>
+              <option value="nuovo">✨ Nuovo / in costruzione</option>
+              <option value="ristrutturato">🔨 Ristrutturato / ottimo</option>
+              <option value="da-ristrutturare">🧱 Da ristrutturare</option>
+            </select>
+            <select id="annunci-aste">
+              <option value="">Aste incluse</option>
+              <option value="no">🚫 Escludi le aste</option>
+              <option value="solo">⚖️ Solo aste</option>
+            </select>
+          </div>
+
+          <p class="hint">Deve avere:</p>
+          <div id="carat-chips" class="chips chips-wrap"></div>
+
+          <label class="check-row">
+            <input type="checkbox" id="annunci-no-centro">
+            🚫 Evita i centri città
+          </label>
+
+          <button id="btn-azzera" class="btn btn-small btn-block">↺ Azzera tutti i filtri</button>
+        </div>
+
         <div id="annunci-links" class="agenzie"></div>
       </div>
       <div id="annunci-list"></div>
@@ -161,6 +240,21 @@
       <button class="nav-btn" data-tab="portali"><span>🔍</span>Portali</button>
       <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>
     </nav>
+
+    <!-- Dialog mappa: disegna l'area -->
+    <dialog id="mappa-dialog">
+      <div class="mappa-wrap">
+        <div class="mappa-toolbar">
+          <span id="mappa-info" class="hint">Tocca "Disegna" e traccia col dito la zona che ti interessa.</span>
+          <div class="btn-row">
+            <button id="btn-disegna" class="btn btn-primary btn-small">✏️ Disegna</button>
+            <button id="btn-cancella-area" class="btn btn-small">🗑️ Cancella</button>
+            <button id="btn-chiudi-mappa" class="btn btn-small">✓ Fatto</button>
+          </div>
+        </div>
+        <div id="mappa"></div>
+      </div>
+    </dialog>
 
     <!-- Dialog aggiungi/modifica casa -->
     <dialog id="house-dialog">
@@ -224,6 +318,7 @@
     </dialog>
   </div>
 
+  <script src="vendor/leaflet.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

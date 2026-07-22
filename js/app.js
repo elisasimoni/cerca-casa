@@ -264,6 +264,8 @@ async function loadAnnunci(refetch) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       annunciData = await res.json();
       popolaFonti();
+      costruisciCaratChips();
+      ripristinaFiltri();
     } catch (e) {
       if (!annunciData) annunciData = { errore: String(e) };
     }
@@ -346,6 +348,12 @@ function annuncioCard(a) {
 
   if (a.avviso) body.append(el('div', 'card-avviso', '⚠️ ' + a.avviso));
 
+  if ((a.carat || []).length) {
+    const cw = el('div', 'card-carat');
+    a.carat.forEach(c => cw.append(el('span', 'carat-tag', CARAT_LABEL[c] || c)));
+    body.append(cw);
+  }
+
   if (a.descr) {
     const clip = a.descr.length > 160 ? a.descr.slice(0, 160) + '…' : a.descr;
     body.append(el('div', 'card-note', clip));
@@ -395,35 +403,59 @@ function renderAnnunci() {
   }
 
   let items = [...annunciData.annunci];
+  const num = id => Number($(id).value) || 0;
+
+  if (zonaAttiva) items = items.filter(a => a.zona === zonaAttiva);
   const fonte = $('#annunci-fonte').value;
   if (fonte) items = items.filter(a => a.fonte === fonte);
   const tipo = $('#annunci-tipo').value;
   if (tipo) items = items.filter(a => a.tipo === tipo);
   const comune = $('#annunci-comune').value;
   if (comune) items = items.filter(a => a.comune === comune);
-  const prezzoMax = Number($('#annunci-prezzo-max').value);
+  const prezzoMax = num('#annunci-prezzo-max');
   if (prezzoMax) items = items.filter(a => !a.prezzo || a.prezzo <= prezzoMax);
-  const mqMin = Number($('#annunci-mq-min').value);
+  const prezzoMin = num('#annunci-prezzo-min');
+  if (prezzoMin) items = items.filter(a => !a.prezzo || a.prezzo >= prezzoMin);
+  const mqMin = num('#annunci-mq-min');
   if (mqMin) items = items.filter(a => a.mq && a.mq >= mqMin);
-  const altMax = Number($('#annunci-alt-max').value);
+  const eurmqMax = num('#annunci-eurmq-max');
+  if (eurmqMax) items = items.filter(a => !(a.prezzo && a.mq) || a.prezzo / a.mq <= eurmqMax);
+  const localiMin = num('#annunci-locali-min');
+  if (localiMin) items = items.filter(a => a.locali && a.locali >= localiMin);
+  const bagniMin = num('#annunci-bagni-min');
+  if (bagniMin) items = items.filter(a => a.bagni && a.bagni >= bagniMin);
+  const altMax = num('#annunci-alt-max');
   if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
-  const minMax = Number($('#annunci-min-max').value);
+  const minMax = num('#annunci-min-max');
   if (minMax) items = items.filter(a => a.minuti == null || a.minuti <= minMax);
+  const condizione = $('#annunci-condizione').value;
+  if (condizione) items = items.filter(a => a.condizione === condizione);
+  const aste = $('#annunci-aste').value;
+  if (aste === 'no') items = items.filter(a => !a.asta);
+  if (aste === 'solo') items = items.filter(a => a.asta);
+  if ($('#annunci-no-centro').checked) items = items.filter(a => !a.centro);
+  if (caratRichieste.size) {
+    items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
+  }
+  if (areaPoligono) items = items.filter(a => dentroArea(a));
   const q = $('#annunci-q').value.trim().toLowerCase();
   if (q) {
     items = items.filter(a =>
       [a.titolo, a.quartiere, a.indirizzo, a.comune, a.descr]
         .filter(Boolean).join(' ').toLowerCase().includes(q));
   }
+  aggiornaContaFiltri();
 
   const sort = $('#annunci-sort').value;
-  const num = v => Number(v) || 0;
+  const val = v => Number(v) || 0;
   const eurmq = a => (a.prezzo && a.mq) ? a.prezzo / a.mq : Infinity;
-  if (sort === 'prezzo-asc') items.sort((a, b) => (num(a.prezzo) || Infinity) - (num(b.prezzo) || Infinity));
-  else if (sort === 'prezzo-desc') items.sort((a, b) => num(b.prezzo) - num(a.prezzo));
-  else if (sort === 'mq-desc') items.sort((a, b) => num(b.mq) - num(a.mq));
+  if (sort === 'prezzo-asc') items.sort((a, b) => (val(a.prezzo) || Infinity) - (val(b.prezzo) || Infinity));
+  else if (sort === 'prezzo-desc') items.sort((a, b) => val(b.prezzo) - val(a.prezzo));
+  else if (sort === 'mq-desc') items.sort((a, b) => val(b.mq) - val(a.mq));
   else if (sort === 'eurmq-asc') items.sort((a, b) => eurmq(a) - eurmq(b));
-  else {
+  else if (sort === 'vicini') {
+    items.sort((a, b) => (a.minuti ?? 999) - (b.minuti ?? 999));
+  } else {
     // "recenti": alterna le fonti (ognuna è già ordinata per data dal più nuovo)
     const perFonte = {};
     items.forEach(a => (perFonte[a.fonte] = perFonte[a.fonte] || []).push(a));
@@ -464,15 +496,248 @@ function renderAnnunci() {
   items.forEach(a => list.append(annuncioCard(a)));
 }
 
-$('#annunci-q').addEventListener('input', renderAnnunci);
-$('#annunci-fonte').addEventListener('change', renderAnnunci);
-$('#annunci-sort').addEventListener('change', renderAnnunci);
-$('#annunci-tipo').addEventListener('change', renderAnnunci);
-$('#annunci-comune').addEventListener('change', renderAnnunci);
-$('#annunci-prezzo-max').addEventListener('input', renderAnnunci);
-$('#annunci-mq-min').addEventListener('input', renderAnnunci);
-$('#annunci-alt-max').addEventListener('input', renderAnnunci);
-$('#annunci-min-max').addEventListener('input', renderAnnunci);
+// ---------- Filtri: registrazione, conteggio, persistenza ----------
+const CARAT_LABEL = {
+  giardino: '🌳 Giardino', terrazzo: '🏖️ Terrazzo', balcone: '🪟 Balcone',
+  garage: '🚗 Garage/posto auto', ascensore: '🛗 Ascensore',
+  cantina: '📦 Cantina/taverna', piscina: '🏊 Piscina', camino: '🔥 Camino',
+  arredato: '🛋️ Arredato', climatizzato: '❄️ Aria condizionata',
+  panoramico: '🌅 Panoramico', fotovoltaico: '☀️ Fotovoltaico',
+};
+const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-tipo', 'annunci-comune',
+  'annunci-prezzo-max', 'annunci-prezzo-min', 'annunci-mq-min', 'annunci-eurmq-max',
+  'annunci-locali-min', 'annunci-bagni-min', 'annunci-alt-max', 'annunci-min-max',
+  'annunci-condizione', 'annunci-aste'];
+const FILTRI_KEY = 'cercacasa_filtri';
+let caratRichieste = new Set();
+let zonaAttiva = '';
+
+FILTRI_ID.forEach(id => {
+  const e = $('#' + id);
+  e.addEventListener(e.tagName === 'SELECT' ? 'change' : 'input', () => {
+    renderAnnunci(); salvaFiltri();
+  });
+});
+$('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+$('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+
+$('#btn-altri-filtri').addEventListener('click', () => {
+  $('#altri-filtri').classList.toggle('hidden');
+});
+
+document.querySelectorAll('.chip-zona').forEach(c => {
+  c.addEventListener('click', () => {
+    zonaAttiva = c.dataset.zona;
+    document.querySelectorAll('.chip-zona').forEach(x =>
+      x.classList.toggle('active', x.dataset.zona === zonaAttiva));
+    renderAnnunci(); salvaFiltri();
+  });
+});
+
+function costruisciCaratChips() {
+  const wrap = $('#carat-chips');
+  if (wrap.children.length) return;
+  Object.entries(CARAT_LABEL).forEach(([k, label]) => {
+    const c = el('button', 'chip' + (caratRichieste.has(k) ? ' active' : ''), label);
+    c.addEventListener('click', () => {
+      caratRichieste.has(k) ? caratRichieste.delete(k) : caratRichieste.add(k);
+      c.classList.toggle('active');
+      renderAnnunci(); salvaFiltri();
+    });
+    wrap.append(c);
+  });
+}
+
+function aggiornaContaFiltri() {
+  let n = FILTRI_ID.filter(id => $('#' + id).value).length
+    + caratRichieste.size + (zonaAttiva ? 1 : 0)
+    + ($('#annunci-no-centro').checked ? 1 : 0) + (areaPoligono ? 1 : 0);
+  $('#conta-filtri').textContent = n ? `(${n} attivi)` : '';
+}
+
+function salvaFiltri() {
+  const stato = { carat: [...caratRichieste], zona: zonaAttiva,
+    noCentro: $('#annunci-no-centro').checked, sort: $('#annunci-sort').value };
+  FILTRI_ID.forEach(id => { stato[id] = $('#' + id).value; });
+  localStorage.setItem(FILTRI_KEY, JSON.stringify(stato));
+}
+
+function ripristinaFiltri() {
+  let stato;
+  try {
+    stato = JSON.parse(localStorage.getItem(FILTRI_KEY) || 'null');
+  } catch (e) { return; }
+  if (!stato) return;
+  FILTRI_ID.forEach(id => { if (stato[id]) $('#' + id).value = stato[id]; });
+  if (stato.sort) $('#annunci-sort').value = stato.sort;
+  $('#annunci-no-centro').checked = !!stato.noCentro;
+  caratRichieste = new Set(stato.carat || []);
+  zonaAttiva = stato.zona || '';
+  document.querySelectorAll('.chip-zona').forEach(x =>
+    x.classList.toggle('active', x.dataset.zona === zonaAttiva));
+}
+
+$('#btn-azzera').addEventListener('click', () => {
+  FILTRI_ID.forEach(id => { $('#' + id).value = ''; });
+  $('#annunci-no-centro').checked = false;
+  caratRichieste.clear();
+  zonaAttiva = '';
+  areaPoligono = null;
+  salvaArea();
+  document.querySelectorAll('.chip-zona').forEach(x =>
+    x.classList.toggle('active', !x.dataset.zona));
+  document.querySelectorAll('#carat-chips .chip').forEach(c => c.classList.remove('active'));
+  salvaFiltri();
+  renderAnnunci();
+});
+
+// ---------- Mappa: disegna l'area a mano libera ----------
+const AREA_KEY = 'cercacasa_area';
+let areaPoligono = null;   // [[lat, lon], ...]
+let mappa = null, livelloArea = null, livelloPin = null, inDisegno = false;
+
+try {
+  const salvata = JSON.parse(localStorage.getItem(AREA_KEY) || 'null');
+  if (Array.isArray(salvata) && salvata.length > 2) areaPoligono = salvata;
+} catch (e) { /* area non valida: si parte senza */ }
+
+function dentroArea(a) {
+  if (!areaPoligono || a.lat == null || a.lon == null) return !areaPoligono;
+  // ray casting
+  let dentro = false;
+  for (let i = 0, j = areaPoligono.length - 1; i < areaPoligono.length; j = i++) {
+    const [yi, xi] = areaPoligono[i], [yj, xj] = areaPoligono[j];
+    if ((yi > a.lat) !== (yj > a.lat) &&
+        a.lon < ((xj - xi) * (a.lat - yi)) / (yj - yi) + xi) dentro = !dentro;
+  }
+  return dentro;
+}
+
+function aggiornaChipArea() {
+  $('#area-attiva').classList.toggle('hidden', !areaPoligono);
+}
+
+function salvaArea() {
+  if (areaPoligono) localStorage.setItem(AREA_KEY, JSON.stringify(areaPoligono));
+  else localStorage.removeItem(AREA_KEY);
+  aggiornaChipArea();
+  renderAnnunci();
+}
+
+function disegnaAreaSuMappa() {
+  if (livelloArea) { livelloArea.remove(); livelloArea = null; }
+  if (areaPoligono) {
+    livelloArea = L.polygon(areaPoligono, {
+      color: '#2563eb', weight: 3, fillOpacity: 0.12,
+    }).addTo(mappa);
+  }
+}
+
+function disegnaPinSuMappa() {
+  if (livelloPin) livelloPin.remove();
+  livelloPin = L.layerGroup().addTo(mappa);
+  const COLORI = {
+    indipendente: '#16a34a', porzione: '#d97706', appartamento: '#4f46e5',
+    rustico: '#a16207', terreno: '#64748b', altro: '#94a3b8',
+  };
+  (annunciData?.annunci || []).forEach(a => {
+    if (a.lat == null || a.lon == null) return;
+    const m = L.circleMarker([a.lat, a.lon], {
+      radius: 7, weight: 2, color: '#fff',
+      fillColor: COLORI[a.tipo] || '#64748b', fillOpacity: 0.95,
+    });
+    const prezzo = a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'prezzo n.d.';
+    const appr = a.pos === 'comune' ? '<br><em>posizione approssimativa (centro comune)</em>' : '';
+    m.bindPopup(`<b>${prezzo}</b><br>${a.titolo}<br>${a.comune || ''}${appr}` +
+      `<br><a href="${a.url}" target="_blank" rel="noopener">Apri annuncio ↗</a>`);
+    m.addTo(livelloPin);
+  });
+}
+
+function apriMappa() {
+  $('#mappa-dialog').showModal();
+  if (!mappa) {
+    mappa = L.map('mappa', { zoomControl: true }).setView([44.15, 12.15], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap',
+    }).addTo(mappa);
+  }
+  setTimeout(() => {
+    mappa.invalidateSize();
+    disegnaPinSuMappa();
+    disegnaAreaSuMappa();
+    if (areaPoligono) mappa.fitBounds(L.polygon(areaPoligono).getBounds(), { padding: [30, 30] });
+  }, 120);
+}
+
+function avviaDisegno() {
+  if (inDisegno) return;
+  inDisegno = true;
+  $('#btn-disegna').textContent = '✏️ Traccia col dito…';
+  $('#mappa-info').textContent = 'Tieni premuto e traccia il contorno della zona.';
+  mappa.dragging.disable();
+  mappa.doubleClickZoom.disable();
+
+  const punti = [];
+  let traccia = null;
+  const cont = mappa.getContainer();
+
+  const daEvento = e => {
+    const r = cont.getBoundingClientRect();
+    const p = mappa.containerPointToLatLng([e.clientX - r.left, e.clientY - r.top]);
+    return [p.lat, p.lng];
+  };
+  const giu = e => {
+    e.preventDefault();
+    punti.length = 0;
+    punti.push(daEvento(e));
+    if (traccia) traccia.remove();
+    traccia = L.polyline(punti, { color: '#2563eb', weight: 3, dashArray: '5,5' }).addTo(mappa);
+    cont.addEventListener('pointermove', muovi);
+    cont.addEventListener('pointerup', su, { once: true });
+    cont.addEventListener('pointercancel', su, { once: true });
+  };
+  const muovi = e => {
+    e.preventDefault();
+    punti.push(daEvento(e));
+    traccia.setLatLngs(punti);
+  };
+  const su = () => {
+    cont.removeEventListener('pointermove', muovi);
+    cont.removeEventListener('pointerdown', giu);
+    if (traccia) traccia.remove();
+    inDisegno = false;
+    mappa.dragging.enable();
+    mappa.doubleClickZoom.enable();
+    $('#btn-disegna').textContent = '✏️ Disegna';
+    if (punti.length > 3) {
+      areaPoligono = punti.slice();
+      disegnaAreaSuMappa();
+      salvaArea();
+      const n = (annunciData?.annunci || []).filter(dentroArea).length;
+      $('#mappa-info').textContent = `Area salvata: ${n} annunci qui dentro.`;
+    } else {
+      $('#mappa-info').textContent = 'Traccia troppo corta, riprova.';
+    }
+  };
+  cont.addEventListener('pointerdown', giu, { once: true });
+}
+
+$('#btn-mappa').addEventListener('click', apriMappa);
+$('#btn-disegna').addEventListener('click', avviaDisegno);
+$('#btn-chiudi-mappa').addEventListener('click', () => $('#mappa-dialog').close());
+$('#btn-cancella-area').addEventListener('click', () => {
+  areaPoligono = null;
+  disegnaAreaSuMappa();
+  salvaArea();
+  $('#mappa-info').textContent = 'Area cancellata: vedi di nuovo tutti gli annunci.';
+});
+$('#btn-area-off').addEventListener('click', () => {
+  areaPoligono = null;
+  salvaArea();
+});
+aggiornaChipArea();
 
 // ---------- Aggiornamento on-demand (helper locale sul Mac) ----------
 const HELPER_URL = 'http://127.0.0.1:8787';

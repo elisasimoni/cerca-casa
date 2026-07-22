@@ -1,9 +1,11 @@
-const CACHE = 'cercacasa-v6';
+const CACHE = 'cercacasa-v7';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css',
   './js/app.js',
+  './vendor/leaflet.js',
+  './vendor/leaflet.css',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
