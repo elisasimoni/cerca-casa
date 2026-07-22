@@ -619,7 +619,15 @@ def classifica_ai_batch(items):
     return out
 
 
-def classifica_tutti(annunci):
+def _priorita_ai(a):
+    # Prima le tipologie che decidono le scelte di Elisa (indipendente/porzione),
+    # poi le sue zone: se il tempo finisce, il resto va al giro dopo.
+    tipo = 0 if a.get("tipo") in ("indipendente", "porzione") else 1
+    zona = 0 if a.get("zona") else 1
+    return (tipo, zona)
+
+
+def classifica_tutti(annunci, budget_secondi=360):
     try:
         cache = json.loads(CACHE_TIPI.read_text("utf-8"))
     except (OSError, json.JSONDecodeError):
@@ -627,18 +635,29 @@ def classifica_tutti(annunci):
 
     da_ai = [a for a in annunci
              if a["id"] not in cache or cache[a["id"]].get("via") == "regole"]
-    ai_disponibile = True
-    for i in range(0, len(da_ai), 40):
-        if not ai_disponibile:
+    da_ai.sort(key=_priorita_ai)
+    scadenza = time.monotonic() + budget_secondi
+    falliti_di_fila = 0
+    for i in range(0, len(da_ai), 25):
+        if time.monotonic() > scadenza:
+            print(f"  budget AI esaurito: {len(da_ai) - i} annunci al prossimo giro")
             break
-        batch = da_ai[i:i + 40]
+        batch = da_ai[i:i + 25]
         try:
             risultati = classifica_ai_batch(batch)
         except Exception:
             risultati = {}
         if not risultati:
-            ai_disponibile = False
-            break
+            # Un batch può fallire per un intoppo passeggero (rate limit,
+            # JSON malformato): salta e prosegui. Ci si arrende solo se
+            # falliscono 3 batch di fila (CLI non loggata / servizio giù).
+            falliti_di_fila += 1
+            print(f"  batch AI a vuoto ({falliti_di_fila}/3), proseguo")
+            if falliti_di_fila >= 3:
+                print("  AI non disponibile: il resto va con le regole")
+                break
+            continue
+        falliti_di_fila = 0
         cache.update(risultati)
         print(f"  classificati con AI: {len(risultati)}/{len(batch)}")
 
@@ -700,11 +719,14 @@ def main():
                      "count": len(unici), "errori": errori,
                      "linksEsterni": ricerca.get("linksEsterni") or []})
 
+    # caratteristiche e zona PRIMA della classificazione: servono a dare
+    # priorità AI alle case indipendenti nelle zone di Elisa.
+    for a in tutte:
+        estrai_caratteristiche(a)
+        a["zona"] = zona_preferita(a)
+        a["tipo"] = classifica_regole(a["titolo"], a.get("descr") or "")["tipo"]
     classificatore = classifica_tutti(tutte) if tutte else "regole"
     if tutte:
-        for a in tutte:
-            estrai_caratteristiche(a)
-            a["zona"] = zona_preferita(a)
         arricchisci_geo(tutte, config)
 
     out = {
