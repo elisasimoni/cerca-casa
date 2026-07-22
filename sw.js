@@ -1,4 +1,4 @@
-const CACHE = 'cercacasa-v7';
+const CACHE = 'cercacasa-v9';
 const ASSETS = [
   './',
   './index.html',
@@ -55,7 +55,22 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Asset: prima la cache, poi rete con aggiornamento cache
+  // Codice (css/js): prima la rete, così gli aggiornamenti si vedono subito;
+  // la cache resta come riserva offline.
+  if (/\.(css|js)$/.test(new URL(e.request.url).pathname)) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Immagini e altri asset: prima la cache (non cambiano quasi mai)
   e.respondWith(
     caches.match(e.request).then(cached =>
       cached ||

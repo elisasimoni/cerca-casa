@@ -489,7 +489,12 @@ function renderAnnunci() {
   if (!items.length) {
     const empty = el('div', 'empty-state');
     empty.append(el('div', 'big', '📭'));
-    empty.append(el('div', null, 'Nessun annuncio con questi filtri.'));
+    empty.append(el('div', null,
+      `Nessuno dei ${annunciData.annunci.length} annunci passa questi filtri.`));
+    const azzera = el('button', 'btn btn-primary', '↺ Azzera i filtri');
+    azzera.style.marginTop = '14px';
+    azzera.addEventListener('click', () => $('#btn-azzera').click());
+    empty.append(azzera);
     list.append(empty);
     return;
   }
