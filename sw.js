@@ -1,11 +1,11 @@
-const CACHE = 'cercacasa-v9';
+const CACHE = 'cercacasa-v10';
 const ASSETS = [
   './',
   './index.html',
-  './css/style.css',
-  './js/app.js',
-  './vendor/leaflet.js',
-  './vendor/leaflet.css',
+  './css/style.css?v=9',
+  './js/app.js?v=9',
+  './vendor/leaflet.js?v=1',
+  './vendor/leaflet.css?v=1',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -13,7 +13,14 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      // cache: 'reload' evita che il precache riprenda la copia vecchia
+      // dalla cache HTTP (GitHub Pages serve con max-age=600)
+      .then(c => Promise.all(ASSETS.map(u =>
+        fetch(u, { cache: 'reload' }).then(r => c.put(u, r)).catch(() => {}))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
