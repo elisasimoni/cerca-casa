@@ -3514,33 +3514,28 @@
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-1820000781086381436": {
-"tipo": "appartamento",
+"trovit-IT-5660003765882010419": {
+"tipo": "altro",
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-4250000783333119303": {
+"trovit-IT-2150000779099445375": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1690000781086223547": {
 "tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-7070000781950688273": {
+"trovit-IT-3860004758710858760": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3860002767178622669": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-5360002765967611420": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-4340000778321575216": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-6430001760612591807": {
-"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 }
