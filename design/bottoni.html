@@ -1,0 +1,61 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Bottoni — Cerca Casa</title>
+
+<div class="ds-sezione">
+  <div class="ds-label">Bottoni</div>
+  <div class="ds-riga">
+    <button class="btn btn-primary">Salva</button>
+    <button class="btn">Annulla</button>
+    <button class="btn btn-small">🔄 Aggiorna ora</button>
+    <button class="btn" disabled>⏳ Scarico…</button>
+  </div>
+  <div style="margin-top:10px">
+    <button class="btn btn-small btn-block">⚙️ Altri filtri <span style="color:var(--accent)">(3 attivi)</span></button>
+  </div>
+  <p class="ds-nota">Primario = rame pieno, una sola azione principale per schermata. Alla pressione tutti scalano a 0.97 con easing elastico.</p>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Azioni dentro la card</div>
+  <div class="card-actions">
+    <a class="primary" href="#">Annuncio ↗</a>
+    <button>📶 Fibra</button>
+    <button>💾 Salva</button>
+    <button class="saved">✓ Salvata</button>
+    <button class="danger">Elimina</button>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Azione flottante (nav)</div>
+  <button class="nav-add">＋</button>
+  <p class="ds-nota">Unico elemento che esce dalla barra di navigazione: aggiunge una casa a mano.</p>
+</div>
+
+<style>
+  .btn {
+    padding: 11px 16px; font-size: 14px; font-weight: 600; letter-spacing: var(--tracking-wide);
+    border-radius: var(--rm); border: 1.5px solid var(--border);
+    background: var(--card); color: var(--text); cursor: pointer; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-small { padding: 8px 12px; font-size: 12.5px; }
+  .btn-block { width: 100%; }
+  .btn:disabled { opacity: .6; }
+  .card-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .card-actions a, .card-actions button {
+    font-size: 13px; font-weight: 600; padding: 8px 13px; border-radius: var(--rm);
+    border: none; cursor: pointer; text-decoration: none; background: var(--bg); color: var(--text);
+    font-family: inherit;
+  }
+  .card-actions .primary { background: var(--accent-soft); color: var(--accent-dark); }
+  .card-actions .saved { background: var(--green-l); color: var(--green-d); }
+  .card-actions .danger { color: var(--coral); }
+  .nav-add {
+    font-size: 26px; background: var(--accent); color: #fff; border: none;
+    border-radius: var(--r-pill); width: 54px; height: 54px; cursor: pointer;
+    box-shadow: var(--shadow-fab);
+  }
+</style>

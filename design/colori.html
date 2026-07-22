@@ -1,0 +1,50 @@
+<!-- @dsCard group="Foundations" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Colori — Cerca Casa</title>
+
+<div class="ds-sezione">
+  <div class="ds-label">Superfici e testo</div>
+  <div class="griglia">
+    <div class="tok"><span class="sw" style="background:#fdf8f4"></span><b>--bg</b><code>#fdf8f4</code><em>sfondo pagina, crema caldo</em></div>
+    <div class="tok"><span class="sw" style="background:#fffcf9"></span><b>--card</b><code>#fffcf9</code><em>superficie delle card</em></div>
+    <div class="tok"><span class="sw" style="background:rgba(180,120,80,.15)"></span><b>--border</b><code>rgba(180,120,80,.15)</code><em>bordo traslucido caldo</em></div>
+    <div class="tok"><span class="sw" style="background:#2c1f14"></span><b>--text</b><code>#2c1f14</code><em>testo principale</em></div>
+    <div class="tok"><span class="sw" style="background:#7a6255"></span><b>--muted</b><code>#7a6255</code><em>testo secondario</em></div>
+    <div class="tok"><span class="sw" style="background:#b09988"></span><b>--hint</b><code>#b09988</code><em>placeholder</em></div>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Primario — rame</div>
+  <div class="griglia">
+    <div class="tok"><span class="sw" style="background:#C87533"></span><b>--accent</b><code>#C87533</code><em>azioni, stati attivi</em></div>
+    <div class="tok"><span class="sw" style="background:#FDF0E6"></span><b>--accent-soft</b><code>#FDF0E6</code><em>fondo chiaro badge</em></div>
+    <div class="tok"><span class="sw" style="background:#7A3D10"></span><b>--accent-dark</b><code>#7A3D10</code><em>prezzi, etichette sezione</em></div>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Accenti semantici</div>
+  <div class="griglia">
+    <div class="tok"><span class="sw" style="background:#4A7C1F"></span><b>--green</b><code>#4A7C1F</code><em>casa indipendente, salvata</em></div>
+    <div class="tok"><span class="sw" style="background:#B8860B"></span><b>--amber</b><code>#B8860B</code><em>porzione, avvisi</em></div>
+    <div class="tok"><span class="sw" style="background:#5B8FBF"></span><b>--blue</b><code>#5B8FBF</code><em>appartamento, visitata</em></div>
+    <div class="tok"><span class="sw" style="background:#C0392B"></span><b>--coral</b><code>#C0392B</code><em>elimina, errori</em></div>
+    <div class="tok"><span class="sw" style="background:#7B6EA8"></span><b>--purple</b><code>#7B6EA8</code><em>preferita</em></div>
+  </div>
+</div>
+
+<p class="ds-nota">In dark mode cambiano solo superfici e testo (--bg #1e1610, --card #2a1f16, --text #f5ede4): gli accenti restano identici.</p>
+
+<style>
+  .griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .tok {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+    padding: 12px; display: flex; flex-direction: column; gap: 3px;
+  }
+  .sw { height: 40px; border-radius: var(--rm); border: 1px solid var(--border); margin-bottom: 6px; }
+  .tok b { font-size: 12.5px; }
+  .tok code { font-size: 11px; color: var(--muted); }
+  .tok em { font-size: 11px; color: var(--hint); font-style: normal; }
+</style>

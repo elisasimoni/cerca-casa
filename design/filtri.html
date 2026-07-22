@@ -1,0 +1,75 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Filtri — Cerca Casa</title>
+
+<div class="ds-sezione" style="max-width:420px">
+  <div class="ds-label">Zone preferite (chip a scorrimento)</div>
+  <div class="quick-row">
+    <button class="chip active">Ovunque</button>
+    <button class="chip">Santa Maria Nuova</button>
+    <button class="chip">Cesena</button>
+    <button class="chip">Gambettola</button>
+  </div>
+
+  <div class="ds-label" style="margin-top:20px">Campi con etichetta sempre visibile</div>
+  <div class="filter-row">
+    <label class="campo">💶 Prezzo massimo
+      <input type="text" value="260000">
+    </label>
+    <label class="campo">📐 Metri quadri minimi
+      <input type="text" placeholder="es. 100">
+    </label>
+  </div>
+  <p class="ds-nota">L'etichetta resta sopra il campo anche quando è compilato: un numero da solo non dice cosa rappresenta.</p>
+
+  <div class="ds-label" style="margin-top:20px">Scelte in parole, non in unità di misura</div>
+  <div class="filter-row">
+    <select><option>🏞️ Solo pianura</option></select>
+    <select><option>🚗 Entro 30 min da Forlì</option></select>
+  </div>
+
+  <div class="ds-label" style="margin-top:20px">Caratteristiche richieste (multi-selezione)</div>
+  <div class="chips-wrap">
+    <button class="chip active">🌳 Giardino</button>
+    <button class="chip">🚗 Garage/posto auto</button>
+    <button class="chip active">🔥 Camino</button>
+    <button class="chip">🛗 Ascensore</button>
+  </div>
+
+  <div class="ds-label" style="margin-top:20px">Area disegnata + spunta</div>
+  <div class="ds-riga">
+    <span class="area-chip">Area disegnata <button>✕</button></span>
+    <label class="check-row"><input type="checkbox" checked> 🚫 Evita i centri città</label>
+  </div>
+</div>
+
+<style>
+  .quick-row, .chips-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 8px 14px; border-radius: var(--r-pill); font-size: 13px; font-weight: 600;
+    background: var(--card); border: 1.5px solid var(--border); color: var(--muted);
+    cursor: pointer; font-family: inherit;
+  }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filter-row { display: flex; gap: 8px; margin-top: 8px; }
+  .campo {
+    flex: 1; font-size: 10.5px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: var(--tracking-wider);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  input, select {
+    padding: 11px 12px; font-size: 15px; border: 1.5px solid var(--border);
+    border-radius: var(--rm); background: var(--card); color: var(--text);
+    width: 100%; font-family: inherit; text-transform: none; letter-spacing: 0;
+  }
+  .filter-row select { flex: 1; }
+  .area-chip {
+    font-size: 12.5px; font-weight: 700; padding: 6px 8px 6px 12px; border-radius: var(--r-pill);
+    background: var(--accent-soft); color: var(--accent-dark);
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .area-chip button { border: none; background: none; color: inherit; cursor: pointer; font-size: 15px; }
+  .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .check-row input { width: 20px; height: 20px; accent-color: var(--accent); }
+</style>

@@ -1,0 +1,89 @@
+<!-- @dsCard group="Components" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Badge e tag — Cerca Casa</title>
+
+<div class="ds-sezione">
+  <div class="ds-label">Tipologia (dedotta dal testo dell'annuncio)</div>
+  <div class="ds-riga">
+    <span class="badge badge-tipo tipo-indipendente">🏡 Indipendente</span>
+    <span class="badge badge-tipo tipo-porzione">🏘️ Porzione/schiera</span>
+    <span class="badge badge-tipo tipo-appartamento">🏢 Appartamento</span>
+    <span class="badge badge-tipo tipo-rustico">🌾 Rustico</span>
+    <span class="badge badge-tipo tipo-altro">❓ Altro</span>
+  </div>
+  <p class="ds-nota">Il colore separa a colpo d'occhio ciò che si cerca (verde = indipendente) da ciò che si scarta.</p>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Provenienza e luogo</div>
+  <div class="ds-riga">
+    <span class="badge badge-sito">Casa.it</span>
+    <span class="badge badge-sito">Immobiliare.it · Trovit</span>
+    <span class="badge badge-sito">Aste PVP</span>
+    <span class="badge">Cesena</span>
+    <span class="badge">Santa Maria Nuova</span>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Stato della trattativa (case salvate)</div>
+  <div class="ds-riga">
+    <span class="stato-badge stato-da-valutare">Da valutare</span>
+    <span class="stato-badge stato-contattata">Contattata</span>
+    <span class="stato-badge stato-visita">Visita fissata</span>
+    <span class="stato-badge stato-visitata">Visitata</span>
+    <span class="stato-badge stato-preferita">⭐ Preferita</span>
+    <span class="stato-badge stato-scartata">Scartata</span>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Caratteristiche estratte dalla descrizione</div>
+  <div class="ds-riga">
+    <span class="carat-tag">🌳 Giardino</span>
+    <span class="carat-tag">🚗 Garage/posto auto</span>
+    <span class="carat-tag">🏖️ Terrazzo</span>
+    <span class="carat-tag">🛗 Ascensore</span>
+    <span class="carat-tag">🔥 Camino</span>
+    <span class="carat-tag">📶 Fibra ottica</span>
+  </div>
+</div>
+
+<div class="ds-sezione">
+  <div class="ds-label">Avviso (il titolo non dice il vero)</div>
+  <div class="card-avviso">⚠️ Il titolo dice "casa indipendente" ma è un terra-cielo abbinato ai lati</div>
+</div>
+
+<style>
+  .badge {
+    font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: var(--r-pill);
+    background: var(--accent-soft); color: var(--accent-dark); letter-spacing: var(--tracking-wide);
+  }
+  .badge-sito { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  .badge-tipo { text-transform: uppercase; }
+  .tipo-indipendente { background: var(--green-l); color: var(--green-d); }
+  .tipo-porzione { background: var(--amber-l); color: var(--amber-d); }
+  .tipo-appartamento { background: var(--blue-l); color: var(--blue-d); }
+  .tipo-rustico { background: var(--accent-soft); color: var(--accent-dark); }
+  .tipo-altro { background: var(--bg); color: var(--muted); }
+  .stato-badge {
+    font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: var(--r-pill);
+    text-transform: uppercase; letter-spacing: var(--tracking-wide);
+  }
+  .stato-da-valutare { background: var(--bg); color: var(--muted); }
+  .stato-contattata { background: var(--amber-l); color: var(--amber-d); }
+  .stato-visita { background: var(--accent-soft); color: var(--accent-dark); }
+  .stato-visitata { background: var(--blue-l); color: var(--blue-d); }
+  .stato-preferita { background: var(--purple-l); color: var(--purple-d); }
+  .stato-scartata { background: var(--bg); color: var(--hint); text-decoration: line-through; }
+  .carat-tag {
+    font-size: 11px; padding: 4px 9px; border-radius: var(--r-sm);
+    background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+  }
+  .card-avviso {
+    padding: 9px 11px; border-radius: var(--rm); background: var(--amber-l);
+    border: 1px solid rgba(184,134,11,.25); color: var(--amber-d);
+    font-size: 12.5px; font-weight: 600; max-width: 460px;
+  }
+</style>

@@ -1,0 +1,73 @@
+<!-- @dsCard group="Navigation" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Navigazione e schermata PIN — Cerca Casa</title>
+
+<div class="ds-sezione" style="max-width:420px">
+  <div class="ds-label">Barra inferiore</div>
+  <nav class="bottom-nav">
+    <button class="nav-btn"><span>🏠</span>Case</button>
+    <button class="nav-btn active"><span>📰</span>Annunci</button>
+    <button class="nav-add">＋</button>
+    <button class="nav-btn"><span>🔍</span>Portali</button>
+    <button class="nav-btn"><span>⚙️</span>Altro</button>
+  </nav>
+  <p class="ds-nota">Quattro sezioni più l'azione di aggiunta al centro, sollevata. La sezione attiva è in rame.</p>
+
+  <div class="ds-label" style="margin-top:24px">Accesso con PIN</div>
+  <div class="lock-box">
+    <div style="font-size:46px;margin-bottom:10px">🏠</div>
+    <h1>Cerca Casa</h1>
+    <p>Inserisci il PIN per entrare</p>
+    <input type="password" value="••••••" readonly>
+    <button class="btn btn-primary btn-block">Sblocca</button>
+  </div>
+
+  <div class="ds-label" style="margin-top:24px">Stato vuoto</div>
+  <div class="empty-state">
+    <div class="big">📭</div>
+    <div>Nessuno dei 709 annunci passa questi filtri.</div>
+    <button class="btn btn-primary" style="margin-top:14px">↺ Azzera i filtri</button>
+  </div>
+  <p class="ds-nota">Lo stato vuoto dice quanti annunci ci sono in tutto e offre subito la via d'uscita.</p>
+</div>
+
+<style>
+  .bottom-nav {
+    background: var(--card); border-top: 1px solid var(--border); box-shadow: var(--shadow-nav);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 8px; border-radius: var(--r);
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    border: none; background: none; font-size: 10.5px; font-weight: 600;
+    color: var(--muted); cursor: pointer; padding: 4px 10px; font-family: inherit;
+  }
+  .nav-btn span { font-size: 20px; }
+  .nav-btn.active { color: var(--accent); }
+  .nav-add {
+    font-size: 26px; background: var(--accent); color: #fff; border: none;
+    border-radius: var(--r-pill); width: 54px; height: 54px; cursor: pointer;
+    box-shadow: var(--shadow-fab); margin-top: -20px;
+  }
+  .lock-box {
+    background: var(--card); border-radius: 20px; border: 1px solid var(--border);
+    padding: 32px 28px; text-align: center; box-shadow: var(--shadow-card);
+  }
+  .lock-box h1 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+  .lock-box p { color: var(--muted); font-size: 14px; margin: 6px 0 22px; }
+  .lock-box input {
+    width: 100%; padding: 14px; font-size: 18px; text-align: center; letter-spacing: 3px;
+    border: 1.5px solid var(--border); border-radius: var(--r); margin-bottom: 12px;
+    background: var(--bg); color: var(--text); font-family: inherit;
+  }
+  .btn {
+    padding: 12px 16px; font-size: 14px; font-weight: 600; border-radius: var(--rm);
+    border: 1.5px solid var(--border); background: var(--card); color: var(--text);
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-block { width: 100%; }
+  .empty-state { text-align: center; padding: 40px 24px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: var(--r); }
+  .empty-state .big { font-size: 46px; margin-bottom: 12px; }
+</style>

@@ -1,0 +1,51 @@
+<!-- @dsCard group="Foundations" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Tipografia — Cerca Casa</title>
+
+<div class="ds-sezione">
+  <div class="ds-label">Scala e stili semantici</div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:21px;font-weight:800;letter-spacing:-.02em">🏠 Cerca Casa</div>
+    <div class="spec">.app-title · 21px / 800 / -0.02em</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:12px;font-weight:700;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.07em">📍 Santa Maria Nuova <span style="font-weight:600;color:var(--hint);text-transform:none;letter-spacing:0">8 case</span></div>
+    <div class="spec">.zone-header · 12px / 700 / maiuscolo / 0.07em</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:16px;font-weight:600">Casa indipendente in Via Santa Croce</div>
+    <div class="spec">.card-title · 16px / 600</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:22px;font-weight:800;color:var(--accent-dark);letter-spacing:-.03em">€ 210.000</div>
+    <div class="spec">.price · 22px / 800 / -0.03em (20px dentro le card annuncio)</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:13px;color:var(--muted)">📐 164 mq · 🚪 4 locali · 🛁 1 bagno · ⛰️ 29 m · 🚗 13 min</div>
+    <div class="spec">.card-meta · 13px / 400 / muted</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Prezzo massimo</div>
+    <div class="spec">.campo (etichetta filtro) · 10.5px / 700 / maiuscolo</div>
+  </div>
+
+  <div class="riga">
+    <div class="esempio" style="font-size:12.5px;color:var(--muted);font-style:italic">Cesena lato Cervia, casa singola di prossima costruzione…</div>
+    <div class="spec">.card-note · 12.5px / corsivo / muted</div>
+  </div>
+</div>
+
+<p class="ds-nota">Un solo font: il sans di sistema (-apple-system). La gerarchia si regge su peso e colore, non su famiglie diverse.</p>
+
+<style>
+  .riga { display: flex; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .esempio { flex: 1 1 260px; }
+  .spec { font-size: 11px; color: var(--hint); flex: 0 0 auto; }
+</style>

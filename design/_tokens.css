@@ -1,0 +1,37 @@
+/* Token condivisi dalle anteprime — allineati a css/style.css dell'app */
+:root {
+  --bg: #fdf8f4;
+  --card: #fffcf9;
+  --border: rgba(180, 120, 80, 0.15);
+  --text: #2c1f14;
+  --muted: #7a6255;
+  --hint: #b09988;
+  --accent: #C87533;
+  --accent-soft: #FDF0E6;
+  --accent-dark: #7A3D10;
+  --amber: #B8860B; --amber-l: #FDF5DC; --amber-d: #5a3e00;
+  --blue: #5B8FBF; --blue-l: #EAF2FA; --blue-d: #1a3f6e;
+  --coral: #C0392B; --coral-l: #FDEAE6; --coral-d: #4A1B0C;
+  --green: #4A7C1F; --green-l: #EAF3DE; --green-d: #173404;
+  --purple: #7B6EA8; --purple-l: #F0EEFF; --purple-d: #26215C;
+  --r: 12px; --rm: 9px; --r-sm: 6px; --r-pill: 100px;
+  --shadow-card: 0 1px 4px rgba(180, 100, 50, 0.06);
+  --shadow-fab: 0 6px 18px rgba(200, 117, 51, 0.40);
+  --shadow-nav: 0 -2px 16px rgba(0, 0, 0, 0.09);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.07em;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans); background: var(--bg); color: var(--text);
+  padding: 20px; -webkit-font-smoothing: antialiased;
+}
+.ds-sezione { margin-bottom: 26px; }
+.ds-label {
+  font-size: 11px; font-weight: 700; color: var(--accent-dark);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider);
+  margin-bottom: 10px;
+}
+.ds-nota { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+.ds-riga { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
