@@ -143,7 +143,7 @@ function houseCard(h) {
 
   const meta = [];
   if (h.mq) meta.push('📐 ' + h.mq + ' mq');
-  if (h.locali) meta.push('🚪 ' + h.locali + ' locali');
+  if (h.locali) meta.push('🚪 ' + h.locali + (h.locali == 1 ? ' locale' : ' locali'));
   if (h.bagni) meta.push('🛁 ' + h.bagni + (h.bagni == 1 ? ' bagno' : ' bagni'));
   if (h.piano) meta.push('🏢 piano ' + h.piano);
   if (meta.length) card.append(el('div', 'card-meta', meta.join('  ·  ')));
@@ -391,7 +391,7 @@ function titoloUtile(a) {
   if (!RE_TITOLO_VAGO.test(t)) return t;
   const pezzi = [NOME_TIPO[a.tipo] || 'Immobile'];
   if (a.mq) pezzi.push(a.mq + ' mq');
-  if (a.locali) pezzi.push(a.locali + ' locali');
+  if (a.locali) pezzi.push(a.locali + (a.locali == 1 ? ' locale' : ' locali'));
   const dove = a.quartiere || a.comune;
   return pezzi.join(', ') + (dove ? ' — ' + dove : '');
 }
