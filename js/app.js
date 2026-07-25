@@ -413,7 +413,11 @@ function annuncioCard(a) {
   if (a.mq) meta.push('📐 ' + a.mq + ' mq');
   if (a.locali) meta.push('🚪 ' + a.locali + ' locali');
   if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
-  if (a.piano) meta.push('🏢 piano ' + a.piano);
+  if (a.piano) {
+    // il dato a volte contiene già la parola "piano" ("piano terra", "1° piano")
+    const p = String(a.piano).trim();
+    meta.push('🏢 ' + (/piano/i.test(p) ? p : 'piano ' + p));
+  }
   if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
   etichetteDistanza(a).forEach(d => meta.push(d));
   if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
