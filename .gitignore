@@ -1,3 +1,5 @@
 scraper/aggiorna.log
 scraper/server.log
 scraper/.venv/
+__pycache__/
+*.pyc
