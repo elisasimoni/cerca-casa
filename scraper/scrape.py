@@ -683,6 +683,52 @@ def classifica_tutti(annunci, budget_secondi=360):
     return "ai" if n_regole == 0 else ("misto" if n_ai else "regole")
 
 
+# --------------------------------------------------- Pulizia del risultato
+# Prezzo minimo credibile per una VENDITA: sotto questa soglia è quasi sempre
+# un affitto mensile finito per errore tra gli annunci di vendita.
+PREZZO_MIN_VENDITA = 20000
+
+
+def firma(a):
+    """Impronta del contenuto: lo stesso immobile ripubblicato (anche da
+    agenzie diverse, con id diversi) ha titolo, prezzo e mq identici."""
+    titolo = re.sub(r"\s+", " ", (a.get("titolo") or "").strip().lower())
+    return (titolo, a.get("prezzo"), a.get("mq"))
+
+
+def pulisci(annunci, contratto):
+    """Toglie duplicati di contenuto e prezzi non credibili."""
+    visti = {}
+    unici = []
+    n_dup = 0
+    for a in annunci:
+        f = firma(a)
+        # firma debole (titolo vuoto o senza prezzo né mq): non deduplicare
+        if not f[0] or (f[1] is None and f[2] is None):
+            unici.append(a)
+            continue
+        if f in visti:
+            n_dup += 1
+            continue
+        visti[f] = a
+        unici.append(a)
+
+    n_affitti = 0
+    if contratto == "vendita":
+        tenuti = []
+        for a in unici:
+            p = a.get("prezzo")
+            if p is not None and p < PREZZO_MIN_VENDITA:
+                n_affitti += 1
+                continue
+            tenuti.append(a)
+        unici = tenuti
+
+    if n_dup or n_affitti:
+        print(f"Pulizia: {n_dup} duplicati, {n_affitti} prezzi da affitto rimossi")
+    return unici
+
+
 # ------------------------------------------------------------------- main
 def main():
     config = json.loads((ROOT / "config" / "ricerche.json").read_text("utf-8"))
@@ -718,6 +764,13 @@ def main():
                      "contratto": ricerca["contratto"],
                      "count": len(unici), "errori": errori,
                      "linksEsterni": ricerca.get("linksEsterni") or []})
+
+    # via i doppioni (stesso immobile ripubblicato) e i prezzi da affitto
+    prima = len(tutte)
+    tutte = pulisci(tutte, config["ricerche"][0]["contratto"])
+    if len(tutte) != prima:
+        for m in meta:  # il conteggio per ricerca va riallineato
+            m["count"] = sum(1 for a in tutte if a.get("ricerca") == m["id"])
 
     # caratteristiche e zona PRIMA della classificazione: servono a dare
     # priorità AI alle case indipendenti nelle zone di Elisa.

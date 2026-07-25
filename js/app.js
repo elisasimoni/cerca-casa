@@ -118,7 +118,10 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     $('#tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo(0, 0);
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
+    if (btn.dataset.tab === 'case') renderHouses();
+    else $('#header-count').textContent = '';
   });
 });
 
@@ -202,7 +205,11 @@ function renderHouses() {
   else if (sort === 'recenti') houses.sort((a, b) => (b.created || 0) - (a.created || 0));
   else houses.sort((a, b) => a.zona.localeCompare(b.zona, 'it') || num(a.prezzo) - num(b.prezzo));
 
-  $('#header-count').textContent = houses.length ? houses.length + (houses.length === 1 ? ' casa' : ' case') : '';
+  // il conteggio in alto vale solo per la scheda Case: altrove sarebbe fuorviante
+  if ($('#tab-case').classList.contains('active')) {
+    $('#header-count').textContent = houses.length
+      ? houses.length + (houses.length === 1 ? ' casa salvata' : ' case salvate') : '';
+  }
 
   if (!houses.length) {
     const empty = el('div', 'empty-state');
@@ -294,26 +301,34 @@ function distanzaKm(a) {
   return null;
 }
 
-// Etichette distanza per la card: entrambi i riferimenti attivi, insieme
+// Etichette distanza per la card: entrambi i riferimenti attivi, insieme.
+// La tilde segnala che l'annuncio non dà l'indirizzo esatto e la distanza è
+// calcolata sul centro del comune.
 function etichetteDistanza(a) {
   const out = [];
+  const circa = a.pos === 'comune' ? '~' : '';
   if (mostraLavoro && posLavoro) {
     const km = distKmDa(posLavoro, a);
-    if (km != null) out.push('💼 ' + fmtKm(km));
+    if (km != null) out.push('💼 ' + circa + fmtKm(km));
   }
   if (mostraGps && posGps) {
     const km = distKmDa(posGps, a);
-    if (km != null) out.push('📍 ' + fmtKm(km));
+    if (km != null) out.push('📍 ' + circa + fmtKm(km));
   }
   return out;
 }
 
+let scaricatoIl = 0;
+const VALIDITA_DATI = 5 * 60 * 1000; // riscarica al massimo ogni 5 minuti
+
 async function loadAnnunci(refetch) {
-  if (!annunciData || refetch) {
+  const scaduto = Date.now() - scaricatoIl > VALIDITA_DATI;
+  if (!annunciData || (refetch && scaduto)) {
     try {
       const res = await fetch('data/annunci.json', { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       annunciData = await res.json();
+      scaricatoIl = Date.now();
       popolaFonti();
       costruisciCaratChips();
       ripristinaFiltri();
@@ -347,6 +362,26 @@ function popolaFonti() {
     'Tutti i comuni');
 }
 
+// Trovit dà titoli generici ("Appartamento in vendita a Forlì FC"): li
+// arricchisco con i dati che ho, così la card dice qualcosa di utile.
+const RE_TITOLO_VAGO = /^(annuncio|casa|appartamento|villa|villetta|rustico|casale)$|in vendita a .+ fc$|^vendita /i;
+
+const NOME_TIPO = {
+  indipendente: 'Casa indipendente', porzione: 'Porzione / schiera',
+  appartamento: 'Appartamento', rustico: 'Rustico', terreno: 'Terreno',
+  altro: 'Immobile',
+};
+
+function titoloUtile(a) {
+  const t = (a.titolo || '').trim();
+  if (!RE_TITOLO_VAGO.test(t)) return t;
+  const pezzi = [NOME_TIPO[a.tipo] || 'Immobile'];
+  if (a.mq) pezzi.push(a.mq + ' mq');
+  if (a.locali) pezzi.push(a.locali + ' locali');
+  const dove = a.quartiere || a.comune;
+  return pezzi.join(', ') + (dove ? ' — ' + dove : '');
+}
+
 function annuncioCard(a) {
   const card = el('div', 'card');
   const wrap = el('div', 'annuncio-wrap');
@@ -360,16 +395,19 @@ function annuncioCard(a) {
 
   const body = el('div', 'annuncio-body');
   const top = el('div', 'card-top');
-  top.append(el('div', 'card-title', a.titolo));
+  top.append(el('div', 'card-title', titoloUtile(a)));
   if (a.asta) top.append(el('span', 'stato-badge stato-scartata', 'Asta'));
   body.append(top);
 
+  const pr = el('div', 'card-price');
   if (a.prezzo) {
-    const pr = el('div', 'card-price');
     pr.append(el('span', 'price', '€ ' + a.prezzo.toLocaleString('it-IT')));
     if (a.mq) pr.append(el('span', 'price-mq', Math.round(a.prezzo / a.mq).toLocaleString('it-IT') + ' €/mq'));
-    body.append(pr);
+  } else {
+    // senza questa riga la card sembra rotta: meglio dirlo
+    pr.append(el('span', 'price-assente', 'Prezzo su richiesta'));
   }
+  body.append(pr);
 
   const meta = [];
   if (a.mq) meta.push('📐 ' + a.mq + ' mq');
@@ -387,6 +425,10 @@ function annuncioCard(a) {
     link.href = 'https://www.google.com/maps/search/?api=1&query=' + enc(luogo);
     link.target = '_blank'; link.rel = 'noopener';
     addr.append(link);
+    // senza indirizzo esatto, distanza e posizione sulla mappa sono del comune
+    if (a.pos === 'comune') {
+      addr.append(el('span', 'pos-circa', ' · indirizzo non indicato'));
+    }
     body.append(addr);
   }
 
@@ -434,6 +476,11 @@ function annuncioCard(a) {
   const salva = el('button', giaSalvata ? 'saved' : null, giaSalvata ? '✓ Salvata' : '💾 Salva');
   salva.disabled = giaSalvata;
   salva.addEventListener('click', () => {
+    // Aggiorno il bottone sul posto: ridisegnare la lista farebbe perdere
+    // la posizione di scorrimento e le pagine già caricate.
+    salva.textContent = '✓ Salvata';
+    salva.classList.add('saved');
+    salva.disabled = true;
     state.houses.push({
       id: String(Date.now()),
       created: Date.now(),
@@ -447,7 +494,8 @@ function annuncioCard(a) {
       stato: 'da-valutare',
       note: '',
     });
-    save(); renderAll(); renderAnnunci();
+    save();
+    renderZoneChips(); renderHouses(); renderZoneManage();
   });
   actions.append(salva);
   body.append(actions);
@@ -455,6 +503,62 @@ function annuncioCard(a) {
   wrap.append(body);
   card.append(wrap);
   return card;
+}
+
+// Applica tutti i filtri. `conArea` = false serve alla mappa: lì si vogliono
+// vedere i pin anche fuori dall'area, per poterla ridisegnare.
+function filtraAnnunci(conArea) {
+  let items = [...(annunciData?.annunci || [])];
+  const num = id => Number($(id).value) || 0;
+
+  if (zonaAttiva) items = items.filter(a => a.zona === zonaAttiva);
+  const fonte = $('#annunci-fonte').value;
+  if (fonte) items = items.filter(a => a.fonte === fonte);
+  const tipo = $('#annunci-tipo').value;
+  if (tipo) items = items.filter(a => a.tipo === tipo);
+  const comune = $('#annunci-comune').value;
+  if (comune) items = items.filter(a => a.comune === comune);
+
+  // I filtri numerici sono STRETTI: se un annuncio non ha il dato richiesto
+  // (es. "prezzo su richiesta") viene escluso, altrimenti sembra che il filtro
+  // non funzioni. L'altitudine fa eccezione: c'è quasi sempre.
+  const prezzoMax = num('#annunci-prezzo-max');
+  if (prezzoMax) items = items.filter(a => a.prezzo && a.prezzo <= prezzoMax);
+  const prezzoMin = num('#annunci-prezzo-min');
+  if (prezzoMin) items = items.filter(a => a.prezzo && a.prezzo >= prezzoMin);
+  const mqMin = num('#annunci-mq-min');
+  if (mqMin) items = items.filter(a => a.mq && a.mq >= mqMin);
+  const eurmqMax = num('#annunci-eurmq-max');
+  if (eurmqMax) items = items.filter(a => a.prezzo && a.mq && a.prezzo / a.mq <= eurmqMax);
+  const localiMin = num('#annunci-locali-min');
+  if (localiMin) items = items.filter(a => a.locali && a.locali >= localiMin);
+  const bagniMin = num('#annunci-bagni-min');
+  if (bagniMin) items = items.filter(a => a.bagni && a.bagni >= bagniMin);
+  const altMax = num('#annunci-alt-max');
+  if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
+  const kmMax = num('#annunci-km-max');
+  if (kmMax && (mostraGps && posGps || mostraLavoro && posLavoro)) {
+    items = items.filter(a => { const d = distanzaKm(a); return d != null && d <= kmMax; });
+  }
+  const condizione = $('#annunci-condizione').value;
+  if (condizione) items = items.filter(a => a.condizione === condizione);
+  const aste = $('#annunci-aste').value;
+  if (aste === 'no') items = items.filter(a => !a.asta);
+  if (aste === 'solo') items = items.filter(a => a.asta);
+  if ($('#annunci-no-centro').checked) items = items.filter(a => !a.centro);
+  if ($('#annunci-con-prezzo').checked) items = items.filter(a => a.prezzo);
+  if (caratRichieste.size) {
+    items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
+  }
+  if (conArea && areaPoligono) items = items.filter(a => dentroArea(a));
+
+  const q = $('#annunci-q').value.trim().toLowerCase();
+  if (q) {
+    items = items.filter(a =>
+      [a.titolo, a.quartiere, a.indirizzo, a.comune, a.descr]
+        .filter(Boolean).join(' ').toLowerCase().includes(q));
+  }
+  return items;
 }
 
 function renderAnnunci() {
@@ -468,51 +572,7 @@ function renderAnnunci() {
     return;
   }
 
-  let items = [...annunciData.annunci];
-  const num = id => Number($(id).value) || 0;
-
-  if (zonaAttiva) items = items.filter(a => a.zona === zonaAttiva);
-  const fonte = $('#annunci-fonte').value;
-  if (fonte) items = items.filter(a => a.fonte === fonte);
-  const tipo = $('#annunci-tipo').value;
-  if (tipo) items = items.filter(a => a.tipo === tipo);
-  const comune = $('#annunci-comune').value;
-  if (comune) items = items.filter(a => a.comune === comune);
-  const prezzoMax = num('#annunci-prezzo-max');
-  if (prezzoMax) items = items.filter(a => !a.prezzo || a.prezzo <= prezzoMax);
-  const prezzoMin = num('#annunci-prezzo-min');
-  if (prezzoMin) items = items.filter(a => !a.prezzo || a.prezzo >= prezzoMin);
-  const mqMin = num('#annunci-mq-min');
-  if (mqMin) items = items.filter(a => a.mq && a.mq >= mqMin);
-  const eurmqMax = num('#annunci-eurmq-max');
-  if (eurmqMax) items = items.filter(a => !(a.prezzo && a.mq) || a.prezzo / a.mq <= eurmqMax);
-  const localiMin = num('#annunci-locali-min');
-  if (localiMin) items = items.filter(a => a.locali && a.locali >= localiMin);
-  const bagniMin = num('#annunci-bagni-min');
-  if (bagniMin) items = items.filter(a => a.bagni && a.bagni >= bagniMin);
-  const altMax = num('#annunci-alt-max');
-  if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
-  const kmMax = num('#annunci-km-max');
-  if (kmMax && (mostraGps && posGps || mostraLavoro && posLavoro)) {
-    items = items.filter(a => { const d = distanzaKm(a); return d == null || d <= kmMax; });
-  }
-  const condizione = $('#annunci-condizione').value;
-  if (condizione) items = items.filter(a => a.condizione === condizione);
-  const aste = $('#annunci-aste').value;
-  if (aste === 'no') items = items.filter(a => !a.asta);
-  if (aste === 'solo') items = items.filter(a => a.asta);
-  if ($('#annunci-no-centro').checked) items = items.filter(a => !a.centro);
-  if ($('#annunci-con-prezzo').checked) items = items.filter(a => a.prezzo);
-  if (caratRichieste.size) {
-    items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
-  }
-  if (areaPoligono) items = items.filter(a => dentroArea(a));
-  const q = $('#annunci-q').value.trim().toLowerCase();
-  if (q) {
-    items = items.filter(a =>
-      [a.titolo, a.quartiere, a.indirizzo, a.comune, a.descr]
-        .filter(Boolean).join(' ').toLowerCase().includes(q));
-  }
+  let items = filtraAnnunci(true);
   aggiornaContaFiltri();
 
   const sort = $('#annunci-sort').value;
@@ -568,7 +628,38 @@ function renderAnnunci() {
     list.append(empty);
     return;
   }
-  items.forEach(a => list.append(annuncioCard(a)));
+
+  // Render a blocchi: 738 card insieme rendono l'app lentissima sul telefono
+  itemsFiltrati = items;
+  mostrati = Math.min(PAGINA, items.length);
+  disegnaBlocco();
+}
+
+const PAGINA = 60;
+let itemsFiltrati = [];
+let mostrati = 0;
+
+function disegnaBlocco() {
+  const list = $('#annunci-list');
+  const vecchio = $('#btn-altri-annunci');
+  if (vecchio) vecchio.remove();
+
+  const frammento = document.createDocumentFragment();
+  for (let i = list.querySelectorAll('.card').length; i < mostrati; i++) {
+    frammento.append(annuncioCard(itemsFiltrati[i]));
+  }
+  list.append(frammento);
+
+  if (mostrati < itemsFiltrati.length) {
+    const rimasti = itemsFiltrati.length - mostrati;
+    const btn = el('button', 'btn btn-block btn-altri', `Mostra altri ${Math.min(PAGINA, rimasti)} (ne restano ${rimasti})`);
+    btn.id = 'btn-altri-annunci';
+    btn.addEventListener('click', () => {
+      mostrati = Math.min(mostrati + PAGINA, itemsFiltrati.length);
+      disegnaBlocco();
+    });
+    list.append(btn);
+  }
 }
 
 // ---------- Filtri: registrazione, conteggio, persistenza ----------
@@ -606,10 +697,15 @@ const FILTRI_KEY = 'cercacasa_filtri';
 let caratRichieste = new Set();
 let zonaAttiva = '';
 
+// Il campo di ricerca aspetta una pausa di digitazione: senza, ogni tasto
+// ridisegnerebbe la lista intera.
+let timerRicerca = null;
 FILTRI_ID.forEach(id => {
   const e = $('#' + id);
+  const ritardo = e.type === 'text' ? 250 : 0;
   e.addEventListener(e.tagName === 'SELECT' ? 'change' : 'input', () => {
-    renderAnnunci(); salvaFiltri();
+    clearTimeout(timerRicerca);
+    timerRicerca = setTimeout(() => { renderAnnunci(); salvaFiltri(); }, ritardo);
   });
 });
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
@@ -867,30 +963,48 @@ function disegnaAreaSuMappa() {
   if (livelloArea) { livelloArea.remove(); livelloArea = null; }
   if (areaPoligono) {
     livelloArea = L.polygon(areaPoligono, {
-      color: '#2563eb', weight: 3, fillOpacity: 0.12,
+      color: '#C87533', weight: 3, fillOpacity: 0.12, fillColor: '#C87533',
     }).addTo(mappa);
   }
 }
 
+// Colori coerenti coi badge tipologia dell'app
+const COLORI_TIPO = {
+  indipendente: '#4A7C1F', porzione: '#B8860B', appartamento: '#5B8FBF',
+  rustico: '#C87533', terreno: '#7a6255', altro: '#b09988',
+};
+
 function disegnaPinSuMappa() {
   if (livelloPin) livelloPin.remove();
   livelloPin = L.layerGroup().addTo(mappa);
-  const COLORI = {
-    indipendente: '#16a34a', porzione: '#d97706', appartamento: '#4f46e5',
-    rustico: '#a16207', terreno: '#64748b', altro: '#94a3b8',
-  };
-  (annunciData?.annunci || []).forEach(a => {
-    if (a.lat == null || a.lon == null) return;
+
+  // Solo gli annunci che passano i filtri (l'area esclusa: la si sta ridisegnando)
+  const visibili = filtraAnnunci(false).filter(a => a.lat != null && a.lon != null);
+  visibili.forEach(a => {
     const m = L.circleMarker([a.lat, a.lon], {
-      radius: 7, weight: 2, color: '#fff',
-      fillColor: COLORI[a.tipo] || '#64748b', fillOpacity: 0.95,
+      radius: 7, weight: 2, color: '#fffcf9',
+      fillColor: COLORI_TIPO[a.tipo] || '#7a6255', fillOpacity: 0.95,
     });
-    const prezzo = a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'prezzo n.d.';
-    const appr = a.pos === 'comune' ? '<br><em>posizione approssimativa (centro comune)</em>' : '';
-    m.bindPopup(`<b>${prezzo}</b><br>${a.titolo}<br>${a.comune || ''}${appr}` +
+    const prezzo = a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'prezzo su richiesta';
+    const appr = a.pos === 'comune' ? '<br><em>posizione approssimativa (centro del comune)</em>' : '';
+    const dist = etichetteDistanza(a).join(' · ');
+    m.bindPopup(`<b>${prezzo}</b><br>${a.titolo}<br>${a.comune || ''}` +
+      (dist ? '<br>' + dist : '') + appr +
       `<br><a href="${a.url}" target="_blank" rel="noopener">Apri annuncio ↗</a>`);
     m.addTo(livelloPin);
   });
+
+  // Punti di riferimento: lavoro e posizione attuale
+  const rif = [];
+  if (posLavoro) rif.push([posLavoro, '💼', posLavoro.nome]);
+  if (mostraGps && posGps) rif.push([posGps, '📍', posGpsNome || 'La mia posizione']);
+  rif.forEach(([p, icona, nome]) => {
+    L.marker([p.lat, p.lon], {
+      icon: L.divIcon({ className: 'rif-marker', html: icona, iconSize: [30, 30] }),
+    }).bindPopup('<b>' + icona + ' ' + nome + '</b>').addTo(livelloPin);
+  });
+
+  return visibili.length;
 }
 
 function apriMappa() {
@@ -904,9 +1018,17 @@ function apriMappa() {
   }
   setTimeout(() => {
     mappa.invalidateSize();
-    disegnaPinSuMappa();
+    const n = disegnaPinSuMappa();
     disegnaAreaSuMappa();
-    if (areaPoligono) mappa.fitBounds(L.polygon(areaPoligono).getBounds(), { padding: [30, 30] });
+    $('#mappa-info').textContent = areaPoligono
+      ? `${n} annunci sulla mappa · area attiva. "Disegna" per rifarla, "Cancella" per toglierla.`
+      : `${n} annunci sulla mappa. Tocca "Disegna" e traccia col dito la zona che ti interessa.`;
+    if (areaPoligono) {
+      mappa.fitBounds(L.polygon(areaPoligono).getBounds(), { padding: [30, 30] });
+    } else if (n) {
+      const punti = filtraAnnunci(false).filter(a => a.lat != null).map(a => [a.lat, a.lon]);
+      if (punti.length) mappa.fitBounds(L.latLngBounds(punti), { padding: [30, 30], maxZoom: 12 });
+    }
   }, 120);
 }
 
@@ -954,8 +1076,10 @@ function avviaDisegno() {
       areaPoligono = punti.slice();
       disegnaAreaSuMappa();
       salvaArea();
-      const n = (annunciData?.annunci || []).filter(dentroArea).length;
-      $('#mappa-info').textContent = `Area salvata: ${n} annunci qui dentro.`;
+      const n = filtraAnnunci(true).length;
+      $('#mappa-info').textContent = n
+        ? `Area salvata: ${n} annunci qui dentro (coi filtri attuali).`
+        : 'Area salvata, ma nessun annuncio ci rientra: allargala o togli qualche filtro.';
     } else {
       $('#mappa-info').textContent = 'Traccia troppo corta, riprova.';
     }
@@ -1010,7 +1134,9 @@ $('#btn-refresh').addEventListener('click', async () => {
 
 // ---------- Render: portali ----------
 function renderPortali() {
-  const zona = $('#portali-zona').value.trim() || state.zoneFilter || zonesList()[0] || '';
+  // se non scrivi niente si parte dalle zone che cerchi davvero
+  const zona = $('#portali-zona').value.trim() || state.zoneFilter
+    || zonesList()[0] || 'Cesena';
   const list = $('#portali-list');
   list.innerHTML = '';
 

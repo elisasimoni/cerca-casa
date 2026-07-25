@@ -276,12 +276,14 @@ select:focus, input:focus, textarea:focus {
   letter-spacing: -0.03em; white-space: nowrap;
 }
 .price-mq { font-size: 12.5px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.price-assente { font-size: 15px; font-weight: 600; color: var(--hint); font-style: italic; }
 .annuncio-body .price { font-size: 20px; }
 
 .card-meta { font-size: 13px; color: var(--muted); margin: 6px 0; line-height: 1.5; }
 .card-addr { font-size: 13px; margin: 4px 0; }
 .card-addr a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
 
+.pos-circa { font-size: 11.5px; color: var(--hint); font-style: italic; }
 .card-badges { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 .badge {
   font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: var(--r-pill);
@@ -347,6 +349,14 @@ select:focus, input:focus, textarea:focus {
 .mappa-toolbar .btn-row { margin: 10px 0 0; }
 #mappa { flex: 1; min-height: 0; }
 .leaflet-container { font: inherit; background: var(--bg); }
+.rif-marker {
+  font-size: 22px; line-height: 1; text-align: center;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
+}
+.btn-altri {
+  margin: 6px 0 18px; background: var(--card); color: var(--accent-dark);
+  border: 1.5px solid var(--accent-soft); font-weight: 700;
+}
 .leaflet-popup-content { font-size: 13px; line-height: 1.45; }
 .leaflet-popup-content a { color: var(--accent-dark); font-weight: 600; }
 
