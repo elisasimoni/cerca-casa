@@ -1575,8 +1575,8 @@
 "via": "ai"
 },
 "trovit-IT-2250000782901160554": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
+"tipo": "porzione",
+"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
 "via": "ai"
 },
 "trovit-IT-4990000779358589285": {
@@ -2670,8 +2670,8 @@
 "via": "ai"
 },
 "trovit-IT-4940000776248396157": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
+"tipo": "porzione",
+"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
 "via": "ai"
 },
 "trovit-IT-4170000783333119297": {
@@ -2685,8 +2685,8 @@
 "via": "ai"
 },
 "trovit-IT-3900000783333119278": {
-"tipo": "appartamento",
-"avviso": null,
+"tipo": "porzione",
+"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
 "via": "ai"
 },
 "trovit-IT-4680002770374252602": {
@@ -3085,8 +3085,8 @@
 "via": "ai"
 },
 "trovit-IT-5360002765967611420": {
-"tipo": "appartamento",
-"avviso": null,
+"tipo": "porzione",
+"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
 "via": "ai"
 },
 "casait-54469634": {
