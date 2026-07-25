@@ -9,7 +9,8 @@ derivati dai token di **Casa & Vita** (stessa famiglia di app: crema, rame, marr
 | `tipografia.html` | Scala tipografica e stili semantici (titoli, prezzo, meta, etichette) |
 | `bottoni.html` | Bottoni, azioni nella card, pulsante flottante |
 | `badge.html` | Badge tipologia, provenienza, stato trattativa, tag caratteristiche, avvisi |
-| `card-annuncio.html` | La card che porta un annuncio dallo scraper |
+| `card-annuncio.html` | La card compatta della lista (282 px): foto, azioni in sovrimpressione, quattro righe |
+| `schermata-lista.html` | Testa della lista sempre visibile, riga chip e barra di navigazione |
 | `filtri.html` | Chip zone, campi con etichetta, scelte in parole, area disegnata |
 | `navigazione.html` | Barra inferiore, schermata PIN, stato vuoto |
 | `_tokens.css` | Token condivisi dalle anteprime |
@@ -25,3 +26,8 @@ derivati dai token di **Casa & Vita** (stessa famiglia di app: crema, rame, marr
 4. **Dire la verità sugli annunci.** Quando titolo e descrizione si contraddicono compare un avviso
    arancione: l'app non nasconde ciò che i portali addolciscono.
 5. **Una sola azione primaria per schermata**, in rame pieno.
+6. **I risultati prima dei controlli.** La schermata si apre sulla lista e mostra due annunci interi
+   senza scorrere; i filtri stanno in un pannello a schermo intero, richiamato da un'icona.
+   Restano sempre in vista solo tre cose: quanti risultati, quando aggiornati, come intervenire.
+7. **Nessun filtro invisibile.** Ciò che è acceso si vede come chip rimovibile, e i chip zona
+   portano il conteggio: un filtro che esclude in silenzio fa sembrare l'app rotta.

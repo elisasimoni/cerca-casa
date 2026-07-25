@@ -1,0 +1,94 @@
+<!-- @dsCard group="Navigation" -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="_tokens.css">
+<title>Schermata principale — Cerca Casa</title>
+
+<div class="ds-sezione" style="max-width:390px">
+  <div class="ds-label">Testa della lista (sempre visibile)</div>
+
+  <div class="finta-app">
+    <div class="barra-top">
+      <div class="barra-info">
+        <span class="conteggio">703 annunci</span>
+        <span class="sotto-conteggio">agg. 25 lug, 20:22</span>
+      </div>
+      <div class="barra-azioni">
+        <button class="icona">🔄</button>
+        <button class="icona">↕</button>
+        <button class="icona icona-filtri">⚙️<span class="badge-n">2</span></button>
+      </div>
+    </div>
+    <div class="riga-chip">
+      <button class="attivo-chip">🏡 Indipendente <span class="attivo-x">✕</span></button>
+      <button class="attivo-chip">≤ €260.000 <span class="attivo-x">✕</span></button>
+      <button class="chip attivo-scartati">🗑️ 3 nascosti</button>
+      <button class="chip active">Ovunque</button>
+      <button class="chip">Santa Maria Nuova 8</button>
+      <button class="chip">Bertinoro 115</button>
+    </div>
+    <div class="finto-annuncio">primo annuncio, intero, a 108 px</div>
+  </div>
+
+  <p class="ds-nota">Due fasce alte in tutto 108 px: prima erano 499 px di filtri e non si vedeva
+  nemmeno un annuncio intero. In alto restano solo le tre cose che servono sempre: quanti risultati
+  stai vedendo, quando sono stati aggiornati, e come intervenire (aggiorna, ordina, filtra).
+  Tutto il resto vive nel pannello filtri a schermo intero.</p>
+
+  <div class="ds-label" style="margin-top:22px">Regole della riga chip</div>
+  <ul class="ds-nota" style="padding-left:18px;line-height:1.7">
+    <li><b>Non collassa mai</b>: è l'unico accesso agli annunci nascosti e all'area disegnata.</li>
+    <li>Ordine fisso: filtri accesi (con ✕) → nascosti → zone.</li>
+    <li>Le zone portano il <b>conteggio</b>: un chip che filtra in silenzio sembra rotto.</li>
+    <li>Sfumatura sul bordo destro: dice che c'è altro da scorrere.</li>
+  </ul>
+
+  <div class="ds-label" style="margin-top:22px">Barra di navigazione</div>
+  <nav class="bottom-nav">
+    <button class="nav-btn active"><span>📰</span>Annunci</button>
+    <button class="nav-btn"><span>🏠</span>Le mie case<span class="nav-badge">3</span></button>
+    <button class="nav-btn"><span>⚙️</span>Altro</button>
+  </nav>
+  <p class="ds-nota">Da 5 voci a 3. "Annunci" è la schermata di partenza: aprire l'app su una lista
+  vuota di case salvate era il primo attrito. Il ＋ è uscito dalla barra (azione rara, ma aveva
+  l'elemento più vistoso) ed è passato in cima a "Le mie case". "Portali" non era una destinazione:
+  è diventato una sezione richiudibile dentro "Altro".</p>
+</div>
+
+<style>
+  .finta-app { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--bg); }
+  .barra-top { display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 16px; gap: 8px; }
+  .barra-info { display: flex; flex-direction: column; }
+  .conteggio { font-size: 17px; font-weight: 800; letter-spacing: -.02em; }
+  .sotto-conteggio { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .barra-azioni { display: flex; gap: 4px; }
+  .icona { width: 44px; height: 44px; border-radius: var(--rm); border: 1.5px solid var(--border);
+    background: var(--card); font-size: 18px; cursor: pointer; position: relative; }
+  .badge-n { position: absolute; top: -5px; right: -5px; min-width: 19px; height: 19px;
+    border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px;
+    font-weight: 800; line-height: 19px; }
+  .riga-chip { display: flex; gap: 6px; padding: 6px 16px 8px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent); }
+  .riga-chip > * { flex: 0 0 auto; }
+  .chip { padding: 8px 14px; border-radius: var(--r-pill); font-size: 13px; font-weight: 600;
+    background: var(--card); border: 1.5px solid var(--border); color: var(--muted); cursor: pointer; }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .attivo-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px;
+    font-weight: 600; padding: 5px 8px 5px 11px; border-radius: var(--r-pill); border: none;
+    background: var(--accent); color: #fff; cursor: pointer; }
+  .attivo-scartati { background: var(--card); color: var(--muted); }
+  .attivo-x { font-size: 11px; opacity: .85; }
+  .finto-annuncio { margin: 0 16px 16px; height: 90px; border-radius: var(--r);
+    background: var(--card); border: 1px dashed var(--accent); color: var(--accent-dark);
+    display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; }
+  .bottom-nav { background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+    display: flex; justify-content: space-around; padding: 8px; }
+  .nav-btn { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center;
+    gap: 2px; border: none; background: none; font-size: 10.5px; font-weight: 600;
+    color: var(--muted); cursor: pointer; padding: 4px 10px; }
+  .nav-btn span:first-child { font-size: 20px; }
+  .nav-btn.active { color: var(--accent); }
+  .nav-badge { position: absolute; top: 2px; right: 14px; min-width: 17px; height: 17px;
+    border-radius: 999px; background: var(--accent); color: #fff; font-size: 10px;
+    font-weight: 800; line-height: 17px; }
+</style>
