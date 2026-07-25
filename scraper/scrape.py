@@ -552,15 +552,24 @@ RE_INDIP_TITOLO = re.compile(
     r"indipendente|casa singola|unifamiliare|villa singola", re.I)
 
 
+# "Libera su 4 lati" = davvero staccata. Su 2 o 3 lati = attaccata a qualcosa,
+# quindi porzione, anche se il titolo dice "casa indipendente".
+RE_LATI_LIBERI = re.compile(
+    r"liber\w*\s+su\s+(due|tre|2|3)\s+lat", re.I)
+RE_ANGOLARE = re.compile(
+    r"(villett\w+|vill\w+|cas\w+|unit\w+|porzion\w+|soluzion\w+)\s+angolare", re.I)
+
+
 def classifica_regole(titolo, descr):
     t = f"{titolo} {descr}".lower()
 
     def ha(*parole):
         return any(p in t for p in parole)
 
-    if ha("porzione", "bifamiliare", "trifamiliare", "quadrifamiliare",
-          "schiera", "semindipendente", "semi-indipendente", "in aderenza",
-          "terratetto"):
+    if (RE_LATI_LIBERI.search(t) or RE_ANGOLARE.search(t)
+            or ha("porzione", "bifamiliare", "trifamiliare", "quadrifamiliare",
+                  "schiera", "semindipendente", "semi-indipendente",
+                  "in aderenza", "terratetto")):
         tipo = "porzione"
     elif ha("appartament", "trilocale", "bilocale", "quadrilocale",
             "monolocale", "attico", "mansarda", "condomini", "palazzina"):
@@ -594,6 +603,10 @@ def classifica_ai_batch(items):
         "porzione (porzione di bi/trifamiliare, schiera, terratetto in "
         "aderenza, semindipendente), appartamento, rustico (casale/colonica da "
         "ristrutturare), terreno, altro.\n"
+        "REGOLA DECISIVA sui lati liberi: 'libera su 4 lati' o 'su quattro "
+        "lati' = indipendente; 'libera su 3 lati', 'su 2 lati', 'villetta "
+        "angolare', 'di testa' = PORZIONE, perché è attaccata ad altro, anche "
+        "se il titolo dice 'casa indipendente'.\n"
         "Rispondi SOLO con un array JSON, un elemento per annuncio: "
         '[{"id": "...", "tipo": "...", "avviso": null oppure "breve nota se il '
         'titolo promette una tipologia diversa da quella reale"}]\n\n'

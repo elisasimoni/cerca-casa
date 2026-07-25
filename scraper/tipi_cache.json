@@ -3560,9 +3560,9 @@
 "via": "regole"
 },
 "casait-54469536": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "ai"
 },
 "casait-54469356": {
 "tipo": "indipendente",
