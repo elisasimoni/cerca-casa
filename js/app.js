@@ -311,8 +311,32 @@ let posGpsNome = '';           // dove ti ha localizzato (reverse geocoding)
 let posLavoro = LAVORO_DEFAULT; // {lat, lon, nome} salvata o predefinita
 try {
   const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
-  if (l && l.lat) posLavoro = l;
+  if (l && l.lat) posLavoro = riparaLavoro(l);
 } catch (e) { /* si usa il lavoro predefinito */ }
+
+// Ripara i lavori salvati con la vecchia versione: il nome veniva preso dalla
+// prima parte dell'indirizzo trovato, che quando c'è il civico è il numero
+// ("4"). Chi ha già salvato si ritroverebbe "💼 4" per sempre.
+function riparaLavoro(l) {
+  const nome = (l.nome || '').trim();
+  const buono = nome && !/^\d+$/.test(nome) && /[a-zA-Zàèéìòù]/.test(nome);
+  if (buono) return l;
+
+  const vicinoAlDefault =
+    Math.abs(l.lat - LAVORO_DEFAULT.lat) < 0.002 &&
+    Math.abs(l.lon - LAVORO_DEFAULT.lon) < 0.002;
+  if (vicinoAlDefault) {
+    l.nome = LAVORO_DEFAULT.nome;
+    l.completo = l.completo || LAVORO_DEFAULT.completo;
+  } else {
+    // ricavo un nome sensato dall'indirizzo completo, saltando il civico
+    const pezzi = (l.completo || '').split(',').map(x => x.trim())
+      .filter(x => x && !/^\d+$/.test(x));
+    l.nome = pezzi.slice(0, 2).join(', ') || 'Lavoro';
+  }
+  localStorage.setItem('cercacasa_lavoro', JSON.stringify(l));
+  return l;
+}
 
 function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371, rad = Math.PI / 180;
