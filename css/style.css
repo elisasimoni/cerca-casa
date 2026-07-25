@@ -619,3 +619,17 @@ dialog::backdrop { background: rgba(44, 31, 20, 0.45); }
   background: var(--card); border: 1px solid var(--border);
   border-radius: var(--r); padding: 12px 14px;
 }
+
+/* mentre disegni: niente scorrimento della mappa, mirino a schermo */
+#mappa.in-disegno { cursor: crosshair; }
+#mappa.in-disegno::after {
+  content: ''; position: absolute; inset: 0; z-index: 500; pointer-events: none;
+  border: 3px solid var(--accent); border-radius: 4px;
+  box-shadow: inset 0 0 0 9999px rgba(200, 117, 51, 0.06);
+}
+
+.campo-largo { display: block; }
+.etichetta-gruppo {
+  display: block; font-size: 10.5px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider); margin-bottom: 6px;
+}

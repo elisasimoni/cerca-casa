@@ -284,7 +284,7 @@ const TIPI_LABEL = {
 // d'aria (haversine) calcolata nel browser.
 const LAVORO_DEFAULT = {
   lat: 44.051612, lon: 12.520371, nome: 'Perfect Pack',
-  completo: 'Via Borghetto 4, Rimini',
+  completo: 'Via Borghetto 4, 47923 Rimini',
 };
 let mostraLavoro = true;       // mostra la distanza dal lavoro (default sì)
 let mostraGps = false;         // mostra la distanza dalla posizione attuale
@@ -379,6 +379,7 @@ async function loadAnnunci(refetch) {
       popolaFonti();
       costruisciCaratChips();
       ripristinaFiltri();
+      costruisciTipoChips();
     } catch (e) {
       if (!annunciData) annunciData = { errore: String(e) };
     }
@@ -668,8 +669,7 @@ function filtraAnnunci(conArea) {
   if (zonaAttiva) items = items.filter(a => inZona(a, zonaAttiva));
   const fonte = $('#annunci-fonte').value;
   if (fonte) items = items.filter(a => a.fonte === fonte);
-  const tipo = $('#annunci-tipo').value;
-  if (tipo) items = items.filter(a => a.tipo === tipo);
+  if (tipiRichiesti.size) items = items.filter(a => tipiRichiesti.has(a.tipo));
   const comune = $('#annunci-comune').value;
   if (comune) items = items.filter(a => a.comune === comune);
 
@@ -879,7 +879,7 @@ const CARAT_LABEL = {
   panoramico: '🌅 Panoramico', fotovoltaico: '☀️ Fotovoltaico',
   fibra: '📶 Fibra ottica',
 };
-const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-tipo', 'annunci-comune',
+const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-comune',
   'annunci-prezzo-max', 'annunci-prezzo-min', 'annunci-mq-min', 'annunci-eurmq-max',
   'annunci-locali-min', 'annunci-bagni-min', 'annunci-alt-max', 'annunci-km-max',
   'annunci-condizione', 'annunci-aste'];
@@ -887,7 +887,6 @@ const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-tipo', 'annunci-comune
 // etichette leggibili per la barra dei filtri attivi
 const FILTRI_ETICHETTE = {
   'annunci-q': v => `“${v}”`,
-  'annunci-tipo': v => TIPI_LABEL[v] || v,
   'annunci-comune': v => '📍 ' + v,
   'annunci-fonte': v => v,
   'annunci-prezzo-max': v => '≤ €' + Number(v).toLocaleString('it-IT'),
@@ -903,6 +902,7 @@ const FILTRI_ETICHETTE = {
 };
 const FILTRI_KEY = 'cercacasa_filtri';
 let caratRichieste = new Set();
+let tipiRichiesti = new Set();   // più tipologie insieme
 let zonaAttiva = '';
 
 // Il campo di ricerca aspetta una pausa di digitazione: senza, ogni tasto
@@ -934,9 +934,10 @@ function aggiornaChipRif() {
   const conf = $('#rif-conferma');
   const righe = [];
   if (mostraLavoro && posLavoro?.completo) {
-    const dove = posLavoro.completo.split(',').slice(0, 4)
+    const via = posLavoro.completo.split(',').slice(0, 4)
       .map(s => s.trim()).filter(Boolean).join(', ');
-    righe.push('💼 Lavoro: ' + dove + ' — sbagliato? tocca ✏️');
+    const nome = posLavoro.nome && posLavoro.nome !== via ? posLavoro.nome + ' — ' : '';
+    righe.push('💼 Lavoro: ' + nome + via + ' · sbagliato? tocca ✏️');
   }
   if (mostraGps && posGpsNome) {
     righe.push('📍 Sei vicino a: ' + posGpsNome + ' — non è giusto? tocca di nuovo 📍');
@@ -1013,18 +1014,30 @@ function apriEditorLavoro() {
   const box = $('#lavoro-edit');
   box.classList.remove('hidden');
   const inp = $('#lavoro-input');
-  inp.value = posLavoro ? posLavoro.nome : '';
+  inp.value = posLavoro
+    ? [posLavoro.nome, posLavoro.completo].filter(Boolean).join(', ')
+    : '';
   inp.focus();
+  inp.select();
 }
 
 async function salvaLavoro() {
-  const testo = $('#lavoro-input').value.trim();
+  let testo = $('#lavoro-input').value.trim();
   if (!testo) return;
+  // "Perfect Pack, Via Borghetto 4 Rimini" → etichetta + indirizzo da cercare.
+  // Se scrivi solo l'indirizzo l'etichetta la ricava il geocoder.
+  let etichetta = null;
+  const pezzi = testo.split(',').map(x => x.trim()).filter(Boolean);
+  if (pezzi.length > 1 && !/\d/.test(pezzi[0]) && !/^(via|viale|piazza|corso|largo|strada|vicolo|contrada|localit)/i.test(pezzi[0])) {
+    etichetta = pezzi[0];
+    testo = pezzi.slice(1).join(', ');
+  }
   const btn = $('#btn-salva-lavoro');
   btn.disabled = true; btn.textContent = 'Cerco…';
   const p = await geocodaIndirizzo(testo).catch(() => null);
   btn.disabled = false; btn.textContent = 'Salva';
   if (!p) { alert('Indirizzo non trovato. Aggiungi la città, es. "Via Emilia 10, Cesena".'); return; }
+  if (etichetta) p.nome = etichetta;
   posLavoro = p;
   localStorage.setItem('cercacasa_lavoro', JSON.stringify(p));
   mostraLavoro = true;
@@ -1095,6 +1108,22 @@ function contaZona(z) {
   return (annunciData?.annunci || []).filter(a => !scartati.has(a.id) && inZona(a, z)).length;
 }
 
+function costruisciTipoChips() {
+  const wrap = $('#tipo-chips');
+  wrap.innerHTML = '';
+  Object.entries(TIPI_LABEL).forEach(([k, label]) => {
+    const n = (annunciData?.annunci || []).filter(a => a.tipo === k && !scartati.has(a.id)).length;
+    if (!n) return;
+    const c = el('button', 'chip' + (tipiRichiesti.has(k) ? ' active' : ''), `${label} ${n}`);
+    c.addEventListener('click', () => {
+      tipiRichiesti.has(k) ? tipiRichiesti.delete(k) : tipiRichiesti.add(k);
+      c.classList.toggle('active');
+      aggiornaVista(); salvaFiltri();
+    });
+    wrap.append(c);
+  });
+}
+
 function costruisciCaratChips() {
   const wrap = $('#carat-chips');
   if (wrap.children.length) return;
@@ -1132,6 +1161,10 @@ function aggiornaContaFiltri() {
     bar.append(c);
   };
 
+  tipiRichiesti.forEach(k => chip(TIPI_LABEL[k] || k, () => {
+    tipiRichiesti.delete(k);
+    costruisciTipoChips();
+  }));
   FILTRI_ID.forEach(id => {
     const v = $('#' + id).value;
     if (!v) return;
@@ -1180,7 +1213,7 @@ function aggiornaContaFiltri() {
 }
 
 function salvaFiltri() {
-  const stato = { carat: [...caratRichieste], zona: zonaAttiva,
+  const stato = { carat: [...caratRichieste], tipi: [...tipiRichiesti], zona: zonaAttiva,
     noCentro: $('#annunci-no-centro').checked,
     conPrezzo: $('#annunci-con-prezzo').checked,
     fibraOk: $('#annunci-fibra-ok').checked, sort: $('#annunci-sort').value };
@@ -1200,6 +1233,7 @@ function ripristinaFiltri() {
   $('#annunci-con-prezzo').checked = !!stato.conPrezzo;
   $('#annunci-fibra-ok').checked = !!stato.fibraOk;
   caratRichieste = new Set(stato.carat || []);
+  tipiRichiesti = new Set(stato.tipi || []);
   zonaAttiva = stato.zona || '';
 }
 
@@ -1209,6 +1243,8 @@ $('#btn-azzera').addEventListener('click', () => {
   $('#annunci-con-prezzo').checked = false;
   $('#annunci-fibra-ok').checked = false;
   caratRichieste.clear();
+  tipiRichiesti.clear();
+  costruisciTipoChips();
   zonaAttiva = '';
   areaPoligono = null;
   salvaArea();
@@ -1323,59 +1359,94 @@ function apriMappa() {
   }, 120);
 }
 
+function fineDisegno(cont) {
+  inDisegno = false;
+  cont.style.touchAction = '';
+  cont.classList.remove('in-disegno');
+  mappa.dragging.enable();
+  mappa.doubleClickZoom.enable();
+  mappa.touchZoom.enable();
+  if (mappa.tap) mappa.tap.enable();
+  $('#btn-disegna').textContent = '✏️ Disegna area';
+  $('#btn-disegna').classList.remove('btn-primary');
+}
+
 function avviaDisegno() {
-  if (inDisegno) return;
+  const cont = mappa.getContainer();
+  if (inDisegno) { fineDisegno(cont); return; }   // secondo tocco: annulla
   inDisegno = true;
-  $('#btn-disegna').textContent = '✏️ Traccia col dito…';
-  $('#mappa-info').textContent = 'Tieni premuto e traccia il contorno della zona.';
+
+  $('#btn-disegna').textContent = '✋ Traccia col dito (tocca per annullare)';
+  $('#btn-disegna').classList.add('btn-primary');
+  $('#mappa-info').textContent = 'Appoggia il dito sulla mappa e traccia il contorno della zona.';
+
+  // Senza questo il telefono interpreta il dito come scorrimento della mappa
+  // e il tratto non parte mai: è il motivo per cui "funzionava malissimo".
+  cont.style.touchAction = 'none';
+  cont.classList.add('in-disegno');
   mappa.dragging.disable();
   mappa.doubleClickZoom.disable();
+  mappa.touchZoom.disable();
+  if (mappa.tap) mappa.tap.disable();
 
-  const punti = [];
-  let traccia = null;
-  const cont = mappa.getContainer();
+  let punti = [];
+  let anteprima = null;
 
   const daEvento = e => {
     const r = cont.getBoundingClientRect();
     const p = mappa.containerPointToLatLng([e.clientX - r.left, e.clientY - r.top]);
     return [p.lat, p.lng];
   };
+
   const giu = e => {
+    if (!inDisegno) return;
     e.preventDefault();
-    punti.length = 0;
-    punti.push(daEvento(e));
-    if (traccia) traccia.remove();
-    traccia = L.polyline(punti, { color: '#2563eb', weight: 3, dashArray: '5,5' }).addTo(mappa);
+    try { cont.setPointerCapture(e.pointerId); } catch (err) { /* non supportato */ }
+    punti = [daEvento(e)];
+    if (anteprima) anteprima.remove();
+    // poligono (non linea): si vede l'area che stai racchiudendo
+    anteprima = L.polygon(punti, {
+      color: '#C87533', weight: 3, fillColor: '#C87533', fillOpacity: 0.15, dashArray: '6,4',
+    }).addTo(mappa);
     cont.addEventListener('pointermove', muovi);
-    cont.addEventListener('pointerup', su, { once: true });
-    cont.addEventListener('pointercancel', su, { once: true });
   };
+
   const muovi = e => {
     e.preventDefault();
-    punti.push(daEvento(e));
-    traccia.setLatLngs(punti);
+    const p = daEvento(e);
+    const ultimo = punti[punti.length - 1];
+    // un punto ogni ~4 px: tratto fluido senza migliaia di vertici
+    if (Math.abs(p[0] - ultimo[0]) + Math.abs(p[1] - ultimo[1]) < 0.00004) return;
+    punti.push(p);
+    anteprima.setLatLngs(punti);
   };
-  const su = () => {
+
+  const su = e => {
+    if (!inDisegno) return;
     cont.removeEventListener('pointermove', muovi);
-    cont.removeEventListener('pointerdown', giu);
-    if (traccia) traccia.remove();
-    inDisegno = false;
-    mappa.dragging.enable();
-    mappa.doubleClickZoom.enable();
-    $('#btn-disegna').textContent = '✏️ Disegna';
-    if (punti.length > 3) {
+    try { cont.releasePointerCapture(e.pointerId); } catch (err) { /* ignora */ }
+    if (anteprima) anteprima.remove();
+
+    if (punti.length > 4) {
       areaPoligono = punti.slice();
+      fineDisegno(cont);
       disegnaAreaSuMappa();
       salvaArea();
       const n = filtraAnnunci(true).length;
       $('#mappa-info').textContent = n
-        ? `Area salvata: ${n} annunci qui dentro (coi filtri attuali).`
-        : 'Area salvata, ma nessun annuncio ci rientra: allargala o togli qualche filtro.';
+        ? `Area salvata: ${n} annunci qui dentro. "Fatto" per vederli.`
+        : 'In quell\'area non ci sono annunci: rifalla più grande o togli qualche filtro.';
     } else {
-      $('#mappa-info').textContent = 'Traccia troppo corta, riprova.';
+      // tratto troppo corto: resta in disegno, così può riprovare subito
+      $('#mappa-info').textContent = 'Tratto troppo corto: tieni il dito premuto e gira intorno alla zona.';
     }
   };
-  cont.addEventListener('pointerdown', giu, { once: true });
+
+  cont.addEventListener('pointerdown', giu);
+  cont.addEventListener('pointerup', su);
+  cont.addEventListener('pointercancel', su);
+  // le funzioni restano agganciate finché la mappa è aperta: fineDisegno()
+  // riabilita i gesti, e riaprendo il pannello si riparte puliti
 }
 
 $('#btn-mappa').addEventListener('click', apriMappa);
