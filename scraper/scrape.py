@@ -696,6 +696,52 @@ def classifica_tutti(annunci, budget_secondi=360):
     return "ai" if n_regole == 0 else ("misto" if n_ai else "regole")
 
 
+# ------------------------------------------- Copertura fibra (piano pubblico)
+# API aperta del portale governativo Banda Ultra Larga: dà lo stato dei lavori
+# comune per comune. Riguarda le "aree bianche" (zone che il mercato non
+# copriva), quindi nei centri città la fibra commerciale c'è spesso comunque:
+# per l'indirizzo esatto serve la verifica su Open Fiber, che l'app offre a
+# parte. Qui si dice se il piano pubblico è arrivato o no.
+BUL_API = "https://bandaultralarga.italia.it/wp-json/bul/v1/region/"
+
+STATO_FIBRA = {
+    "terminato": ("ok", "Piano fibra pubblica completato"),
+    "lavori chiusi": ("ok", "Lavori fibra pubblica chiusi"),
+    "in collaudo": ("quasi", "Fibra pubblica in collaudo"),
+    "in esecuzione": ("corso", "Lavori fibra pubblica in corso"),
+    "in progettazione esecutiva": ("corso", "Fibra pubblica in progettazione"),
+    "in progettazione definitiva": ("corso", "Fibra pubblica in progettazione"),
+    "in programmazione": ("no", "Fibra pubblica solo programmata"),
+}
+
+
+def stato_fibra_comuni(id_regione=8, provincia_id=40):
+    """Mappa comune (normalizzato) → stato della fibra del piano pubblico."""
+    try:
+        dati = json.loads(fetch(BUL_API + str(id_regione), accept="application/json"))
+    except Exception as e:
+        print(f"  BUL non raggiungibile: {e}", file=sys.stderr)
+        return {}
+    out = {}
+    for f in dati.get("features") or []:
+        p = f.get("properties") or {}
+        if provincia_id and p.get("province_id") != provincia_id:
+            continue
+        wf = ((p.get("work_progress") or {}).get("fiber") or {})
+        stato = wf.get("status")
+        if not stato:
+            continue
+        livello, testo = STATO_FIBRA.get(stato, ("?", "Fibra pubblica: " + stato))
+        out[norm_comune(p.get("city_name"))] = {
+            "livello": livello,
+            "testo": testo,
+            "stato": stato,
+            "operativa": (wf.get("dates") or {}).get("data_prevista_operativita"),
+        }
+    print(f"Fibra: stato del piano pubblico per {len(out)} comuni")
+    return out
+
+
 # ------------------------------- Tipologia presa dal "gemello" di un altro sito
 # Molti annunci (tipici di Trovit) arrivano senza descrizione: il titolo dice
 # "Villa" e non c'è testo da leggere. Ma lo stesso immobile è spesso pubblicato
@@ -838,6 +884,9 @@ def main():
         # dopo la classificazione: chi non ha descrizione eredita dal gemello
         eredita_da_gemelli(tutte)
         arricchisci_geo(tutte, config)
+        fibra = stato_fibra_comuni()
+        for a in tutte:
+            a["fibra"] = fibra.get(norm_comune(a.get("comune")))
 
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),

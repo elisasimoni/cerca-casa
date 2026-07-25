@@ -533,6 +533,22 @@ function annuncioCard(a) {
     body.append(cw);
   }
 
+  // Stato del piano fibra pubblico nel comune (dati Banda Ultra Larga).
+  // Riguarda le zone che il mercato non copriva: nei centri la fibra
+  // commerciale c'è spesso lo stesso, per questo resta il tasto di verifica.
+  if (a.fibra) {
+    const f = el('div', 'card-fibra fibra-' + a.fibra.livello);
+    const icona = { ok: '📶', quasi: '📶', corso: '🚧', no: '🕓' }[a.fibra.livello] || '📶';
+    let testo = icona + ' ' + a.fibra.testo + ' a ' + (a.comune || 'questo comune');
+    if (a.fibra.livello === 'ok' && a.fibra.operativa) {
+      testo += ' (dal ' + a.fibra.operativa.slice(0, 4) + ')';
+    }
+    f.textContent = testo;
+    f.title = 'Dato del piano pubblico Banda Ultra Larga, comune per comune. '
+      + 'Per sapere se arriva a questo indirizzo usa "Verifica fibra".';
+    body.append(f);
+  }
+
   if (a.descr) {
     const clip = a.descr.length > 160 ? a.descr.slice(0, 160) + '…' : a.descr;
     body.append(el('div', 'card-note', clip));
@@ -549,7 +565,7 @@ function annuncioCard(a) {
   // il telefono blocca l'apertura perché il tocco è già "scaduto".
   if (luogo) {
     const testoInd = [a.indirizzo, a.comune].filter(Boolean).join(', ') || luogo;
-    const fibra = el('a', null, '📶 Fibra');
+    const fibra = el('a', null, '📶 Verifica fibra');
     fibra.href = 'https://openfiber.it/verifica-copertura/';
     fibra.target = '_blank';
     fibra.rel = 'noopener';
@@ -667,6 +683,9 @@ function filtraAnnunci(conArea) {
   if (aste === 'solo') items = items.filter(a => a.asta);
   if ($('#annunci-no-centro').checked) items = items.filter(a => !a.centro);
   if ($('#annunci-con-prezzo').checked) items = items.filter(a => a.prezzo);
+  if ($('#annunci-fibra-ok').checked) {
+    items = items.filter(a => ['ok', 'quasi'].includes(a.fibra?.livello));
+  }
   if (caratRichieste.size) {
     items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
   }
@@ -880,6 +899,7 @@ FILTRI_ID.forEach(id => {
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 $('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 $('#annunci-con-prezzo').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+$('#annunci-fibra-ok').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 
 // ---------- Punti di riferimento per la distanza ----------
 function aggiornaChipRif() {
@@ -1057,6 +1077,9 @@ function aggiornaContaFiltri() {
   if ($('#annunci-con-prezzo').checked) {
     chip('💶 Con prezzo', () => { $('#annunci-con-prezzo').checked = false; });
   }
+  if ($('#annunci-fibra-ok').checked) {
+    chip('📶 Con fibra', () => { $('#annunci-fibra-ok').checked = false; });
+  }
   if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
 
   // il conteggio riguarda solo i filtri veri, non la vista scartati
@@ -1085,7 +1108,8 @@ function aggiornaContaFiltri() {
 function salvaFiltri() {
   const stato = { carat: [...caratRichieste], zona: zonaAttiva,
     noCentro: $('#annunci-no-centro').checked,
-    conPrezzo: $('#annunci-con-prezzo').checked, sort: $('#annunci-sort').value };
+    conPrezzo: $('#annunci-con-prezzo').checked,
+    fibraOk: $('#annunci-fibra-ok').checked, sort: $('#annunci-sort').value };
   FILTRI_ID.forEach(id => { stato[id] = $('#' + id).value; });
   localStorage.setItem(FILTRI_KEY, JSON.stringify(stato));
 }
@@ -1100,6 +1124,7 @@ function ripristinaFiltri() {
   if (stato.sort) $('#annunci-sort').value = stato.sort;
   $('#annunci-no-centro').checked = !!stato.noCentro;
   $('#annunci-con-prezzo').checked = !!stato.conPrezzo;
+  $('#annunci-fibra-ok').checked = !!stato.fibraOk;
   caratRichieste = new Set(stato.carat || []);
   zonaAttiva = stato.zona || '';
   document.querySelectorAll('.chip-zona').forEach(x =>
@@ -1110,6 +1135,7 @@ $('#btn-azzera').addEventListener('click', () => {
   FILTRI_ID.forEach(id => { $('#' + id).value = ''; });
   $('#annunci-no-centro').checked = false;
   $('#annunci-con-prezzo').checked = false;
+  $('#annunci-fibra-ok').checked = false;
   caratRichieste.clear();
   zonaAttiva = '';
   areaPoligono = null;

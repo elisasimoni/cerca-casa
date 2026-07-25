@@ -329,6 +329,15 @@ select:focus, input:focus, textarea:focus {
   background: var(--amber-l); border: 1px solid rgba(184, 134, 11, 0.25);
   color: var(--amber-d); font-size: 12.5px; font-weight: 600; line-height: 1.4;
 }
+.card-fibra {
+  margin-top: 8px; font-size: 12px; font-weight: 600;
+  padding: 6px 10px; border-radius: var(--r-sm); line-height: 1.35;
+}
+.fibra-ok { background: var(--green-l); color: var(--green-d); }
+.fibra-quasi { background: var(--green-l); color: var(--green-d); }
+.fibra-corso { background: var(--amber-l); color: var(--amber-d); }
+.fibra-no { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
 .card-carat { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .carat-tag {
   font-size: 11px; padding: 4px 9px; border-radius: var(--r-sm);
