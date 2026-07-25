@@ -255,6 +255,20 @@ function renderZoneChips() {
 // ---------- Render: annunci (scraper automatico) ----------
 let annunciData = null;
 
+// Annunci scartati col cestino: restano nascosti anche dopo un aggiornamento
+// dei dati. Si possono sempre rivedere e ripristinare.
+const SCARTATI_KEY = 'cercacasa_scartati';
+let scartati = new Set();
+try {
+  const s = JSON.parse(localStorage.getItem(SCARTATI_KEY) || '[]');
+  if (Array.isArray(s)) scartati = new Set(s);
+} catch (e) { /* lista non valida: si riparte senza scarti */ }
+let mostraScartati = false;
+
+function salvaScartati() {
+  localStorage.setItem(SCARTATI_KEY, JSON.stringify([...scartati]));
+}
+
 const TIPI_LABEL = {
   indipendente: '🏡 Indipendente',
   porzione: '🏘️ Porzione/schiera',
@@ -411,7 +425,7 @@ function annuncioCard(a) {
 
   const meta = [];
   if (a.mq) meta.push('📐 ' + a.mq + ' mq');
-  if (a.locali) meta.push('🚪 ' + a.locali + ' locali');
+  if (a.locali) meta.push('🚪 ' + a.locali + (a.locali == 1 ? ' locale' : ' locali'));
   if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
   if (a.piano) {
     // il dato a volte contiene già la parola "piano" ("piano terra", "1° piano")
@@ -502,6 +516,31 @@ function annuncioCard(a) {
     renderZoneChips(); renderHouses(); renderZoneManage();
   });
   actions.append(salva);
+
+  // Cestino: nasconde l'annuncio dalla lista (reversibile)
+  const cestino = el('button', 'danger', mostraScartati ? '↩︎ Ripristina' : '🗑️');
+  cestino.title = mostraScartati
+    ? 'Rimetti questo annuncio nella lista'
+    : 'Non mi interessa: nascondi questo annuncio';
+  cestino.addEventListener('click', () => {
+    if (mostraScartati) {
+      scartati.delete(a.id);
+      salvaScartati();
+      card.remove();
+      aggiornaContaFiltri();
+      if (!scartati.size) { mostraScartati = false; renderAnnunci(); }
+      return;
+    }
+    scartati.add(a.id);
+    salvaScartati();
+    card.remove();
+    itemsFiltrati = itemsFiltrati.filter(x => x.id !== a.id);
+    mostrati = Math.max(0, mostrati - 1);
+    aggiornaContatoreLista();
+    aggiornaContaFiltri();
+    mostraAnnulla(a);
+  });
+  actions.append(cestino);
   body.append(actions);
 
   wrap.append(body);
@@ -514,6 +553,11 @@ function annuncioCard(a) {
 function filtraAnnunci(conArea) {
   let items = [...(annunciData?.annunci || [])];
   const num = id => Number($(id).value) || 0;
+
+  // gli scartati spariscono, salvo quando li stai rivedendo apposta
+  items = mostraScartati
+    ? items.filter(a => scartati.has(a.id))
+    : items.filter(a => !scartati.has(a.id));
 
   if (zonaAttiva) items = items.filter(a => a.zona === zonaAttiva);
   const fonte = $('#annunci-fonte').value;
@@ -563,6 +607,31 @@ function filtraAnnunci(conArea) {
         .filter(Boolean).join(' ').toLowerCase().includes(q));
   }
   return items;
+}
+
+// Avviso temporaneo in basso con la possibilità di annullare l'ultimo scarto
+let timerAnnulla = null;
+function mostraAnnulla(a) {
+  let box = $('#annulla-box');
+  if (!box) {
+    box = el('div', 'annulla-box');
+    box.id = 'annulla-box';
+    document.body.append(box);
+  }
+  box.innerHTML = '';
+  box.append(el('span', null, 'Annuncio nascosto'));
+  const undo = el('button', null, 'Annulla');
+  undo.addEventListener('click', () => {
+    scartati.delete(a.id);
+    salvaScartati();
+    box.remove();
+    clearTimeout(timerAnnulla);
+    renderAnnunci();
+  });
+  box.append(undo);
+  box.classList.add('visibile');
+  clearTimeout(timerAnnulla);
+  timerAnnulla = setTimeout(() => box.remove(), 5000);
 }
 
 function renderAnnunci() {
@@ -617,24 +686,38 @@ function renderAnnunci() {
     : '?';
   const errori = (annunciData.ricerche || []).flatMap(r => r.errori || []);
   const clf = annunciData.classificatore === 'regole' ? 'tipologie stimate' : 'tipologie AI';
-  info.textContent = `${items.length} annunci · aggiornati ${quando} · ${clf}` +
+  codaInfo = mostraScartati ? '' : ` · aggiornati ${quando} · ${clf}` +
     (errori.length ? ` · ⚠️ ${errori.length} fonte/i in errore` : '');
+  itemsFiltrati = items;
+  aggiornaContatoreLista();
 
   if (!items.length) {
     const empty = el('div', 'empty-state');
-    empty.append(el('div', 'big', '📭'));
-    empty.append(el('div', null,
-      `Nessuno dei ${annunciData.annunci.length} annunci passa questi filtri.`));
-    const azzera = el('button', 'btn btn-primary', '↺ Azzera i filtri');
+    empty.append(el('div', 'big', mostraScartati ? '🗑️' : '📭'));
+    empty.append(el('div', null, mostraScartati
+      ? 'Non hai nascosto nessun annuncio.'
+      : `Nessuno dei ${annunciData.annunci.length} annunci passa questi filtri.`));
+    const azzera = el('button', 'btn btn-primary', mostraScartati ? '← Torna alla lista' : '↺ Azzera i filtri');
     azzera.style.marginTop = '14px';
-    azzera.addEventListener('click', () => $('#btn-azzera').click());
+    azzera.addEventListener('click', () => {
+      if (mostraScartati) { mostraScartati = false; renderAnnunci(); } else $('#btn-azzera').click();
+    });
     empty.append(azzera);
     list.append(empty);
     return;
   }
 
-  // Render a blocchi: 738 card insieme rendono l'app lentissima sul telefono
-  itemsFiltrati = items;
+  // nella vista scartati offro il ripristino in blocco
+  if (mostraScartati) {
+    const tutti = el('button', 'btn btn-block btn-altri', '↩︎ Ripristina tutti gli annunci nascosti');
+    tutti.addEventListener('click', () => {
+      if (!confirm(`Rimettere in lista tutti i ${scartati.size} annunci nascosti?`)) return;
+      scartati.clear(); salvaScartati(); mostraScartati = false; renderAnnunci();
+    });
+    list.append(tutti);
+  }
+
+  // Render a blocchi: centinaia di card insieme rendono l'app lenta sul telefono
   mostrati = Math.min(PAGINA, items.length);
   disegnaBlocco();
 }
@@ -642,6 +725,15 @@ function renderAnnunci() {
 const PAGINA = 60;
 let itemsFiltrati = [];
 let mostrati = 0;
+let codaInfo = '';
+
+// Riga in cima: quanti annunci stai vedendo ora (cambia anche col cestino)
+function aggiornaContatoreLista() {
+  const n = itemsFiltrati.length;
+  $('#annunci-updated').textContent = mostraScartati
+    ? `${n} ${n === 1 ? 'annuncio nascosto' : 'annunci che hai nascosto'} col cestino`
+    : `${n} annunci${codaInfo}`;
+}
 
 function disegnaBlocco() {
   const list = $('#annunci-list');
@@ -881,14 +973,27 @@ function aggiornaContaFiltri() {
   }
   if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
 
+  // il conteggio riguarda solo i filtri veri, non la vista scartati
   const n = bar.children.length;
-  bar.classList.toggle('vuota', n === 0);
   if (n > 1) {
     const azzera = el('button', 'attivo-azzera', '↺ Azzera tutto');
     azzera.addEventListener('click', () => $('#btn-azzera').click());
     bar.append(azzera);
   }
   $('#conta-filtri').textContent = n ? `(${n})` : '';
+
+  // gli scartati non sono un filtro da togliere: sono una vista da aprire
+  if (mostraScartati) {
+    const c = el('button', 'attivo-chip attivo-scartati', '🗑️ Stai vedendo gli scartati · torna alla lista');
+    c.addEventListener('click', () => { mostraScartati = false; renderAnnunci(); });
+    bar.append(c);
+  } else if (scartati.size) {
+    const c = el('button', 'attivo-chip attivo-scartati',
+      `🗑️ ${scartati.size} ${scartati.size === 1 ? 'nascosto' : 'nascosti'} · rivedi`);
+    c.addEventListener('click', () => { mostraScartati = true; renderAnnunci(); });
+    bar.append(c);
+  }
+  bar.classList.toggle('vuota', bar.children.length === 0);
 }
 
 function salvaFiltri() {
