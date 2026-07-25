@@ -696,6 +696,48 @@ def classifica_tutti(annunci, budget_secondi=360):
     return "ai" if n_regole == 0 else ("misto" if n_ai else "regole")
 
 
+# ------------------------------- Tipologia presa dal "gemello" di un altro sito
+# Molti annunci (tipici di Trovit) arrivano senza descrizione: il titolo dice
+# "Villa" e non c'è testo da leggere. Ma lo stesso immobile è spesso pubblicato
+# anche su Casa.it o Subito CON la descrizione, che a volte lo smentisce
+# ("porzione di bifamiliare"). Se l'accoppiamento è certo, si eredita.
+def eredita_da_gemelli(annunci):
+    con_desc = [a for a in annunci if (a.get("descr") or "").strip()]
+    senza = [a for a in annunci if not (a.get("descr") or "").strip()]
+    if not con_desc or not senza:
+        return 0
+
+    # chiave forte: stesso prezzo, stessi mq, stesso comune. Le chiavi che
+    # corrispondono a più immobili diversi si scartano: meglio nessuna
+    # informazione che una sbagliata.
+    indice = {}
+    for a in con_desc:
+        if not (a.get("prezzo") and a.get("mq") and a.get("comune")):
+            continue
+        k = (a["prezzo"], a["mq"], a["comune"].strip().lower())
+        indice.setdefault(k, []).append(a)
+
+    n = 0
+    for a in senza:
+        if not (a.get("prezzo") and a.get("mq") and a.get("comune")):
+            continue
+        gemelli = indice.get((a["prezzo"], a["mq"], a["comune"].strip().lower()))
+        if not gemelli or len(gemelli) != 1:
+            continue
+        g = gemelli[0]
+        if g["tipo"] == a["tipo"]:
+            a["avviso"] = None  # confermato da un'altra fonte: niente allarme
+            continue
+        a["tipo"] = g["tipo"]
+        a["avviso"] = (f"Tipologia corretta leggendo lo stesso immobile su "
+                       f"{g['fonte'].split(' · ')[0]}: là la descrizione dice "
+                       f"«{g['tipo']}»")
+        n += 1
+    if n:
+        print(f"Gemelli: {n} tipologie corrette con la descrizione di un altro sito")
+    return n
+
+
 # --------------------------------------------------- Pulizia del risultato
 # Prezzo minimo credibile per una VENDITA: sotto questa soglia è quasi sempre
 # un affitto mensile finito per errore tra gli annunci di vendita.
@@ -793,6 +835,8 @@ def main():
         a["tipo"] = classifica_regole(a["titolo"], a.get("descr") or "")["tipo"]
     classificatore = classifica_tutti(tutte) if tutte else "regole"
     if tutte:
+        # dopo la classificazione: chi non ha descrizione eredita dal gemello
+        eredita_da_gemelli(tutte)
         arricchisci_geo(tutte, config)
 
     out = {
