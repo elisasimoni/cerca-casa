@@ -5,6 +5,23 @@
 const PIN_HASH = '7463007726b9b4912187d8a4938ba975dbe7f28ce68b7aa9c0ac211ffa4b9b50';
 const LS_KEY = 'cercacasa_v1';
 const UNLOCK_KEY = 'cercacasa_unlocked';
+// La sessione dura 30 giorni e si rinnova a ogni apertura: sessionStorage
+// non bastava, iOS lo svuota ogni volta che chiude la PWA e il PIN tornava
+// a ogni riapertura.
+const DURATA_SESSIONE = 30 * 24 * 60 * 60 * 1000;
+
+function sessioneValida() {
+  const t = Number(localStorage.getItem(UNLOCK_KEY) || 0);
+  return t > 0 && (Date.now() - t) < DURATA_SESSIONE;
+}
+function rinnovaSessione() {
+  localStorage.setItem(UNLOCK_KEY, String(Date.now()));
+}
+function giorniSessioneRimasti() {
+  const t = Number(localStorage.getItem(UNLOCK_KEY) || 0);
+  if (!t) return 0;
+  return Math.max(0, Math.ceil((DURATA_SESSIONE - (Date.now() - t)) / 86400000));
+}
 
 const STATI = {
   'da-valutare': 'Da valutare',
@@ -91,7 +108,7 @@ async function sha256(str) {
 function unlock() {
   $('#lock-screen').classList.add('hidden');
   $('#app').classList.remove('hidden');
-  sessionStorage.setItem(UNLOCK_KEY, '1');
+  rinnovaSessione();
   renderAll();
   loadAnnunci();
   controllaHelper();
@@ -121,6 +138,7 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     window.scrollTo(0, 0);
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
     if (btn.dataset.tab === 'case') renderHouses();
+    if (btn.dataset.tab === 'altro') aggiornaInfoSessione();
     else $('#header-count').textContent = '';
   });
 });
@@ -475,6 +493,20 @@ async function aggiornaDistanzeVisibili() {
 }
 
 // Riga "dove + quanto dista": riscritta quando arrivano i percorsi su strada
+// "3 giorni fa" leggibile. Distingue la data dichiarata dal portale da
+// quella che ho dedotto io vedendolo comparire: sono cose diverse.
+function etichettaData(a) {
+  const iso = a.data || a.visto;
+  if (!iso) return null;
+  const g = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (isNaN(g) || g < 0) return null;
+  const quando = g === 0 ? 'oggi' : g === 1 ? 'ieri'
+    : g < 30 ? `${g} giorni fa`
+    : g < 60 ? 'un mese fa'
+    : `${Math.round(g / 30)} mesi fa`;
+  return a.data ? 'pubblicato ' + quando : 'visto ' + quando;
+}
+
 function scriviLuogo(riga, a) {
   const luogo = [a.quartiere, a.comune].filter(Boolean).join(', ') || a.indirizzo || '';
   riga.innerHTML = '';
@@ -560,9 +592,16 @@ function annuncioCard(a) {
   corpo.append(rigaLuogo);
 
   const sotto = [a.fonte];
+  const quando = etichettaData(a);
+  if (quando) sotto.push(quando);
   if (a.pos === 'comune') sotto.push('indirizzo non indicato');
   if (a.fibra?.livello === 'ok') sotto.push('📶 fibra');
-  corpo.append(el('div', 'riga-fonte', sotto.join(' · ')));
+  const rigaFonte = el('div', 'riga-fonte', sotto.join(' · '));
+  // gli annunci freschi si notano
+  const gg = (a.data || a.visto)
+    ? Math.floor((Date.now() - new Date(a.data || a.visto).getTime()) / 86400000) : 99;
+  if (gg <= 3) rigaFonte.classList.add('fresco');
+  corpo.append(rigaFonte);
 
   card.append(corpo);
 
@@ -767,6 +806,9 @@ function renderAnnunci() {
   else if (sort === 'vicini') {
     // più vicini al riferimento attivo (posizione o lavoro), in km
     items.sort((a, b) => (distanzaKm(a) ?? 9999) - (distanzaKm(b) ?? 9999));
+  } else if (sort === 'data') {
+    const q = a => new Date(a.data || a.visto || 0).getTime();
+    items.sort((a, b) => q(b) - q(a));
   } else {
     // "recenti": alterna le fonti (ognuna è già ordinata per data dal più nuovo)
     const perFonte = {};
@@ -1656,6 +1698,15 @@ $('#house-form').addEventListener('submit', e => {
 });
 
 // ---------- Backup ----------
+function aggiornaInfoSessione() {
+  const p = $('#info-sessione');
+  if (!p) return;
+  const g = giorniSessioneRimasti();
+  p.textContent = g
+    ? `Resti dentro senza PIN ancora ${g} ${g === 1 ? 'giorno' : 'giorni'} (si rinnova a ogni apertura).`
+    : 'Sessione scaduta: al prossimo avvio serve il PIN.';
+}
+
 $('#btn-export').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify({ houses: state.houses, extraZones: state.extraZones }, null, 2)],
     { type: 'application/json' });
@@ -1700,6 +1751,7 @@ $('#btn-install').addEventListener('click', async () => {
 });
 
 $('#btn-lock').addEventListener('click', () => {
+  localStorage.removeItem(UNLOCK_KEY);
   sessionStorage.removeItem(UNLOCK_KEY);
   location.reload();
 });
@@ -1719,7 +1771,7 @@ function renderAll() {
 load();
 fillSitoSelect();
 
-if (sessionStorage.getItem(UNLOCK_KEY) === '1') {
+if (sessioneValida()) {
   unlock();
 } else if (!window.crypto?.subtle) {
   $('#pin-error').textContent = 'Apri l\'app in HTTPS per sbloccarla.';

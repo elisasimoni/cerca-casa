@@ -12,7 +12,7 @@ import subprocess
 import sys
 import time
 import urllib.parse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -213,6 +213,27 @@ def scrape_subito(ricerca):
 FONTI_GIA_COPERTE = {"CASA.IT", "SUBITO", "SUBITO.IT"}
 
 
+RE_TROVIT_DATA = re.compile(r'updated-date">\s*([^<]+)', re.I)
+
+
+def data_da_testo(t):
+    """"3 giorni fa", "ieri", "oggi", "30+ giorni fa" → data ISO."""
+    if not t:
+        return None
+    t = t.strip().lower()
+    oggi = datetime.now(timezone.utc).date()
+    if "oggi" in t or "ora" in t or "minut" in t or "or e" in t:
+        return oggi.isoformat()
+    if "ieri" in t:
+        return (oggi - timedelta(days=1)).isoformat()
+    m = re.search(r"(\d+)\s*(giorn|settiman|mes)", t)
+    if not m:
+        return None
+    n = int(m.group(1))
+    giorni = n * {"giorn": 1, "settiman": 7, "mes": 30}[m.group(2)]
+    return (oggi - timedelta(days=giorni)).isoformat()
+
+
 def _trovit_card(card):
     did = re.search(r'data-id="(trovit-[^"]+)"', card)
     if not did:
@@ -242,6 +263,7 @@ def _trovit_card(card):
             if len(parti) > 1:
                 quartiere = parti[0].replace("Quartiere ", "")
 
+    quando = RE_TROVIT_DATA.search(card)
     label = (fonte_orig or "Trovit").title().replace(".It", ".it")
     return {
         "id": did.group(1),
@@ -260,7 +282,7 @@ def _trovit_card(card):
         "url": f"https://case.trovit.it/detail/{did.group(1)}",
         "foto": foto.group(1) if foto else None,
         "asta": "asta" in (titolo.group(1).lower() if titolo else ""),
-        "data": None,
+        "data": data_da_testo(quando.group(1)) if quando else None,
         "descr": "",
     }
 
@@ -813,6 +835,31 @@ def eredita_da_gemelli(annunci):
     return n
 
 
+# ------------------------------------------- Da quando è in giro un annuncio
+# Casa.it non espone la data di pubblicazione. In mancanza, tengo traccia di
+# quando l'ho visto io la prima volta: dopo qualche giro diventa un'ottima
+# approssimazione di "quanto è vecchio".
+CACHE_VISTI = ROOT / "scraper" / "visti_cache.json"
+
+
+def segna_prima_visione(annunci):
+    try:
+        visti = json.loads(CACHE_VISTI.read_text("utf-8"))
+    except (OSError, json.JSONDecodeError):
+        visti = {}
+    oggi = datetime.now(timezone.utc).date().isoformat()
+    nuovi = 0
+    for a in annunci:
+        if a["id"] not in visti:
+            visti[a["id"]] = oggi
+            nuovi += 1
+        a["visto"] = visti[a["id"]]
+    vivi = {a["id"] for a in annunci}
+    visti = {k: v for k, v in visti.items() if k in vivi}
+    CACHE_VISTI.write_text(json.dumps(visti, ensure_ascii=False, indent=0), "utf-8")
+    print(f"Prima visione: {nuovi} annunci nuovi, {len(visti)} tracciati")
+
+
 # --------------------------------------------------- Pulizia del risultato
 # Prezzo minimo credibile per una VENDITA: sotto questa soglia è quasi sempre
 # un affitto mensile finito per errore tra gli annunci di vendita.
@@ -914,6 +961,7 @@ def main():
         # dopo la classificazione: chi non ha descrizione eredita dal gemello
         eredita_da_gemelli(tutte)
         arricchisci_geo(tutte, config)
+        segna_prima_visione(tutte)
         fibra = stato_fibra_comuni()
         for a in tutte:
             a["fibra"] = fibra.get(norm_comune(a.get("comune")))

@@ -633,3 +633,4 @@ dialog::backdrop { background: rgba(44, 31, 20, 0.45); }
   display: block; font-size: 10.5px; font-weight: 700; color: var(--muted);
   text-transform: uppercase; letter-spacing: var(--tracking-wider); margin-bottom: 6px;
 }
+.riga-fonte.fresco { color: var(--green-d); font-weight: 700; }

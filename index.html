@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=0c737569">
+  <link rel="stylesheet" href="css/style.css?v=5aedaad2">
 </head>
 <body>
 
@@ -126,8 +126,9 @@
       <h3 class="section-title">App</h3>
       <div class="btn-row">
         <button id="btn-install" class="btn hidden">📲 Installa app</button>
-        <button id="btn-lock" class="btn">🔒 Blocca</button>
+        <button id="btn-lock" class="btn">🔒 Esci e richiedi il PIN</button>
       </div>
+      <p class="hint" id="info-sessione"></p>
       <p class="hint" id="app-info">I dati restano solo su questo dispositivo (localStorage). Usa Esporta per fare un backup o passarli a un altro dispositivo.</p>
     </main>
 
@@ -282,6 +283,7 @@
         <h2>Ordina per</h2>
         <select id="annunci-sort">
             <option value="recenti">Ordina: più recenti</option>
+            <option value="data">Ordina: data di pubblicazione</option>
             <option value="prezzo-asc">Ordina: prezzo ↑</option>
             <option value="prezzo-desc">Ordina: prezzo ↓</option>
             <option value="mq-desc">Ordina: mq ↓</option>
@@ -379,6 +381,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=adece95b"></script>
+  <script src="js/app.js?v=b3228006"></script>
 </body>
 </html>
