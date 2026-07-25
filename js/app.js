@@ -282,7 +282,10 @@ const TIPI_LABEL = {
 // Due riferimenti indipendenti, mostrabili insieme: il lavoro (predefinito
 // Perfect Pack, modificabile) e la posizione attuale (GPS). Distanza in linea
 // d'aria (haversine) calcolata nel browser.
-const LAVORO_DEFAULT = { lat: 44.051612, lon: 12.520371, nome: 'Perfect Pack' };
+const LAVORO_DEFAULT = {
+  lat: 44.051612, lon: 12.520371, nome: 'Perfect Pack',
+  completo: 'Via Borghetto 4, Rimini',
+};
 let mostraLavoro = true;       // mostra la distanza dal lavoro (default sì)
 let mostraGps = false;         // mostra la distanza dalla posizione attuale
 let posGps = null;             // {lat, lon} posizione attuale
@@ -308,27 +311,57 @@ function distKmDa(p, a) {
   return haversineKm(p.lat, p.lon, a.lat, a.lon);
 }
 
-// Distanza per ordinare/filtrare: la posizione se attiva, altrimenti il lavoro
+// Distanza per ordinare/filtrare: usa la strada quando è già stata calcolata,
+// altrimenti la linea d'aria (buona approssimazione per mettere in ordine).
 function distanzaKm(a) {
-  if (mostraGps && posGps) return distKmDa(posGps, a);
-  if (mostraLavoro && posLavoro) return distKmDa(posLavoro, a);
-  return null;
+  const p = (mostraGps && posGps) ? posGps : (mostraLavoro ? posLavoro : null);
+  if (!p) return null;
+  const s = cacheStrada.get(chiaveStrada(p, a));
+  return s ? s.km : distKmDa(p, a);
 }
 
-// Etichette distanza per la card: entrambi i riferimenti attivi, insieme.
-// La tilde segnala che l'annuncio non dà l'indirizzo esatto e la distanza è
-// calcolata sul centro del comune.
+// ---- Distanze su strada (OSRM) --------------------------------------------
+// In linea d'aria si sottostima del 30-60%: Cesena "24 km" sono 37 km reali.
+// Si chiede il percorso vero solo per gli annunci che stai guardando.
+const cacheStrada = new Map();          // "latRif,lonRif>idAnnuncio" → {km,min}
+const chiaveStrada = (p, a) => `${p.lat.toFixed(4)},${p.lon.toFixed(4)}>${a.id}`;
+
+async function calcolaStrade(p, annunci) {
+  const daFare = annunci.filter(a => a.lat != null && !cacheStrada.has(chiaveStrada(p, a)));
+  for (let i = 0; i < daFare.length; i += 80) {
+    const blocco = daFare.slice(i, i + 80);
+    const coords = `${p.lon},${p.lat};` + blocco.map(a => `${a.lon},${a.lat}`).join(';');
+    const dest = blocco.map((_, n) => n + 1).join(';');
+    try {
+      const r = await fetch(`https://router.project-osrm.org/table/v1/driving/${coords}` +
+        `?sources=0&destinations=${dest}&annotations=distance,duration`);
+      const j = await r.json();
+      blocco.forEach((a, n) => {
+        const km = j.distances?.[0]?.[n], sec = j.durations?.[0]?.[n];
+        if (km != null && sec != null) {
+          cacheStrada.set(chiaveStrada(p, a), { km: km / 1000, min: Math.round(sec / 60) });
+        }
+      });
+    } catch (e) { return false; }   // rete assente: si resta sulla linea d'aria
+  }
+  return true;
+}
+
+// Etichette distanza: strada vera se disponibile, altrimenti linea d'aria
+// (marcata "in linea d'aria" per non ingannare). La tilde segnala che
+// l'annuncio non dà l'indirizzo esatto e si usa il centro del comune.
 function etichetteDistanza(a) {
   const out = [];
   const circa = a.pos === 'comune' ? '~' : '';
-  if (mostraLavoro && posLavoro) {
-    const km = distKmDa(posLavoro, a);
-    if (km != null) out.push('💼 ' + circa + fmtKm(km));
-  }
-  if (mostraGps && posGps) {
-    const km = distKmDa(posGps, a);
-    if (km != null) out.push('📍 ' + circa + fmtKm(km));
-  }
+  const perRif = (p, icona) => {
+    if (!p) return;
+    const s = cacheStrada.get(chiaveStrada(p, a));
+    if (s) { out.push(`${icona} ${circa}${fmtKm(s.km)} · ${s.min} min`); return; }
+    const km = distKmDa(p, a);
+    if (km != null) out.push(`${icona} ${circa}${fmtKm(km)} in linea d'aria`);
+  };
+  if (mostraLavoro) perRif(posLavoro, '💼');
+  if (mostraGps) perRif(posGps, '📍');
   return out;
 }
 
@@ -396,6 +429,50 @@ function titoloUtile(a) {
   return pezzi.join(', ') + (dove ? ' — ' + dove : '');
 }
 
+// Copia senza await, così il "tocco" resta valido e il link si apre lo stesso.
+// Il vecchio Safari non ha navigator.clipboard: ripiego sulla textarea.
+function copiaNegliAppunti(testo) {
+  try {
+    if (navigator.clipboard) { navigator.clipboard.writeText(testo); return; }
+  } catch (e) { /* si prova col metodo vecchio */ }
+  const ta = document.createElement('textarea');
+  ta.value = testo;
+  ta.style.cssText = 'position:fixed;opacity:0';
+  document.body.append(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) { /* niente da fare */ }
+  ta.remove();
+}
+
+function testoMeta(a) {
+  const meta = [];
+  if (a.mq) meta.push('📐 ' + a.mq + ' mq');
+  if (a.locali) meta.push('🚪 ' + a.locali + (a.locali == 1 ? ' locale' : ' locali'));
+  if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
+  if (a.piano) {
+    // il dato a volte contiene già la parola "piano" ("piano terra", "1° piano")
+    const p = String(a.piano).trim();
+    meta.push('🏢 ' + (/piano/i.test(p) ? p : 'piano ' + p));
+  }
+  if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
+  etichetteDistanza(a).forEach(d => meta.push(d));
+  return meta.join('  ·  ');
+}
+
+// Chiede a OSRM i percorsi per le card a schermo e riscrive la riga dati
+async function aggiornaDistanzeVisibili() {
+  const visibili = itemsFiltrati.slice(0, mostrati);
+  const punti = [];
+  if (mostraLavoro && posLavoro) punti.push(posLavoro);
+  if (mostraGps && posGps) punti.push(posGps);
+  if (!punti.length || !visibili.length) return;
+  for (const p of punti) await calcolaStrade(p, visibili);
+  visibili.forEach(a => {
+    const riga = document.querySelector(`.card-meta[data-ann="${CSS.escape(a.id)}"]`);
+    if (riga) riga.textContent = testoMeta(a);
+  });
+}
+
 function annuncioCard(a) {
   const card = el('div', 'card');
   const wrap = el('div', 'annuncio-wrap');
@@ -423,18 +500,9 @@ function annuncioCard(a) {
   }
   body.append(pr);
 
-  const meta = [];
-  if (a.mq) meta.push('📐 ' + a.mq + ' mq');
-  if (a.locali) meta.push('🚪 ' + a.locali + (a.locali == 1 ? ' locale' : ' locali'));
-  if (a.bagni) meta.push('🛁 ' + a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
-  if (a.piano) {
-    // il dato a volte contiene già la parola "piano" ("piano terra", "1° piano")
-    const p = String(a.piano).trim();
-    meta.push('🏢 ' + (/piano/i.test(p) ? p : 'piano ' + p));
-  }
-  if (a.alt != null) meta.push('⛰️ ' + a.alt + ' m');
-  etichetteDistanza(a).forEach(d => meta.push(d));
-  if (meta.length) body.append(el('div', 'card-meta', meta.join('  ·  ')));
+  const riga = el('div', 'card-meta', testoMeta(a));
+  riga.dataset.ann = a.id;   // così si aggiorna quando arrivano le distanze
+  body.append(riga);
 
   const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
   if (luogo) {
@@ -475,17 +543,21 @@ function annuncioCard(a) {
   vedi.href = a.url; vedi.target = '_blank'; vedi.rel = 'noopener';
   actions.append(vedi);
 
-  // OpenFiber blocca le richieste automatiche: copio l'indirizzo negli appunti
-  // e apro il loro verificatore, dove basta incollare.
+  // Fibra: OpenFiber non accetta l'indirizzo nell'URL e blocca le richieste
+  // automatiche, quindi copio l'indirizzo e apro il loro verificatore da
+  // incollare. Dev'essere un <a>: con window.open() dentro un handler async
+  // il telefono blocca l'apertura perché il tocco è già "scaduto".
   if (luogo) {
-    const fibra = el('button', null, '📶 Fibra');
-    fibra.title = 'Copia l\'indirizzo e apri la verifica copertura Open Fiber';
-    fibra.addEventListener('click', async () => {
-      const testo = [a.indirizzo, a.comune].filter(Boolean).join(', ') || luogo;
-      try { await navigator.clipboard.writeText(testo); } catch (e) { /* senza appunti si incolla a mano */ }
+    const testoInd = [a.indirizzo, a.comune].filter(Boolean).join(', ') || luogo;
+    const fibra = el('a', null, '📶 Fibra');
+    fibra.href = 'https://openfiber.it/verifica-copertura/';
+    fibra.target = '_blank';
+    fibra.rel = 'noopener';
+    fibra.title = 'Copia l\'indirizzo e apre la verifica copertura Open Fiber';
+    fibra.addEventListener('click', () => {
+      copiaNegliAppunti(testoInd);          // sincrono: niente await prima
       fibra.textContent = '📋 Copiato!';
-      setTimeout(() => { fibra.textContent = '📶 Fibra'; }, 2000);
-      window.open('https://openfiber.it/verifica-copertura/', '_blank', 'noopener');
+      setTimeout(() => { fibra.textContent = '📶 Fibra'; }, 2500);
     });
     actions.append(fibra);
   }
@@ -756,6 +828,7 @@ function disegnaBlocco() {
     });
     list.append(btn);
   }
+  aggiornaDistanzeVisibili();
 }
 
 // ---------- Filtri: registrazione, conteggio, persistenza ----------
@@ -814,14 +887,19 @@ function aggiornaChipRif() {
   $('#chip-lavoro').textContent = '💼 ' + (posLavoro ? posLavoro.nome : 'Lavoro');
   const g = document.querySelector('.chip-rif[data-rif="gps"]');
   g.classList.toggle('active', mostraGps);
-  // riga di conferma: dove ti ha localizzato il GPS
+  // riga di conferma: dove ti ha localizzato il GPS / che indirizzo ha trovato
   const conf = $('#rif-conferma');
-  if (mostraGps && posGpsNome) {
-    conf.textContent = '📍 Sei vicino a: ' + posGpsNome + '. Non è giusto? Tocca di nuovo 📍 per riprovare.';
-    conf.classList.remove('hidden');
-  } else {
-    conf.classList.add('hidden');
+  const righe = [];
+  if (mostraLavoro && posLavoro?.completo) {
+    const dove = posLavoro.completo.split(',').slice(0, 4)
+      .map(s => s.trim()).filter(Boolean).join(', ');
+    righe.push('💼 Lavoro: ' + dove + ' — sbagliato? tocca ✏️');
   }
+  if (mostraGps && posGpsNome) {
+    righe.push('📍 Sei vicino a: ' + posGpsNome + ' — non è giusto? tocca di nuovo 📍');
+  }
+  conf.textContent = righe.join('\n');
+  conf.classList.toggle('hidden', !righe.length);
 }
 
 function ottieniPosizione() {
@@ -835,13 +913,21 @@ function ottieniPosizione() {
 }
 
 async function geocodaIndirizzo(testo) {
-  const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=it&q='
-    + encodeURIComponent(testo);
+  const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&addressdetails=1'
+    + '&countrycodes=it&q=' + encodeURIComponent(testo);
   const r = await fetch(url, { headers: { 'Accept-Language': 'it' } });
   const dati = await r.json();
   if (!dati.length) return null;
-  const d = dati[0];
-  return { lat: Number(d.lat), lon: Number(d.lon), nome: (d.display_name || testo).split(',')[0] };
+  const d = dati[0], ind = d.address || {};
+  // Attenzione: display_name comincia col civico ("4, Via Borghetto, …"),
+  // quindi split(',')[0] darebbe "4". Il nome si compone dai pezzi giusti.
+  const via = ind.road || ind.pedestrian || ind.suburb || '';
+  const citta = ind.city || ind.town || ind.village || ind.municipality || '';
+  const nome = [via, citta].filter(Boolean).join(', ') || (d.display_name || testo).split(',')[0];
+  return {
+    lat: Number(d.lat), lon: Number(d.lon), nome,
+    completo: d.display_name || testo,
+  };
 }
 
 // Reverse geocoding: da coordinate al nome del luogo (per confermare il GPS)
