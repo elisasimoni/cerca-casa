@@ -358,7 +358,7 @@ function etichetteDistanza(a) {
     const s = cacheStrada.get(chiaveStrada(p, a));
     if (s) { out.push(`${icona} ${circa}${fmtKm(s.km)} · ${s.min} min`); return; }
     const km = distKmDa(p, a);
-    if (km != null) out.push(`${icona} ${circa}${fmtKm(km)} in linea d'aria`);
+    if (km != null) out.push(`${icona} ${circa}${fmtKm(km)}`);
   };
   if (mostraLavoro) perRif(posLavoro, '💼');
   if (mostraGps) perRif(posGps, '📍');
@@ -468,172 +468,190 @@ async function aggiornaDistanzeVisibili() {
   if (!punti.length || !visibili.length) return;
   for (const p of punti) await calcolaStrade(p, visibili);
   visibili.forEach(a => {
-    const riga = document.querySelector(`.card-meta[data-ann="${CSS.escape(a.id)}"]`);
-    if (riga) riga.textContent = testoMeta(a);
+    const riga = document.querySelector(`.riga-luogo[data-ann="${CSS.escape(a.id)}"]`);
+    if (riga) scriviLuogo(riga, a);
   });
 }
 
+// Riga "dove + quanto dista": riscritta quando arrivano i percorsi su strada
+function scriviLuogo(riga, a) {
+  const luogo = [a.quartiere, a.comune].filter(Boolean).join(', ') || a.indirizzo || '';
+  riga.innerHTML = '';
+  riga.append(el('span', null, '📍 ' + luogo));
+  const dist = etichetteDistanza(a);
+  if (dist.length) riga.append(el('span', 'riga-dist', ' · ' + dist.join(' · ')));
+}
+
 function annuncioCard(a) {
-  const card = el('div', 'card');
-  const wrap = el('div', 'annuncio-wrap');
+  const card = el('div', 'card card-annuncio');
+
+  // --- Foto a tutta larghezza con le due azioni in sovrimpressione ---
+  const cornice = el('div', 'foto-cornice');
+  if (a.foto) {
+    const img = el('img', 'foto-grande');
+    img.src = a.foto; img.alt = ''; img.loading = 'lazy';
+    img.addEventListener('error', () => { cornice.classList.add('senza-foto'); img.remove(); });
+    cornice.append(img);
+  } else {
+    cornice.classList.add('senza-foto');
+  }
+
+  const cestino = el('button', 'azione-foto a-sinistra', mostraScartati ? '↩︎' : '🗑️');
+  cestino.title = mostraScartati ? 'Rimetti in lista' : 'Non mi interessa';
+  cestino.addEventListener('click', e => {
+    e.stopPropagation();
+    if (mostraScartati) {
+      scartati.delete(a.id); salvaScartati(); card.remove(); aggiornaContaFiltri();
+      if (!scartati.size) { mostraScartati = false; renderAnnunci(); }
+      return;
+    }
+    scartati.add(a.id); salvaScartati(); card.remove();
+    itemsFiltrati = itemsFiltrati.filter(x => x.id !== a.id);
+    mostrati = Math.max(0, mostrati - 1);
+    aggiornaContatoreLista(); aggiornaContaFiltri(); mostraAnnulla(a);
+  });
+  cornice.append(cestino);
+
+  const giaSalvata = state.houses.some(h => h.link === a.url);
+  const cuore = el('button', 'azione-foto a-destra' + (giaSalvata ? ' salvato' : ''),
+    giaSalvata ? '♥' : '♡');
+  cuore.title = giaSalvata ? 'Già tra le tue case' : 'Salva tra le tue case';
+  cuore.disabled = giaSalvata;
+  cuore.addEventListener('click', e => {
+    e.stopPropagation();
+    cuore.textContent = '♥'; cuore.classList.add('salvato'); cuore.disabled = true;
+    state.houses.push({
+      id: String(Date.now()), created: Date.now(), link: a.url, titolo: titoloUtile(a),
+      zona: a.quartiere || a.comune || 'Da smistare', sito: a.fonte,
+      indirizzo: [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', '),
+      prezzo: a.prezzo, mq: a.mq, locali: a.locali, bagni: a.bagni,
+      piano: a.piano || '', stato: 'da-valutare', note: '',
+    });
+    save(); renderZoneChips(); renderHouses(); renderZoneManage(); aggiornaBadgeCase();
+  });
+  cornice.append(cuore);
+
+  // un solo cartellino, per ordine di importanza
+  const avviso = a.avviso ? '⚠️ Attenzione' : (a.asta ? '⚖️ Asta' : null);
+  if (avviso) cornice.append(el('span', 'targhetta' + (a.avviso ? ' targhetta-avviso' : ''), avviso));
+  card.append(cornice);
+
+  // --- Corpo: quattro righe, niente di più ---
+  const corpo = el('div', 'card-corpo');
+
+  const rigaPrezzo = el('div', 'riga-prezzo');
+  rigaPrezzo.append(el('span', 'price', a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'Prezzo su richiesta'));
+  if (a.prezzo && a.mq) {
+    rigaPrezzo.append(el('span', 'price-mq', Math.round(a.prezzo / a.mq).toLocaleString('it-IT') + ' €/mq'));
+  }
+  corpo.append(rigaPrezzo);
+
+  const fatti = [];
+  if (a.mq) fatti.push(a.mq + ' mq');
+  if (a.locali) fatti.push(a.locali + (a.locali == 1 ? ' locale' : ' locali'));
+  if (a.bagni) fatti.push(a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
+  fatti.push(NOME_TIPO[a.tipo] || 'Immobile');
+  corpo.append(el('div', 'riga-fatti', fatti.join(' · ')));
+
+  const rigaLuogo = el('div', 'riga-luogo');
+  rigaLuogo.dataset.ann = a.id;
+  scriviLuogo(rigaLuogo, a);
+  corpo.append(rigaLuogo);
+
+  const sotto = [a.fonte];
+  if (a.pos === 'comune') sotto.push('indirizzo non indicato');
+  if (a.fibra?.livello === 'ok') sotto.push('📶 fibra');
+  corpo.append(el('div', 'riga-fonte', sotto.join(' · ')));
+
+  card.append(corpo);
+
+  // tutta la card apre il dettaglio: prima il bersaglio era il 2% dell'area
+  card.addEventListener('click', () => apriDettaglio(a));
+  return card;
+}
+
+// Scheda di dettaglio: qui sta tutto quello che è stato tolto dalla card
+function apriDettaglio(a) {
+  const c = $('#dettaglio-corpo');
+  c.innerHTML = '';
 
   if (a.foto) {
-    const img = el('img', 'annuncio-foto');
-    img.src = a.foto; img.alt = ''; img.loading = 'lazy';
+    const img = el('img', 'dett-foto');
+    img.src = a.foto; img.alt = '';
     img.addEventListener('error', () => img.remove());
-    wrap.append(img);
+    c.append(img);
   }
+  c.append(el('h2', 'dett-titolo', titoloUtile(a)));
 
-  const body = el('div', 'annuncio-body');
-  const top = el('div', 'card-top');
-  top.append(el('div', 'card-title', titoloUtile(a)));
-  if (a.asta) top.append(el('span', 'stato-badge stato-scartata', 'Asta'));
-  body.append(top);
+  const pr = el('div', 'riga-prezzo');
+  pr.append(el('span', 'price', a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'Prezzo su richiesta'));
+  if (a.prezzo && a.mq) pr.append(el('span', 'price-mq', Math.round(a.prezzo / a.mq).toLocaleString('it-IT') + ' €/mq'));
+  c.append(pr);
 
-  const pr = el('div', 'card-price');
-  if (a.prezzo) {
-    pr.append(el('span', 'price', '€ ' + a.prezzo.toLocaleString('it-IT')));
-    if (a.mq) pr.append(el('span', 'price-mq', Math.round(a.prezzo / a.mq).toLocaleString('it-IT') + ' €/mq'));
-  } else {
-    // senza questa riga la card sembra rotta: meglio dirlo
-    pr.append(el('span', 'price-assente', 'Prezzo su richiesta'));
-  }
-  body.append(pr);
-
-  const riga = el('div', 'card-meta', testoMeta(a));
-  riga.dataset.ann = a.id;   // così si aggiorna quando arrivano le distanze
-  body.append(riga);
+  c.append(el('div', 'card-meta', testoMeta(a)));
 
   const luogo = [a.indirizzo, a.quartiere, a.comune].filter(Boolean).join(', ');
   if (luogo) {
     const addr = el('div', 'card-addr');
-    const link = el('a', null, '📍 ' + luogo);
+    const link = el('a', null, '📍 ' + luogo + ' — apri su Maps');
     link.href = 'https://www.google.com/maps/search/?api=1&query=' + enc(luogo);
     link.target = '_blank'; link.rel = 'noopener';
     addr.append(link);
-    // senza indirizzo esatto, distanza e posizione sulla mappa sono del comune
-    if (a.pos === 'comune') {
-      addr.append(el('span', 'pos-circa', ' · indirizzo non indicato'));
-    }
-    body.append(addr);
+    if (a.pos === 'comune') addr.append(el('span', 'pos-circa', ' · indirizzo non indicato'));
+    c.append(addr);
   }
 
   const badges = el('div', 'card-badges');
-  if (a.tipo) badges.append(el('span', 'badge badge-tipo tipo-' + a.tipo, TIPI_LABEL[a.tipo] || a.tipo));
+  badges.append(el('span', 'badge badge-tipo tipo-' + a.tipo, TIPI_LABEL[a.tipo] || a.tipo));
   badges.append(el('span', 'badge badge-sito', a.fonte));
-  if (a.comune) badges.append(el('span', 'badge', a.comune));
-  if (a.quartiere && a.quartiere !== a.comune) badges.append(el('span', 'badge', a.quartiere));
-  body.append(badges);
+  if (a.asta) badges.append(el('span', 'badge badge-sito', '⚖️ Asta'));
+  c.append(badges);
 
-  if (a.avviso) body.append(el('div', 'card-avviso', '⚠️ ' + a.avviso));
+  if (a.avviso) c.append(el('div', 'card-avviso', '⚠️ ' + a.avviso));
 
   if ((a.carat || []).length) {
     const cw = el('div', 'card-carat');
-    a.carat.forEach(c => cw.append(el('span', 'carat-tag', CARAT_LABEL[c] || c)));
-    body.append(cw);
+    a.carat.forEach(k => cw.append(el('span', 'carat-tag', CARAT_LABEL[k] || k)));
+    c.append(cw);
   }
 
-  // Stato del piano fibra pubblico nel comune (dati Banda Ultra Larga).
-  // Riguarda le zone che il mercato non copriva: nei centri la fibra
-  // commerciale c'è spesso lo stesso, per questo resta il tasto di verifica.
   if (a.fibra) {
     const f = el('div', 'card-fibra fibra-' + a.fibra.livello);
-    const icona = { ok: '📶', quasi: '📶', corso: '🚧', no: '🕓' }[a.fibra.livello] || '📶';
-    let testo = icona + ' ' + a.fibra.testo + ' a ' + (a.comune || 'questo comune');
-    if (a.fibra.livello === 'ok' && a.fibra.operativa) {
-      testo += ' (dal ' + a.fibra.operativa.slice(0, 4) + ')';
-    }
-    f.textContent = testo;
-    f.title = 'Dato del piano pubblico Banda Ultra Larga, comune per comune. '
-      + 'Per sapere se arriva a questo indirizzo usa "Verifica fibra".';
-    body.append(f);
+    f.textContent = ({ ok: '📶', quasi: '📶', corso: '🚧', no: '🕓' }[a.fibra.livello] || '📶')
+      + ' ' + a.fibra.testo + ' a ' + (a.comune || 'questo comune');
+    c.append(f);
   }
 
-  if (a.descr) {
-    const clip = a.descr.length > 160 ? a.descr.slice(0, 160) + '…' : a.descr;
-    body.append(el('div', 'card-note', clip));
-  }
+  if (a.descr) c.append(el('p', 'dett-descr', a.descr));
 
-  const actions = el('div', 'card-actions');
-  const vedi = el('a', 'primary', 'Annuncio ↗');
+  const azioni = el('div', 'card-actions');
+  const vedi = el('a', 'primary', 'Apri annuncio ↗');
   vedi.href = a.url; vedi.target = '_blank'; vedi.rel = 'noopener';
-  actions.append(vedi);
-
-  // Fibra: OpenFiber non accetta l'indirizzo nell'URL e blocca le richieste
-  // automatiche, quindi copio l'indirizzo e apro il loro verificatore da
-  // incollare. Dev'essere un <a>: con window.open() dentro un handler async
-  // il telefono blocca l'apertura perché il tocco è già "scaduto".
+  azioni.append(vedi);
   if (luogo) {
     const testoInd = [a.indirizzo, a.comune].filter(Boolean).join(', ') || luogo;
     const fibra = el('a', null, '📶 Verifica fibra');
     fibra.href = 'https://openfiber.it/verifica-copertura/';
-    fibra.target = '_blank';
-    fibra.rel = 'noopener';
-    fibra.title = 'Copia l\'indirizzo e apre la verifica copertura Open Fiber';
+    fibra.target = '_blank'; fibra.rel = 'noopener';
     fibra.addEventListener('click', () => {
-      copiaNegliAppunti(testoInd);          // sincrono: niente await prima
+      copiaNegliAppunti(testoInd);
       fibra.textContent = '📋 Copiato!';
-      setTimeout(() => { fibra.textContent = '📶 Fibra'; }, 2500);
+      setTimeout(() => { fibra.textContent = '📶 Verifica fibra'; }, 2500);
     });
-    actions.append(fibra);
+    azioni.append(fibra);
   }
+  c.append(azioni);
+  $('#dettaglio-dialog').showModal();
+  c.scrollTop = 0;
+}
 
-  const giaSalvata = state.houses.some(h => h.link === a.url);
-  const salva = el('button', giaSalvata ? 'saved' : null, giaSalvata ? '✓ Salvata' : '💾 Salva');
-  salva.disabled = giaSalvata;
-  salva.addEventListener('click', () => {
-    // Aggiorno il bottone sul posto: ridisegnare la lista farebbe perdere
-    // la posizione di scorrimento e le pagine già caricate.
-    salva.textContent = '✓ Salvata';
-    salva.classList.add('saved');
-    salva.disabled = true;
-    state.houses.push({
-      id: String(Date.now()),
-      created: Date.now(),
-      link: a.url,
-      titolo: a.titolo,
-      zona: a.quartiere || a.comune || 'Da smistare',
-      sito: a.fonte,
-      indirizzo: luogo,
-      prezzo: a.prezzo, mq: a.mq, locali: a.locali, bagni: a.bagni,
-      piano: a.piano || '',
-      stato: 'da-valutare',
-      note: '',
-    });
-    save();
-    renderZoneChips(); renderHouses(); renderZoneManage();
-  });
-  actions.append(salva);
+$('#btn-chiudi-dettaglio').addEventListener('click', () => $('#dettaglio-dialog').close());
 
-  // Cestino: nasconde l'annuncio dalla lista (reversibile)
-  const cestino = el('button', 'danger', mostraScartati ? '↩︎ Ripristina' : '🗑️');
-  cestino.title = mostraScartati
-    ? 'Rimetti questo annuncio nella lista'
-    : 'Non mi interessa: nascondi questo annuncio';
-  cestino.addEventListener('click', () => {
-    if (mostraScartati) {
-      scartati.delete(a.id);
-      salvaScartati();
-      card.remove();
-      aggiornaContaFiltri();
-      if (!scartati.size) { mostraScartati = false; renderAnnunci(); }
-      return;
-    }
-    scartati.add(a.id);
-    salvaScartati();
-    card.remove();
-    itemsFiltrati = itemsFiltrati.filter(x => x.id !== a.id);
-    mostrati = Math.max(0, mostrati - 1);
-    aggiornaContatoreLista();
-    aggiornaContaFiltri();
-    mostraAnnulla(a);
-  });
-  actions.append(cestino);
-  body.append(actions);
-
-  wrap.append(body);
-  card.append(wrap);
-  return card;
+function aggiornaBadgeCase() {
+  const b = $('#nav-badge-case');
+  if (!b) return;
+  b.textContent = state.houses.length || '';
+  b.classList.toggle('hidden', !state.houses.length);
 }
 
 // Applica tutti i filtri. `conArea` = false serve alla mappa: lì si vogliono
@@ -647,7 +665,7 @@ function filtraAnnunci(conArea) {
     ? items.filter(a => scartati.has(a.id))
     : items.filter(a => !scartati.has(a.id));
 
-  if (zonaAttiva) items = items.filter(a => a.zona === zonaAttiva);
+  if (zonaAttiva) items = items.filter(a => inZona(a, zonaAttiva));
   const fonte = $('#annunci-fonte').value;
   if (fonte) items = items.filter(a => a.fonte === fonte);
   const tipo = $('#annunci-tipo').value;
@@ -777,8 +795,9 @@ function renderAnnunci() {
     : '?';
   const errori = (annunciData.ricerche || []).flatMap(r => r.errori || []);
   const clf = annunciData.classificatore === 'regole' ? 'tipologie stimate' : 'tipologie AI';
-  codaInfo = mostraScartati ? '' : ` · aggiornati ${quando} · ${clf}` +
-    (errori.length ? ` · ⚠️ ${errori.length} fonte/i in errore` : '');
+  codaInfo = errori.length
+    ? `⚠️ ${errori.length} fonte/i in errore`
+    : `agg. ${quando}`;
   itemsFiltrati = items;
   aggiornaContatoreLista();
 
@@ -821,9 +840,10 @@ let codaInfo = '';
 // Riga in cima: quanti annunci stai vedendo ora (cambia anche col cestino)
 function aggiornaContatoreLista() {
   const n = itemsFiltrati.length;
-  $('#annunci-updated').textContent = mostraScartati
-    ? `${n} ${n === 1 ? 'annuncio nascosto' : 'annunci che hai nascosto'} col cestino`
-    : `${n} annunci${codaInfo}`;
+  $('#annunci-conteggio').textContent = mostraScartati
+    ? `${n} nascosti`
+    : `${n} ${n === 1 ? 'annuncio' : 'annunci'}`;
+  $('#annunci-updated').textContent = mostraScartati ? 'col cestino' : codaInfo;
 }
 
 function disegnaBlocco() {
@@ -893,13 +913,16 @@ FILTRI_ID.forEach(id => {
   const ritardo = e.type === 'text' ? 250 : 0;
   e.addEventListener(e.tagName === 'SELECT' ? 'change' : 'input', () => {
     clearTimeout(timerRicerca);
-    timerRicerca = setTimeout(() => { renderAnnunci(); salvaFiltri(); }, ritardo);
+    timerRicerca = setTimeout(() => {
+      if ($('#filtri-dialog').open) { aggiornaContaRisultati(); salvaFiltri(); }
+      else { renderAnnunci(); salvaFiltri(); }
+    }, ritardo);
   });
 });
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
-$('#annunci-no-centro').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
-$('#annunci-con-prezzo').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
-$('#annunci-fibra-ok').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
+$('#annunci-no-centro').addEventListener('change', () => { aggiornaVista(); salvaFiltri(); });
+$('#annunci-con-prezzo').addEventListener('change', () => { aggiornaVista(); salvaFiltri(); });
+$('#annunci-fibra-ok').addEventListener('change', () => { aggiornaVista(); salvaFiltri(); });
 
 // ---------- Punti di riferimento per la distanza ----------
 function aggiornaChipRif() {
@@ -1014,18 +1037,63 @@ $('#btn-salva-lavoro').addEventListener('click', salvaLavoro);
 $('#lavoro-input').addEventListener('keydown', e => { if (e.key === 'Enter') salvaLavoro(); });
 aggiornaChipRif();
 
-$('#btn-altri-filtri').addEventListener('click', () => {
-  $('#altri-filtri').classList.toggle('hidden');
+// --- Pannello filtri a schermo intero ---
+let scrollPrimaDeiFiltri = 0;
+$('#btn-filtri').addEventListener('click', () => {
+  scrollPrimaDeiFiltri = window.scrollY;
+  aggiornaContaRisultati();
+  $('#filtri-dialog').showModal();
 });
+function chiudiFiltri() {
+  $('#filtri-dialog').close();
+  renderAnnunci();
+  // torna dove eri: aprire i filtri non deve farti perdere il segno
+  requestAnimationFrame(() => window.scrollTo(0, scrollPrimaDeiFiltri));
+}
+$('#btn-chiudi-filtri').addEventListener('click', chiudiFiltri);
+$('#btn-applica-filtri').addEventListener('click', chiudiFiltri);
 
-document.querySelectorAll('.chip-zona').forEach(c => {
-  c.addEventListener('click', () => {
-    zonaAttiva = c.dataset.zona;
-    document.querySelectorAll('.chip-zona').forEach(x =>
-      x.classList.toggle('active', x.dataset.zona === zonaAttiva));
-    renderAnnunci(); salvaFiltri();
-  });
+// Contatore vivo dentro il pannello: si vede l'effetto senza chiudere
+function aggiornaContaRisultati() {
+  const n = filtraAnnunci(true).length;
+  $('#conta-risultati').textContent = n === 1 ? '1 annuncio' : `${n} annunci`;
+  $('#btn-applica-filtri').disabled = false;
+}
+
+// --- Foglio ordinamento ---
+$('#btn-ordina').addEventListener('click', () => $('#ordina-dialog').showModal());
+$('#ordina-dialog').addEventListener('click', e => {
+  if (e.target.id === 'ordina-dialog') $('#ordina-dialog').close();
 });
+$('#annunci-sort').addEventListener('change', () => $('#ordina-dialog').close());
+
+// Zone di ricerca di Elisa: chip con il conteggio, così non escludono in
+// silenzio. "Santa Maria Nuova" è una frazione di Bertinoro: sono due chip
+// distinti, i numeri dicono la differenza.
+const ZONE = [
+  { id: '', nome: 'Ovunque' },
+  { id: 'santa maria nuova', nome: 'Santa Maria Nuova' },
+  { id: 'bertinoro', nome: 'Bertinoro' },
+  { id: 'cesena', nome: 'Cesena' },
+  { id: 'gambettola', nome: 'Gambettola' },
+  { id: 'forli', nome: 'Forlì' },
+];
+
+const senzaAccenti = t => (t || '').toLowerCase()
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/'/g, '').trim();
+
+// Un annuncio appartiene a una zona se lo dice il campo zona, il comune,
+// il quartiere o l'indirizzo: il solo campo zona è vuoto su 194 annunci.
+function inZona(a, z) {
+  if (!z) return true;
+  if (a.zona === z) return true;
+  const dove = senzaAccenti([a.comune, a.quartiere, a.indirizzo].filter(Boolean).join(' '));
+  return dove.includes(z);
+}
+
+function contaZona(z) {
+  return (annunciData?.annunci || []).filter(a => !scartati.has(a.id) && inZona(a, z)).length;
+}
 
 function costruisciCaratChips() {
   const wrap = $('#carat-chips');
@@ -1035,35 +1103,39 @@ function costruisciCaratChips() {
     c.addEventListener('click', () => {
       caratRichieste.has(k) ? caratRichieste.delete(k) : caratRichieste.add(k);
       c.classList.toggle('active');
-      renderAnnunci(); salvaFiltri();
+      aggiornaVista(); salvaFiltri();
     });
     wrap.append(c);
   });
 }
 
+// Col pannello aperto basta aggiornare il numero: ridisegnare la lista
+// sotto sarebbe lavoro sprecato e farebbe perdere la posizione.
+function aggiornaVista() {
+  if ($('#filtri-dialog').open) aggiornaContaRisultati();
+  else renderAnnunci();
+}
+
 function aggiornaContaFiltri() {
-  // barra dei filtri attivi: ogni filtro è un chip che si tocca per toglierlo
-  const bar = $('#filtri-attivi');
+  // Riga sempre visibile: prima i filtri accesi (si tolgono con un tocco),
+  // poi le zone col loro conteggio. Non collassa mai: è l'unico accesso
+  // agli annunci nascosti e all'area disegnata.
+  const bar = $('#riga-chip');
   bar.innerHTML = '';
+  let nFiltri = 0;
+
   const chip = (testo, rimuovi) => {
+    nFiltri++;
     const c = el('button', 'attivo-chip', testo);
     c.append(el('span', 'attivo-x', '✕'));
     c.addEventListener('click', () => { rimuovi(); renderAnnunci(); salvaFiltri(); });
     bar.append(c);
   };
 
-  if (zonaAttiva) {
-    const nome = document.querySelector(`.chip-zona[data-zona="${zonaAttiva}"]`)?.textContent || zonaAttiva;
-    chip(nome, () => {
-      zonaAttiva = '';
-      document.querySelectorAll('.chip-zona').forEach(x => x.classList.toggle('active', !x.dataset.zona));
-    });
-  }
   FILTRI_ID.forEach(id => {
     const v = $('#' + id).value;
     if (!v) return;
-    const et = FILTRI_ETICHETTE[id] ? FILTRI_ETICHETTE[id](v) : v;
-    chip(et, () => { $('#' + id).value = ''; });
+    chip(FILTRI_ETICHETTE[id] ? FILTRI_ETICHETTE[id](v) : v, () => { $('#' + id).value = ''; });
   });
   caratRichieste.forEach(k => chip(CARAT_LABEL[k] || k, () => {
     caratRichieste.delete(k);
@@ -1071,38 +1143,40 @@ function aggiornaContaFiltri() {
       if ((CARAT_LABEL[k] || k) === c.textContent) c.classList.remove('active');
     });
   }));
-  if ($('#annunci-no-centro').checked) {
-    chip('🚫 Fuori dai centri', () => { $('#annunci-no-centro').checked = false; });
-  }
-  if ($('#annunci-con-prezzo').checked) {
-    chip('💶 Con prezzo', () => { $('#annunci-con-prezzo').checked = false; });
-  }
-  if ($('#annunci-fibra-ok').checked) {
-    chip('📶 Con fibra', () => { $('#annunci-fibra-ok').checked = false; });
-  }
+  if ($('#annunci-no-centro').checked) chip('🚫 Fuori dai centri', () => { $('#annunci-no-centro').checked = false; });
+  if ($('#annunci-con-prezzo').checked) chip('💶 Con prezzo', () => { $('#annunci-con-prezzo').checked = false; });
+  if ($('#annunci-fibra-ok').checked) chip('📶 Con fibra', () => { $('#annunci-fibra-ok').checked = false; });
   if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
 
-  // il conteggio riguarda solo i filtri veri, non la vista scartati
-  const n = bar.children.length;
-  if (n > 1) {
-    const azzera = el('button', 'attivo-azzera', '↺ Azzera tutto');
-    azzera.addEventListener('click', () => $('#btn-azzera').click());
-    bar.append(azzera);
-  }
-  $('#conta-filtri').textContent = n ? `(${n})` : '';
+  // il badge sull'ingranaggio conta solo i filtri veri
+  $('#conta-filtri').textContent = nFiltri || '';
+  $('#conta-filtri').classList.toggle('hidden', !nFiltri);
 
-  // gli scartati non sono un filtro da togliere: sono una vista da aprire
+  // vista degli scartati: non è un filtro, è un posto dove andare
   if (mostraScartati) {
-    const c = el('button', 'attivo-chip attivo-scartati', '🗑️ Stai vedendo gli scartati · torna alla lista');
+    const c = el('button', 'attivo-chip attivo-scartati', '🗑️ Nascosti · torna alla lista');
     c.addEventListener('click', () => { mostraScartati = false; renderAnnunci(); });
     bar.append(c);
   } else if (scartati.size) {
-    const c = el('button', 'attivo-chip attivo-scartati',
-      `🗑️ ${scartati.size} ${scartati.size === 1 ? 'nascosto' : 'nascosti'} · rivedi`);
+    const c = el('button', 'attivo-chip attivo-scartati', `🗑️ ${scartati.size} nascosti`);
     c.addEventListener('click', () => { mostraScartati = true; renderAnnunci(); });
     bar.append(c);
   }
-  bar.classList.toggle('vuota', bar.children.length === 0);
+
+  // zone con il numero a fianco
+  if (!mostraScartati) {
+    ZONE.forEach(z => {
+      const n = contaZona(z.id);
+      if (z.id && !n) return;                       // zona senza annunci: non la mostro
+      const etichetta = z.id ? `${z.nome} ${n}` : z.nome;
+      const c = el('button', 'chip chip-zona' + (zonaAttiva === z.id ? ' active' : ''), etichetta);
+      c.addEventListener('click', () => {
+        zonaAttiva = zonaAttiva === z.id ? '' : z.id;
+        renderAnnunci(); salvaFiltri();
+      });
+      bar.append(c);
+    });
+  }
 }
 
 function salvaFiltri() {
@@ -1127,8 +1201,6 @@ function ripristinaFiltri() {
   $('#annunci-fibra-ok').checked = !!stato.fibraOk;
   caratRichieste = new Set(stato.carat || []);
   zonaAttiva = stato.zona || '';
-  document.querySelectorAll('.chip-zona').forEach(x =>
-    x.classList.toggle('active', x.dataset.zona === zonaAttiva));
 }
 
 $('#btn-azzera').addEventListener('click', () => {
@@ -1140,8 +1212,6 @@ $('#btn-azzera').addEventListener('click', () => {
   zonaAttiva = '';
   areaPoligono = null;
   salvaArea();
-  document.querySelectorAll('.chip-zona').forEach(x =>
-    x.classList.toggle('active', !x.dataset.zona));
   document.querySelectorAll('#carat-chips .chip').forEach(c => c.classList.remove('active'));
   salvaFiltri();
   renderAnnunci();

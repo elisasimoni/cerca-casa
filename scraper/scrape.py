@@ -452,6 +452,35 @@ def zona_preferita(a):
     return None
 
 
+# Le fonti scrivono lo stesso comune in modi diversi ("Forlì" e "Forli'"):
+# senza questa tabella la tendina mostra due voci per la stessa città.
+COMUNE_UFFICIALE = {
+    "forli": "Forlì", "forli cesena": "Forlì", "cesena": "Cesena",
+    "bertinoro": "Bertinoro", "gambettola": "Gambettola",
+    "cesenatico": "Cesenatico", "forlimpopoli": "Forlimpopoli",
+    "savignano sul rubicone": "Savignano sul Rubicone",
+    "san mauro pascoli": "San Mauro Pascoli", "meldola": "Meldola",
+    "mercato saraceno": "Mercato Saraceno", "longiano": "Longiano",
+    "predappio": "Predappio", "civitella di romagna": "Civitella di Romagna",
+    "sogliano al rubicone": "Sogliano al Rubicone", "roncofreddo": "Roncofreddo",
+    "santa sofia": "Santa Sofia", "bagno di romagna": "Bagno di Romagna",
+    "galeata": "Galeata", "modigliana": "Modigliana", "sarsina": "Sarsina",
+    "montiano": "Montiano", "gatteo": "Gatteo", "borghi": "Borghi",
+    "dovadola": "Dovadola", "verghereto": "Verghereto", "premilcuore": "Premilcuore",
+    "tredozio": "Tredozio", "rocca san casciano": "Rocca San Casciano",
+    "castrocaro terme e terra del sole": "Castrocaro Terme",
+    "castrocaro terme": "Castrocaro Terme",
+    "portico e san benedetto": "Portico e San Benedetto",
+}
+
+
+def uniforma_comune(nome):
+    """Riporta il comune alla grafia ufficiale, così non compare due volte."""
+    if not nome:
+        return nome
+    return COMUNE_UFFICIALE.get(norm_comune(nome), nome.strip())
+
+
 def norm_comune(nome):
     if not nome:
         return ""
@@ -876,6 +905,7 @@ def main():
     # caratteristiche e zona PRIMA della classificazione: servono a dare
     # priorità AI alle case indipendenti nelle zone di Elisa.
     for a in tutte:
+        a["comune"] = uniforma_comune(a.get("comune"))
         estrai_caratteristiche(a)
         a["zona"] = zona_preferita(a)
         a["tipo"] = classifica_regole(a["titolo"], a.get("descr") or "")["tipo"]

@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=8882638a">
+  <link rel="stylesheet" href="css/style.css?v=e1291d07">
 </head>
 <body>
 
@@ -33,13 +33,12 @@
 
   <!-- App -->
   <div id="app" class="hidden">
-    <header class="app-header">
-      <span class="app-title">🏠 Cerca Casa</span>
-      <span id="header-count" class="header-count"></span>
-    </header>
-
     <!-- TAB: Case -->
-    <main id="tab-case" class="tab active">
+    <main id="tab-case" class="tab">
+      <div class="titolo-sezione-riga">
+        <h2 class="titolo-sezione">Le mie case <span id="header-count" class="header-count"></span></h2>
+        <button id="btn-add" class="btn btn-small">＋ Aggiungi a mano</button>
+      </div>
       <div class="filters">
         <div id="zone-chips" class="chips"></div>
         <div class="filter-row">
@@ -66,21 +65,94 @@
     </main>
 
     <!-- TAB: Annunci (scraper automatico) -->
-    <main id="tab-annunci" class="tab">
-      <div class="annunci-head">
-        <div class="updated-row">
-          <p class="hint" id="annunci-updated">Caricamento annunci…</p>
-          <button id="btn-refresh" class="btn btn-small hidden">🔄 Aggiorna ora</button>
+    <main id="tab-annunci" class="tab active">
+      <!-- Barra compatta sempre visibile -->
+      <div class="barra-top">
+        <div class="barra-info">
+          <span id="annunci-conteggio" class="conteggio">…</span>
+          <span id="annunci-updated" class="sotto-conteggio"></span>
         </div>
+        <div class="barra-azioni">
+          <button id="btn-refresh" class="icona hidden" title="Aggiorna adesso">🔄</button>
+          <button id="btn-ordina" class="icona" title="Ordina">↕</button>
+          <button id="btn-filtri" class="icona icona-filtri" title="Filtri">⚙️<span id="conta-filtri"></span></button>
+        </div>
+      </div>
+
+      <!-- Riga scorrevole: filtri attivi + zone -->
+      <div id="riga-chip" class="riga-chip"></div>
+
+      <div id="annunci-list"></div>
+      <div id="annunci-coda" class="annunci-coda">
+        <p class="hint">Non trovi quello che cerchi? Cerca anche su:</p>
+        <div id="annunci-links" class="agenzie"></div>
+      </div>
+    </main>
+
+
+
+    <!-- TAB: Altro -->
+    <main id="tab-altro" class="tab">
+      <details class="sezione-portali">
+        <summary>🔍 Cerca sui portali immobiliari</summary>
+        <div class="portali-head">
+        <p class="hint">Cerca in una zona su tutti i portali immobiliari:</p>
+        <div class="contract-toggle" id="contract-toggle">
+          <button data-contract="vendita" class="active">Compra</button>
+          <button data-contract="affitto">Affitto</button>
+        </div>
+        <input type="text" id="portali-zona" placeholder="Zona / comune (es. Firenze)" list="zone-datalist">
+      </div>
+      <div id="portali-list"></div>
+      <h3 class="section-title">Agenzie immobiliari</h3>
+      <div id="agenzie-list" class="agenzie"></div>
+      </details>
+
+      <h3 class="section-title">Le mie zone</h3>
+      <p class="hint">Le zone si creano anche in automatico quando salvi una casa.</p>
+      <form id="zona-form" class="inline-form">
+        <input type="text" id="zona-input" placeholder="Nuova zona (es. Campo di Marte)">
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+      </form>
+      <div id="zone-manage" class="chips chips-wrap"></div>
+
+      <h3 class="section-title">Backup</h3>
+      <div class="btn-row">
+        <button id="btn-export" class="btn">⬇️ Esporta dati</button>
+        <button id="btn-import" class="btn">⬆️ Importa dati</button>
+        <input type="file" id="import-file" accept=".json" class="hidden">
+      </div>
+
+      <h3 class="section-title">App</h3>
+      <div class="btn-row">
+        <button id="btn-install" class="btn hidden">📲 Installa app</button>
+        <button id="btn-lock" class="btn">🔒 Blocca</button>
+      </div>
+      <p class="hint" id="app-info">I dati restano solo su questo dispositivo (localStorage). Usa Esporta per fare un backup o passarli a un altro dispositivo.</p>
+    </main>
+
+    <datalist id="zone-datalist"></datalist>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-tab="annunci"><span>📰</span>Annunci</button>
+      <button class="nav-btn" data-tab="case"><span>🏠</span>Le mie case<span id="nav-badge-case" class="nav-badge hidden"></span></button>
+      <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>
+    </nav>
+
+
+    <!-- Pannello filtri a schermo intero -->
+    <dialog id="filtri-dialog">
+      <div class="filtri-wrap">
+        <div class="filtri-testa">
+          <h2>Filtri</h2>
+          <button id="btn-chiudi-filtri" class="icona" title="Chiudi">✕</button>
+        </div>
+        <div class="filtri-corpo">
+
         <input type="text" id="annunci-q" placeholder="Cerca: via, zona, parola chiave…">
 
-        <div class="quick-row">
-          <button class="chip chip-zona" data-zona="">Ovunque</button>
-          <button class="chip chip-zona" data-zona="santa maria nuova">Santa Maria Nuova</button>
-          <button class="chip chip-zona" data-zona="cesena">Cesena</button>
-          <button class="chip chip-zona" data-zona="gambettola">Gambettola</button>
-          <button class="chip chip-zona" data-zona="forli">Forlì</button>
-        </div>
+
 
         <div class="rif-row">
           <span class="rif-label">Distanza da:</span>
@@ -104,14 +176,7 @@
             <option value="terreno">📐 Terreno</option>
             <option value="altro">❓ Altro</option>
           </select>
-          <select id="annunci-sort">
-            <option value="recenti">Ordina: più recenti</option>
-            <option value="prezzo-asc">Ordina: prezzo ↑</option>
-            <option value="prezzo-desc">Ordina: prezzo ↓</option>
-            <option value="mq-desc">Ordina: mq ↓</option>
-            <option value="eurmq-asc">Ordina: €/mq ↑</option>
-            <option value="vicini">Ordina: più vicini</option>
-          </select>
+
         </div>
 
         <div class="filter-row">
@@ -128,9 +193,9 @@
           <span id="area-attiva" class="area-chip hidden">Area disegnata <button id="btn-area-off">✕</button></span>
         </div>
 
-        <button id="btn-altri-filtri" class="btn btn-small btn-block">⚙️ Altri filtri <span id="conta-filtri"></span></button>
+        
 
-        <div id="altri-filtri" class="hidden">
+        <div id="altri-filtri">
           <div class="filter-row">
             <select id="annunci-alt-max">
               <option value="">Pianura e montagna</option>
@@ -206,62 +271,40 @@
           <button id="btn-azzera" class="btn btn-small btn-block">↺ Azzera tutti i filtri</button>
         </div>
 
-        <div id="annunci-links" class="agenzie"></div>
-      </div>
-      <div id="filtri-attivi" class="filtri-attivi"></div>
-      <div id="annunci-list"></div>
-    </main>
 
-    <!-- TAB: Portali -->
-    <main id="tab-portali" class="tab">
-      <div class="portali-head">
-        <p class="hint">Cerca in una zona su tutti i portali immobiliari:</p>
-        <div class="contract-toggle" id="contract-toggle">
-          <button data-contract="vendita" class="active">Compra</button>
-          <button data-contract="affitto">Affitto</button>
+      </div>
+
         </div>
-        <input type="text" id="portali-zona" placeholder="Zona / comune (es. Firenze)" list="zone-datalist">
+        <div class="filtri-piede">
+          <button id="btn-applica-filtri" class="btn btn-primary btn-block">Mostra <span id="conta-risultati">…</span></button>
+        </div>
       </div>
-      <div id="portali-list"></div>
-      <h3 class="section-title">Agenzie immobiliari</h3>
-      <div id="agenzie-list" class="agenzie"></div>
-    </main>
+    </dialog>
 
-    <!-- TAB: Altro -->
-    <main id="tab-altro" class="tab">
-      <h3 class="section-title">Le mie zone</h3>
-      <p class="hint">Le zone si creano anche in automatico quando salvi una casa.</p>
-      <form id="zona-form" class="inline-form">
-        <input type="text" id="zona-input" placeholder="Nuova zona (es. Campo di Marte)">
-        <button type="submit" class="btn btn-primary">Aggiungi</button>
-      </form>
-      <div id="zone-manage" class="chips chips-wrap"></div>
-
-      <h3 class="section-title">Backup</h3>
-      <div class="btn-row">
-        <button id="btn-export" class="btn">⬇️ Esporta dati</button>
-        <button id="btn-import" class="btn">⬆️ Importa dati</button>
-        <input type="file" id="import-file" accept=".json" class="hidden">
+    <!-- Foglio ordinamento -->
+    <dialog id="ordina-dialog">
+      <div class="ordina-wrap">
+        <h2>Ordina per</h2>
+        <select id="annunci-sort">
+            <option value="recenti">Ordina: più recenti</option>
+            <option value="prezzo-asc">Ordina: prezzo ↑</option>
+            <option value="prezzo-desc">Ordina: prezzo ↓</option>
+            <option value="mq-desc">Ordina: mq ↓</option>
+            <option value="eurmq-asc">Ordina: €/mq ↑</option>
+            <option value="vicini">Ordina: più vicini</option>
+          </select>
       </div>
+    </dialog>
 
-      <h3 class="section-title">App</h3>
-      <div class="btn-row">
-        <button id="btn-install" class="btn hidden">📲 Installa app</button>
-        <button id="btn-lock" class="btn">🔒 Blocca</button>
+    <!-- Scheda di dettaglio di un annuncio -->
+    <dialog id="dettaglio-dialog">
+      <div class="dettaglio-wrap">
+        <div class="dettaglio-testa">
+          <button id="btn-chiudi-dettaglio" class="icona" title="Chiudi">✕</button>
+        </div>
+        <div id="dettaglio-corpo" class="dettaglio-corpo"></div>
       </div>
-      <p class="hint" id="app-info">I dati restano solo su questo dispositivo (localStorage). Usa Esporta per fare un backup o passarli a un altro dispositivo.</p>
-    </main>
-
-    <datalist id="zone-datalist"></datalist>
-
-    <!-- Bottom nav -->
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-tab="case"><span>🏠</span>Case</button>
-      <button class="nav-btn" data-tab="annunci"><span>📰</span>Annunci</button>
-      <button class="nav-btn nav-add" id="btn-add">＋</button>
-      <button class="nav-btn" data-tab="portali"><span>🔍</span>Portali</button>
-      <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>
-    </nav>
+    </dialog>
 
     <!-- Dialog mappa: disegna l'area -->
     <dialog id="mappa-dialog">
@@ -341,6 +384,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=aa42039c"></script>
+  <script src="js/app.js?v=e408a964"></script>
 </body>
 </html>
