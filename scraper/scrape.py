@@ -101,7 +101,11 @@ def scrape_casait(ricerca):
         url = f"https://www.casa.it/{canale}/residenziale/{slug}/?sortType=date_desc"
         if page > 1:
             url += f"&page={page}"
-        state = casait_state(fetch(url))
+        try:
+            state = casait_state(fetch(url))
+        except Exception as e:
+            print(f"    Casa.it {slug} pagina {page}: {e} — tengo le {len(out)} già prese")
+            break
         items = (state.get("search") or {}).get("list") or []
         if not items:
             break
@@ -296,7 +300,14 @@ def scrape_trovit(ricerca):
     out = []
     for page in range(1, int(conf.get("pagine", 4)) + 1):
         url = base if page == 1 else f"{base}.{page}"
-        html = fetch(url)
+        # Una pagina che non risponde non deve buttare via quelle già prese:
+        # Trovit ogni tanto stacca a metà giro e senza questo si perdevano
+        # tutte le pagine della ricerca (176 → 99 annunci in un colpo).
+        try:
+            html = fetch(url)
+        except Exception as e:
+            print(f"    Trovit {conf['slug']} pagina {page}: {e} — tengo le {len(out)} già prese")
+            break
         cards = html.split("<article")[1:]
         if not cards:
             break
