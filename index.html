@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=bb09949d">
+  <link rel="stylesheet" href="css/style.css?v=6e259666">
 </head>
 <body>
 
@@ -73,10 +73,26 @@
           <span id="annunci-updated" class="sotto-conteggio"></span>
         </div>
         <div class="barra-azioni">
-          <button id="btn-refresh" class="icona hidden" title="Aggiorna adesso">🔄</button>
-          <button id="btn-mappa-top" class="icona" title="Mappa e area">🗺️</button>
-          <button id="btn-ordina" class="icona" title="Ordina">↕</button>
-          <button id="btn-filtri" class="icona icona-filtri" title="Filtri">⚙️<span id="conta-filtri"></span></button>
+          <button id="btn-refresh" class="icona hidden" title="Aggiorna adesso" aria-label="Aggiorna adesso">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 12a8 8 0 1 1-2.6-5.9"/><polyline points="20 4 20 9 15 9"/>
+            </svg></button>
+          <button id="btn-mappa-top" class="icona" title="Mappa e area" aria-label="Mappa e area">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 4 3 6.5v13.5L9 17.5l6 2.5 6-2.5V4l-6 2.5z"/>
+              <line x1="9" y1="4" x2="9" y2="17.5"/><line x1="15" y1="6.5" x2="15" y2="20"/>
+            </svg></button>
+          <button id="btn-ordina" class="icona" title="Ordina" aria-label="Ordina">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="8" y1="5" x2="8" y2="19"/><polyline points="4.5 8.5 8 5 11.5 8.5"/>
+              <line x1="16" y1="19" x2="16" y2="5"/><polyline points="12.5 15.5 16 19 19.5 15.5"/>
+            </svg></button>
+          <button id="btn-filtri" class="icona icona-filtri" title="Filtri" aria-label="Filtri">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="4" y1="7" x2="20" y2="7"/><circle cx="15" cy="7" r="2.6"/>
+              <line x1="4" y1="12" x2="20" y2="12"/><circle cx="8.5" cy="12" r="2.6"/>
+              <line x1="4" y1="17" x2="20" y2="17"/><circle cx="16" cy="17" r="2.6"/>
+            </svg><span id="conta-filtri"></span></button>
         </div>
       </div>
 
@@ -412,6 +428,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=2ebd022b"></script>
+  <script src="js/app.js?v=0b20145b"></script>
 </body>
 </html>

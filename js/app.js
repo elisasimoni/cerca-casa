@@ -1317,9 +1317,10 @@ function aggiornaContaFiltri() {
   if ($('#annunci-fibra-ok').checked) chip('📶 Con fibra', () => { $('#annunci-fibra-ok').checked = false; });
   if (areaPoligono) chip('🗺️ Area disegnata', () => { areaPoligono = null; salvaArea(); });
 
-  // il badge sull'ingranaggio conta solo i filtri veri
+  // il badge sui cursori conta solo i filtri veri
   $('#conta-filtri').textContent = nFiltri || '';
   $('#conta-filtri').classList.toggle('hidden', !nFiltri);
+  $('#btn-filtri').classList.toggle('attivo', !!nFiltri);
 
   // vista degli scartati: non è un filtro, è un posto dove andare
   if (mostraScartati) {
