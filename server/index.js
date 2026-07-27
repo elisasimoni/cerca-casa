@@ -237,6 +237,32 @@ http.createServer(async (req, res) => {
     return rispondi(res, 200, { ok: true, iscritti: iscrizioni.length });
   }
 
+  // Manda una notifica finta ai dispositivi iscritti: serve a capire se la
+  // catena arriva davvero fino allo schermo, senza aspettare una casa nuova.
+  if (url.pathname === '/prova' && req.method === 'POST') {
+    const esiti = [];
+    for (const isc of [...iscrizioni]) {
+      const nomi = (isc.ricerche || []).map(r => r.nome).join(' · ') || 'nessuna ricerca';
+      try {
+        await webpush.sendNotification(isc.sub, JSON.stringify({
+          titolo: 'Prova riuscita ✅',
+          corpo: `Le notifiche funzionano. Ti avviso per: ${nomi}.`,
+          url: 'https://elisasimoni.github.io/cerca-casa/',
+        }), { TTL: 600 });
+        esiti.push({ consegnata: true, ricerche: nomi });
+      } catch (e) {
+        if (e.statusCode === 404 || e.statusCode === 410) {
+          iscrizioni = iscrizioni.filter(x => x.sub.endpoint !== isc.sub.endpoint);
+          scrivi('iscrizioni.json', iscrizioni);
+          esiti.push({ consegnata: false, motivo: 'iscrizione scaduta, rimossa' });
+        } else {
+          esiti.push({ consegnata: false, motivo: `${e.statusCode || ''} ${e.body || e.message}`.trim() });
+        }
+      }
+    }
+    return rispondi(res, 200, { dispositivi: esiti.length, esiti });
+  }
+
   if (url.pathname === '/controlla' && req.method === 'POST') {
     await controlla();
     return rispondi(res, 200, { ok: true, esito: ultimoEsito });

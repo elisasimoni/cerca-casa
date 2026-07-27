@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=51223252">
+  <link rel="stylesheet" href="css/style.css?v=e6158fa9">
 </head>
 <body>
 
@@ -151,7 +151,10 @@
       <p class="hint">Arrivano sul telefono quando compaiono case nuove, anche fuori casa.</p>
       <button class="btn btn-primary" id="btn-attiva-notifiche">🔔 Attiva le notifiche</button>
       <p id="imp-notifiche-esito" class="hint"></p>
-      <button id="btn-spegni-notifiche" class="btn btn-small hidden">🔕 Disattiva notifiche</button>
+      <div class="btn-row">
+        <button id="btn-prova-notifica" class="btn btn-small hidden">📨 Mandami una prova</button>
+        <button id="btn-spegni-notifiche" class="btn btn-small hidden">🔕 Disattiva notifiche</button>
+      </div>
       <p class="hint">Su iPhone funzionano solo se l'app è sulla schermata Home:
         Condividi → Aggiungi a Home.</p>
       <details class="campo-impostazione">
@@ -259,10 +262,13 @@
             </select>
           </div>
 
+          <div class="campo-largo">
+            <span class="etichetta-gruppo">📍 Comuni e località (puoi sceglierne più di uno)</span>
+            <input type="text" id="comune-cerca" placeholder="Filtra l'elenco: Cesena, Fratta Terme…">
+            <div id="comune-chips" class="chips chips-wrap chips-scroll"></div>
+          </div>
+
           <div class="filter-row">
-            <select id="annunci-comune">
-              <option value="">Tutti i comuni</option>
-            </select>
             <select id="annunci-fonte">
               <option value="">Tutte le fonti</option>
             </select>
@@ -438,6 +444,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=5b614597"></script>
+  <script src="js/app.js?v=891ece9d"></script>
 </body>
 </html>

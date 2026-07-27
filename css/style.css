@@ -136,6 +136,18 @@ body {
   font-size: 11px; font-weight: 800; line-height: 19px; padding: 0 4px;
 }
 
+/* Elenco luoghi: alto quanto basta per vedere che si scorre */
+/* .chips-wrap più sotto imposta overflow:visible, quindi qui serve un
+   selettore più forte o i chip escono dal riquadro */
+.chips.chips-wrap.chips-scroll {
+  max-height: 168px; overflow-y: auto; overflow-x: hidden;
+  align-content: flex-start;
+  padding: 8px; margin-top: 6px;
+  border: 1.5px solid var(--border); border-radius: var(--rm);
+  background: var(--card);
+}
+.chip-nota { width: 100%; margin: 4px 2px 0; font-size: 12px; }
+
 /* ---- Ricerche salvate ---- */
 .ricerca-riga {
   display: flex; align-items: stretch; gap: 6px; margin-bottom: 8px;

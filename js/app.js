@@ -479,9 +479,55 @@ function popolaFonti() {
   const ann = annunciData.annunci || [];
   popolaSelect($('#annunci-fonte'),
     [...new Set(ann.map(a => a.fonte))].sort(), 'Tutte le fonti');
-  popolaSelect($('#annunci-comune'),
-    [...new Set(ann.map(a => a.comune).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'it')),
-    'Tutti i comuni');
+  costruisciComuneChips();
+}
+
+// Comuni e località insieme: 30 comuni e 76 frazioni sono troppi per una
+// distesa di chip, quindi si filtrano scrivendo. Le scelte restano sempre
+// in cima, anche quando la ricerca le escluderebbe.
+let comuniRichiesti = new Set();
+const LUOGHI_MOSTRATI = 24;
+
+function luoghiDisponibili() {
+  const conta = new Map();
+  (annunciData.annunci || []).forEach(a => {
+    [a.comune, a.quartiere].filter(Boolean).forEach(v => conta.set(v, (conta.get(v) || 0) + 1));
+  });
+  return [...conta.entries()].sort((x, y) => y[1] - x[1]);
+}
+
+function costruisciComuneChips() {
+  const box = $('#comune-chips');
+  if (!box) return;
+  const cerca = senzaAccenti(($('#comune-cerca')?.value || '').trim());
+  const tutti = luoghiDisponibili();
+  const scelti = tutti.filter(([n]) => comuniRichiesti.has(n));
+  const resto = tutti.filter(([n]) => !comuniRichiesti.has(n)
+    && (!cerca || senzaAccenti(n).includes(cerca)));
+
+  box.innerHTML = '';
+  const disegna = ([nome, n]) => {
+    const attivo = comuniRichiesti.has(nome);
+    const c = el('button', 'chip' + (attivo ? ' active' : ''), `${nome} ${n}`);
+    c.addEventListener('click', () => {
+      attivo ? comuniRichiesti.delete(nome) : comuniRichiesti.add(nome);
+      costruisciComuneChips();
+      // aggiornaVista() sa da sé se aggiornare il contatore del pannello
+      // filtri (aperto) o ridisegnare la lista (chiuso)
+      aggiornaVista(); salvaFiltri();
+    });
+    box.append(c);
+  };
+  scelti.forEach(disegna);
+  resto.slice(0, LUOGHI_MOSTRATI).forEach(disegna);
+
+  const nascosti = resto.length - LUOGHI_MOSTRATI;
+  if (nascosti > 0) {
+    box.append(el('span', 'hint chip-nota',
+      `…e altri ${nascosti}: scrivi sopra per trovarli.`));
+  } else if (!scelti.length && !resto.length) {
+    box.append(el('span', 'hint chip-nota', 'Nessun luogo con questo nome.'));
+  }
 }
 
 // Trovit dà titoli generici ("Appartamento in vendita a Forlì FC"): li
@@ -782,8 +828,10 @@ function filtraAnnunci(conArea) {
   const fonte = $('#annunci-fonte').value;
   if (fonte) items = items.filter(a => a.fonte === fonte);
   if (tipiRichiesti.size) items = items.filter(a => tipiRichiesti.has(a.tipo));
-  const comune = $('#annunci-comune').value;
-  if (comune) items = items.filter(a => a.comune === comune);
+  // un luogo scelto vale sia come comune sia come frazione
+  if (comuniRichiesti.size) {
+    items = items.filter(a => comuniRichiesti.has(a.comune) || comuniRichiesti.has(a.quartiere));
+  }
 
   // I filtri numerici sono STRETTI: se un annuncio non ha il dato richiesto
   // (es. "prezzo su richiesta") viene escluso, altrimenti sembra che il filtro
@@ -996,7 +1044,7 @@ const CARAT_LABEL = {
   panoramico: '🌅 Panoramico', fotovoltaico: '☀️ Fotovoltaico',
   fibra: '📶 Fibra ottica',
 };
-const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-comune',
+const FILTRI_ID = ['annunci-q', 'annunci-fonte',
   'annunci-prezzo-max', 'annunci-prezzo-min', 'annunci-mq-min', 'annunci-eurmq-max',
   'annunci-locali-min', 'annunci-bagni-min', 'annunci-alt-max', 'annunci-km-max',
   'annunci-condizione', 'annunci-aste'];
@@ -1004,7 +1052,6 @@ const FILTRI_ID = ['annunci-q', 'annunci-fonte', 'annunci-comune',
 // etichette leggibili per la barra dei filtri attivi
 const FILTRI_ETICHETTE = {
   'annunci-q': v => `“${v}”`,
-  'annunci-comune': v => '📍 ' + v,
   'annunci-fonte': v => v,
   'annunci-prezzo-max': v => '≤ €' + Number(v).toLocaleString('it-IT'),
   'annunci-prezzo-min': v => '≥ €' + Number(v).toLocaleString('it-IT'),
@@ -1036,6 +1083,14 @@ FILTRI_ID.forEach(id => {
     }, ritardo);
   });
 });
+// Scrivere qui restringe solo l'elenco dei luoghi: non è un filtro, quindi
+// non tocca la lista degli annunci finché non scegli.
+let timerLuoghi = null;
+$('#comune-cerca')?.addEventListener('input', () => {
+  clearTimeout(timerLuoghi);
+  timerLuoghi = setTimeout(costruisciComuneChips, 200);
+});
+
 $('#annunci-sort').addEventListener('change', () => { renderAnnunci(); salvaFiltri(); });
 $('#annunci-no-centro').addEventListener('change', () => { aggiornaVista(); salvaFiltri(); });
 $('#annunci-con-prezzo').addEventListener('change', () => { aggiornaVista(); salvaFiltri(); });
@@ -1305,6 +1360,10 @@ function aggiornaContaFiltri() {
     tipiRichiesti.delete(k);
     costruisciTipoChips();
   }));
+  comuniRichiesti.forEach(n => chip('📍 ' + n, () => {
+    comuniRichiesti.delete(n);
+    costruisciComuneChips();
+  }));
   FILTRI_ID.forEach(id => {
     const v = $('#' + id).value;
     if (!v) return;
@@ -1355,6 +1414,7 @@ function aggiornaContaFiltri() {
 
 function statoFiltri() {
   const stato = { carat: [...caratRichieste], tipi: [...tipiRichiesti], zona: zonaAttiva,
+    comuni: [...comuniRichiesti],
     noCentro: $('#annunci-no-centro').checked,
     conPrezzo: $('#annunci-con-prezzo').checked,
     fibraOk: $('#annunci-fibra-ok').checked, sort: $('#annunci-sort').value };
@@ -1375,6 +1435,7 @@ function applicaStato(stato) {
   $('#annunci-fibra-ok').checked = !!stato.fibraOk;
   caratRichieste = new Set(stato.carat || []);
   tipiRichiesti = new Set(stato.tipi || []);
+  comuniRichiesti = new Set(stato.comuni || []);
   zonaAttiva = stato.zona || '';
 }
 
@@ -1390,7 +1451,9 @@ $('#btn-azzera').addEventListener('click', () => {
   $('#annunci-fibra-ok').checked = false;
   caratRichieste.clear();
   tipiRichiesti.clear();
+  comuniRichiesti.clear();
   costruisciTipoChips();
+  costruisciComuneChips();
   zonaAttiva = '';
   areaPoligono = null;
   salvaArea();
@@ -1890,6 +1953,7 @@ function descriviStato(stato) {
   const pezzi = [];
   if (stato.tipi?.length) pezzi.push(stato.tipi.map(t => TIPI_LABEL[t] || t).join(', '));
   if (stato.zona) pezzi.push('a ' + (ZONE.find(z => z.id === stato.zona)?.nome || stato.zona));
+  if (stato.comuni?.length) pezzi.push('📍 ' + stato.comuni.join(', '));
   FILTRI_ID.forEach(id => {
     const v = stato[id];
     if (v && FILTRI_ETICHETTE[id]) pezzi.push(FILTRI_ETICHETTE[id](v));
@@ -1910,7 +1974,7 @@ function filtriServer(stato) {
     mqMin: Number(stato['annunci-mq-min']) || null,
     soloConPrezzo: !!stato.conPrezzo,
     evitaCentri: !!stato.noCentro,
-    comuni: [stato.zona, stato['annunci-comune']].filter(Boolean),
+    comuni: [stato.zona, ...(stato.comuni || [])].filter(Boolean),
   };
 }
 
@@ -2044,6 +2108,7 @@ async function attivaNotifiche() {
     localStorage.setItem(SERVER_KEY, url);
     esito.textContent = '✓ Notifiche attive per: ' + ricerche.map(x => x.nome).join(' · ');
     $('#btn-spegni-notifiche').classList.remove('hidden');
+    $('#btn-prova-notifica').classList.remove('hidden');
   } catch (e) {
     esito.textContent = 'Non ha funzionato: ' + e.message;
   }
@@ -2092,10 +2157,27 @@ async function spegniNotifiche() {
     }
     esito.textContent = 'Notifiche disattivate.';
     $('#btn-spegni-notifiche').classList.add('hidden');
+    $('#btn-prova-notifica').classList.add('hidden');
   } catch (e) { esito.textContent = 'Errore: ' + e.message; }
 }
 
+async function provaNotifica() {
+  const esito = $('#imp-notifiche-esito');
+  esito.textContent = 'Mando…';
+  try {
+    const r = await fetch(urlServer() + '/prova', { method: 'POST' });
+    const d = await r.json();
+    const ok = (d.esiti || []).filter(x => x.consegnata).length;
+    esito.textContent = ok
+      ? `Mandata a ${ok} dispositiv${ok === 1 ? 'o' : 'i'}. Se non la vedi, controlla i permessi.`
+      : 'Il servizio non è riuscito a mandarla: ' + ((d.esiti || [])[0]?.motivo || 'nessun dispositivo iscritto');
+  } catch (e) {
+    esito.textContent = 'Non ha funzionato: ' + e.message;
+  }
+}
+
 $('#btn-attiva-notifiche')?.addEventListener('click', attivaNotifiche);
+$('#btn-prova-notifica')?.addEventListener('click', provaNotifica);
 $('#btn-salva-ricerca')?.addEventListener('click', chiediNomeRicerca);
 $('#btn-conferma-ricerca')?.addEventListener('click', salvaRicercaCorrente);
 $('#nome-ricerca')?.addEventListener('keydown', e => {
@@ -2111,6 +2193,7 @@ async function riempiNotifiche() {
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = await reg?.pushManager.getSubscription();
   $('#btn-spegni-notifiche')?.classList.toggle('hidden', !sub);
+  $('#btn-prova-notifica')?.classList.toggle('hidden', !sub);
   if (sub) $('#imp-notifiche-esito').textContent = '✓ Notifiche attive su questo dispositivo.';
 }
 
