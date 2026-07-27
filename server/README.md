@@ -28,29 +28,27 @@ Il Mac serve solo per **raccogliere** gli annunci (3 volte al giorno). Il server
 li **guarda** di continuo e ti avvisa: se il Mac è spento non arrivano annunci
 nuovi da segnalare, ma il servizio resta vivo e non perde le iscrizioni.
 
-## Come metterlo online (una volta sola)
+## È già online
 
-```bash
-npm install -g @railway/cli
-railway login
-cd ~/Desktop/Progetti/cerca-casa/server
-railway init
-railway up
-```
+Progetto Railway `cerca-casa-notifiche`, servizio `notifiche`, volume su `/data`:
 
-Poi sul sito di Railway, nel progetto appena creato:
+**https://notifiche-production.up.railway.app**
 
-1. **Settings → Networking → Generate Domain**: ti dà un indirizzo tipo
-   `cerca-casa-notifiche-production.up.railway.app`. Copialo.
-2. **Data → Add Volume**, montato su `/data`. Serve a non perdere l'iscrizione
-   del telefono a ogni riavvio: senza, dopo un aggiornamento le notifiche
-   smettono di arrivare in silenzio.
-
-Infine, nell'app: **Altro → Notifiche**, incolla l'indirizzo e premi **Attiva**.
-Arriva subito una notifica di prova.
+L'indirizzo è già scritto nell'app, quindi in **Altro → Notifiche** c'è solo il
+pulsante **Attiva le notifiche**.
 
 > Su iPhone le notifiche funzionano **solo se l'app è sulla schermata Home**
 > (in Safari: Condividi → Aggiungi a Home). È una regola di iOS, non dell'app.
+
+Il volume su `/data` non è un dettaglio: ci stanno le chiavi VAPID e le
+iscrizioni dei telefoni. Senza, a ogni riavvio le notifiche smetterebbero di
+arrivare senza dire niente.
+
+## Rimetterlo online dopo una modifica
+
+```bash
+cd ~/Desktop/Progetti/cerca-casa/server && railway up --ci
+```
 
 ## Cosa ti viene notificato
 
