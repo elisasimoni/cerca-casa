@@ -314,6 +314,14 @@ const TIPI_LABEL = {
   altro: '❓ Altro',
 };
 
+// Gli annunci che arrivano senza descrizione (tipici di Trovit: Idealista e
+// Immobiliare non la lasciano leggere) hanno una tipologia dedotta dal solo
+// titolo. "Villa" nel titolo può essere una porzione di bifamiliare: il badge
+// lo dice col punto interrogativo invece di promettere il verde pieno.
+function tipoDedotto(a) {
+  return a.certezza === 'titolo';
+}
+
 // ---------- Distanza dai punti di riferimento ----------
 // Due riferimenti indipendenti, mostrabili insieme: il lavoro (predefinito
 // Perfect Pack, modificabile) e la posizione attuale (GPS). Distanza in linea
@@ -640,8 +648,10 @@ function annuncioCard(a) {
   if (a.mq) fatti.push(a.mq + ' mq');
   if (a.locali) fatti.push(a.locali + (a.locali == 1 ? ' locale' : ' locali'));
   if (a.bagni) fatti.push(a.bagni + (a.bagni == 1 ? ' bagno' : ' bagni'));
-  fatti.push(NOME_TIPO[a.tipo] || 'Immobile');
-  corpo.append(el('div', 'riga-fatti', fatti.join(' · ')));
+  fatti.push((NOME_TIPO[a.tipo] || 'Immobile') + (tipoDedotto(a) ? ' ?' : ''));
+  const rigaFatti = el('div', 'riga-fatti', fatti.join(' · '));
+  if (tipoDedotto(a)) rigaFatti.title = 'Tipologia dedotta dal solo titolo: da confermare';
+  corpo.append(rigaFatti);
 
   const rigaLuogo = el('div', 'riga-luogo');
   rigaLuogo.dataset.ann = a.id;
@@ -698,13 +708,25 @@ function apriDettaglio(a) {
     c.append(addr);
   }
 
+  const dedotto = tipoDedotto(a);
   const badges = el('div', 'card-badges');
-  badges.append(el('span', 'badge badge-tipo tipo-' + a.tipo, TIPI_LABEL[a.tipo] || a.tipo));
+  badges.append(el('span', 'badge badge-tipo tipo-' + a.tipo + (dedotto ? ' tipo-incerto' : ''),
+    (TIPI_LABEL[a.tipo] || a.tipo) + (dedotto ? ' ?' : '')));
   badges.append(el('span', 'badge badge-sito', a.fonte));
   if (a.asta) badges.append(el('span', 'badge badge-sito', '⚖️ Asta'));
   c.append(badges);
 
   if (a.avviso) c.append(el('div', 'card-avviso', '⚠️ ' + a.avviso));
+
+  // Perché quel punto interrogativo: detto per esteso, dove c'è spazio
+  if (dedotto) {
+    const portale = (a.fonte || '').split(' · ')[0];
+    const cosa = a.tipo === 'altro' ? 'per verificarla.'
+      : 'per vedere se è davvero ' + NOME_TIPO[a.tipo].toLowerCase() + '.';
+    c.append(el('div', 'card-nota-tipo',
+      '🔎 Tipologia dedotta dal solo titolo: questo annuncio arriva senza '
+      + 'descrizione. Aprilo' + (portale ? ' su ' + portale + ' ' : ' ') + cosa));
+  }
 
   if ((a.carat || []).length) {
     const cw = el('div', 'card-carat');
@@ -1445,9 +1467,11 @@ function disegnaPinSuMappa() {
   // Solo gli annunci che passano i filtri (l'area esclusa: la si sta ridisegnando)
   const visibili = filtraAnnunci(false).filter(a => a.lat != null && a.lon != null);
   visibili.forEach(a => {
+    // pieno = tipologia letta nella descrizione, scarico = dedotta dal titolo
     const m = L.circleMarker([a.lat, a.lon], {
       radius: 7, weight: 2, color: '#fffcf9',
-      fillColor: COLORI_TIPO[a.tipo] || '#7a6255', fillOpacity: 0.95,
+      fillColor: COLORI_TIPO[a.tipo] || '#7a6255',
+      fillOpacity: tipoDedotto(a) ? 0.4 : 0.95,
     });
     const prezzo = a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'prezzo su richiesta';
     const appr = a.pos === 'comune' ? '<br><em>posizione approssimativa (centro del comune)</em>' : '';

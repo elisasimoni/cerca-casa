@@ -697,8 +697,11 @@ def classifica_tutti(annunci, budget_secondi=360):
     except (OSError, json.JSONDecodeError):
         cache = {}
 
+    # Chi non ha descrizione non va all'AI: leggerebbe il solo titolo, cioè
+    # quello che già fanno le regole. Il budget serve agli annunci con testo.
     da_ai = [a for a in annunci
-             if a["id"] not in cache or cache[a["id"]].get("via") == "regole"]
+             if (a.get("descr") or "").strip()
+             and (a["id"] not in cache or cache[a["id"]].get("via") == "regole")]
     da_ai.sort(key=_priorita_ai)
     scadenza = time.monotonic() + budget_secondi
     falliti_di_fila = 0
@@ -732,7 +735,13 @@ def classifica_tutti(annunci, budget_secondi=360):
             info = classifica_regole(a["titolo"], a.get("descr") or "")
             cache[a["id"]] = info
         a["tipo"] = info["tipo"]
-        a["avviso"] = info.get("avviso")
+        # Da dove viene la tipologia: se l'annuncio non porta la descrizione
+        # (tipico di Trovit) è dedotta dal solo titolo, e la scheda deve dirlo
+        # invece di promettere una certezza che non c'è. Senza descrizione un
+        # avviso ("il titolo mente") non avrebbe nemmeno da cosa nascere.
+        ha_descr = bool((a.get("descr") or "").strip())
+        a["certezza"] = "descrizione" if ha_descr else "titolo"
+        a["avviso"] = info.get("avviso") if ha_descr else None
         if info.get("via") == "ai":
             n_ai += 1
         else:
@@ -823,9 +832,13 @@ def eredita_da_gemelli(annunci):
             continue
         g = gemelli[0]
         if g["tipo"] == a["tipo"]:
-            a["avviso"] = None  # confermato da un'altra fonte: niente allarme
+            # confermato da un'altra fonte che la descrizione ce l'ha: non è
+            # più una deduzione dal titolo, e niente allarme
+            a["certezza"] = "gemello"
+            a["avviso"] = None
             continue
         a["tipo"] = g["tipo"]
+        a["certezza"] = "gemello"
         a["avviso"] = (f"Tipologia corretta leggendo lo stesso immobile su "
                        f"{g['fonte'].split(' · ')[0]}: là la descrizione dice "
                        f"«{g['tipo']}»")

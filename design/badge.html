@@ -16,6 +16,16 @@
 </div>
 
 <div class="ds-sezione">
+  <div class="ds-label">Tipologia dedotta dal solo titolo (annuncio senza descrizione)</div>
+  <div class="ds-riga">
+    <span class="badge badge-tipo tipo-indipendente tipo-incerto">🏡 Indipendente ?</span>
+    <span class="badge badge-tipo tipo-appartamento tipo-incerto">🏢 Appartamento ?</span>
+  </div>
+  <div class="card-nota-tipo">🔎 Tipologia dedotta dal solo titolo: questo annuncio arriva senza descrizione. Aprilo su Idealista.it per vedere se è davvero casa indipendente.</div>
+  <p class="ds-nota">Il badge perde il colore pieno quando nessuno ha letto la descrizione: il verde va guadagnato, non regalato al titolo.</p>
+</div>
+
+<div class="ds-sezione">
   <div class="ds-label">Provenienza e luogo</div>
   <div class="ds-riga">
     <span class="badge badge-sito">Casa.it</span>
@@ -67,6 +77,15 @@
   .tipo-appartamento { background: var(--blue-l); color: var(--blue-d); }
   .tipo-rustico { background: var(--accent-soft); color: var(--accent-dark); }
   .tipo-altro { background: var(--bg); color: var(--muted); }
+  .badge-tipo.tipo-incerto {
+    background: var(--bg); color: var(--muted);
+    border: 1px dashed var(--border); font-weight: 600;
+  }
+  .card-nota-tipo {
+    margin-top: 10px; padding: 8px 11px; border-radius: var(--rm);
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; line-height: 1.45; max-width: 460px;
+  }
   .stato-badge {
     font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: var(--r-pill);
     text-transform: uppercase; letter-spacing: var(--tracking-wide);
