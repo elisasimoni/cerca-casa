@@ -143,6 +143,10 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
   });
 });
 
+// Cambiare scheda da codice passando dal bottone: così vale anche quello che
+// la scheda fa aprendosi (ricaricare, riempire le impostazioni…).
+function vaiA(tab) { document.querySelector(`.nav-btn[data-tab="${tab}"]`)?.click(); }
+
 // ---------- Render: lista case ----------
 function houseCard(h) {
   const card = el('div', 'card' + (h.stato === 'scartata' ? ' scartata' : ''));
@@ -1349,22 +1353,22 @@ function aggiornaContaFiltri() {
   }
 }
 
-function salvaFiltri() {
+function statoFiltri() {
   const stato = { carat: [...caratRichieste], tipi: [...tipiRichiesti], zona: zonaAttiva,
     noCentro: $('#annunci-no-centro').checked,
     conPrezzo: $('#annunci-con-prezzo').checked,
     fibraOk: $('#annunci-fibra-ok').checked, sort: $('#annunci-sort').value };
   FILTRI_ID.forEach(id => { stato[id] = $('#' + id).value; });
-  localStorage.setItem(FILTRI_KEY, JSON.stringify(stato));
+  return stato;
 }
 
-function ripristinaFiltri() {
-  let stato;
-  try {
-    stato = JSON.parse(localStorage.getItem(FILTRI_KEY) || 'null');
-  } catch (e) { return; }
+function salvaFiltri() {
+  localStorage.setItem(FILTRI_KEY, JSON.stringify(statoFiltri()));
+}
+
+function applicaStato(stato) {
   if (!stato) return;
-  FILTRI_ID.forEach(id => { if (stato[id]) $('#' + id).value = stato[id]; });
+  FILTRI_ID.forEach(id => { $('#' + id).value = stato[id] || ''; });
   if (stato.sort) $('#annunci-sort').value = stato.sort;
   $('#annunci-no-centro').checked = !!stato.noCentro;
   $('#annunci-con-prezzo').checked = !!stato.conPrezzo;
@@ -1372,6 +1376,11 @@ function ripristinaFiltri() {
   caratRichieste = new Set(stato.carat || []);
   tipiRichiesti = new Set(stato.tipi || []);
   zonaAttiva = stato.zona || '';
+}
+
+function ripristinaFiltri() {
+  try { applicaStato(JSON.parse(localStorage.getItem(FILTRI_KEY) || 'null')); }
+  catch (e) { /* filtri illeggibili: si parte puliti */ }
 }
 
 $('#btn-azzera').addEventListener('click', () => {
@@ -1861,6 +1870,128 @@ function riempiImpostazioni() {
 // --- Notifiche di case nuove -----------------------------------------
 // Il telefono si iscrive al servizio su Railway; il servizio legge il file
 // pubblicato dallo scraper e avvisa quando compare qualcosa che interessa.
+// --- Ricerche salvate -------------------------------------------------
+// Una ricerca è una fotografia dei filtri, con un nome e una sveglia sua:
+// così "indipendente a Cesena" e "rustici da sistemare" avvisano separate,
+// invece di dipendere dai filtri che per caso erano attivi quel giorno.
+const RICERCHE_KEY = 'cercacasa_ricerche';
+
+function leggiRicerche() {
+  try { return JSON.parse(localStorage.getItem(RICERCHE_KEY) || '[]'); }
+  catch (e) { return []; }
+}
+function scriviRicerche(r) {
+  localStorage.setItem(RICERCHE_KEY, JSON.stringify(r));
+}
+
+// Descrizione a parole dei filtri: serve sia come nome proposto sia come
+// sottotitolo, perché "Ricerca 2" fra sei mesi non dice niente.
+function descriviStato(stato) {
+  const pezzi = [];
+  if (stato.tipi?.length) pezzi.push(stato.tipi.map(t => TIPI_LABEL[t] || t).join(', '));
+  if (stato.zona) pezzi.push('a ' + (ZONE.find(z => z.id === stato.zona)?.nome || stato.zona));
+  FILTRI_ID.forEach(id => {
+    const v = stato[id];
+    if (v && FILTRI_ETICHETTE[id]) pezzi.push(FILTRI_ETICHETTE[id](v));
+  });
+  if (stato.noCentro) pezzi.push('fuori dal centro');
+  if (stato.fibraOk) pezzi.push('con fibra');
+  if (stato.conPrezzo) pezzi.push('solo con prezzo');
+  return pezzi.join(' · ') || 'Tutti gli annunci';
+}
+
+// I filtri che il server sa applicare (un sottoinsieme: quelli che stanno
+// nei dati pubblicati). Gli altri restano lato app.
+function filtriServer(stato) {
+  return {
+    tipi: stato.tipi || [],
+    prezzoMax: Number(stato['annunci-prezzo-max']) || null,
+    prezzoMin: Number(stato['annunci-prezzo-min']) || null,
+    mqMin: Number(stato['annunci-mq-min']) || null,
+    soloConPrezzo: !!stato.conPrezzo,
+    evitaCentri: !!stato.noCentro,
+    comuni: [stato.zona, stato['annunci-comune']].filter(Boolean),
+  };
+}
+
+// Primo tocco: propone un nome, che è la descrizione dei filtri accorciata.
+// Secondo tocco: salva. Meglio di prompt(), che su iPhone in standalone è
+// un pugno in un occhio e non si può precompilare in modo affidabile.
+function chiediNomeRicerca() {
+  const riga = $('#riga-nome-ricerca');
+  const campo = $('#nome-ricerca');
+  campo.value = descriviStato(statoFiltri()).slice(0, 60);
+  riga.classList.remove('hidden');
+  campo.focus();
+  campo.select();
+}
+
+function salvaRicercaCorrente() {
+  const stato = statoFiltri();
+  const proposto = descriviStato(stato).slice(0, 60);
+  const ricerche = leggiRicerche();
+  ricerche.push({
+    id: 'r' + Date.now(),
+    nome: $('#nome-ricerca').value.trim() || proposto,
+    stato,
+    notifica: true,                                // la salvi per essere avvisata
+  });
+  scriviRicerche(ricerche);
+  $('#riga-nome-ricerca').classList.add('hidden');
+  $('#filtri-dialog').close();
+  vaiA('altro');
+  renderRicerche();
+  inviaRicercheAlServer('Ricerca salvata.');
+}
+
+function renderRicerche() {
+  const box = $('#lista-ricerche');
+  if (!box) return;
+  const ricerche = leggiRicerche();
+  box.innerHTML = '';
+  if (!ricerche.length) {
+    box.append(el('p', 'hint', 'Nessuna ricerca salvata. Imposta i filtri che ti '
+      + 'interessano e premi “Salva questa ricerca”.'));
+    return;
+  }
+  ricerche.forEach(r => {
+    const riga = el('div', 'ricerca-riga');
+    const testo = el('button', 'ricerca-testo');
+    testo.append(el('strong', '', r.nome), el('span', 'hint', descriviStato(r.stato)));
+    testo.title = 'Applica questa ricerca';
+    testo.addEventListener('click', () => {
+      applicaStato(r.stato);
+      costruisciTipoChips();
+      salvaFiltri();
+      vaiA('annunci');
+      renderAnnunci();
+    });
+
+    const campanella = el('button', 'ricerca-sveglia' + (r.notifica ? ' attiva' : ''),
+      r.notifica ? '🔔' : '🔕');
+    campanella.title = r.notifica ? 'Ti avviso per questa ricerca' : 'Notifiche spente';
+    campanella.setAttribute('aria-pressed', String(!!r.notifica));
+    campanella.addEventListener('click', () => {
+      r.notifica = !r.notifica;
+      scriviRicerche(ricerche);
+      renderRicerche();
+      inviaRicercheAlServer(r.notifica ? `Ti avviso per “${r.nome}”.` : `Notifiche spente per “${r.nome}”.`);
+    });
+
+    const cestino = el('button', 'ricerca-elimina', '🗑️');
+    cestino.title = 'Elimina questa ricerca';
+    cestino.addEventListener('click', () => {
+      if (!confirm(`Elimino la ricerca “${r.nome}”?`)) return;
+      scriviRicerche(leggiRicerche().filter(x => x.id !== r.id));
+      renderRicerche();
+      inviaRicercheAlServer('Ricerca eliminata.');
+    });
+
+    riga.append(testo, campanella, cestino);
+    box.append(riga);
+  });
+}
+
 const SERVER_KEY = 'cercacasa_server';
 const SERVER_DEFAULT = 'https://notifiche-production.up.railway.app';
 
@@ -1874,17 +2005,16 @@ function base64ToUint8(b64) {
   return Uint8Array.from(atob(s), c => c.charCodeAt(0));
 }
 
-// I criteri con cui filtrare le notifiche = quelli che hai impostato ora
-function filtriCorrenti() {
-  return {
-    tipi: [...tipiRichiesti],
-    prezzoMax: Number($('#annunci-prezzo-max').value) || null,
-    prezzoMin: Number($('#annunci-prezzo-min').value) || null,
-    mqMin: Number($('#annunci-mq-min').value) || null,
-    soloConPrezzo: $('#annunci-con-prezzo').checked,
-    evitaCentri: $('#annunci-no-centro').checked,
-    comuni: zonaAttiva ? [zonaAttiva] : [],
-  };
+// Le ricerche con la sveglia accesa: sono queste che il server confronta.
+// Se non ne hai salvata nessuna vale quello che hai impostato adesso, così
+// il bottone "Attiva" funziona anche al primo colpo.
+function ricercheDaNotificare() {
+  const scelte = leggiRicerche().filter(r => r.notifica);
+  if (scelte.length) {
+    return scelte.map(r => ({ id: r.id, nome: r.nome, filtri: filtriServer(r.stato) }));
+  }
+  const ora = statoFiltri();
+  return [{ id: 'ora', nome: descriviStato(ora).slice(0, 60), filtri: filtriServer(ora) }];
 }
 
 async function attivaNotifiche() {
@@ -1905,19 +2035,46 @@ async function attivaNotifiche() {
       userVisibleOnly: true,
       applicationServerKey: base64ToUint8(rk.chiave),
     });
+    const ricerche = ricercheDaNotificare();
     const r = await fetch(url + '/iscrivi', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sub, filtri: filtriCorrenti() }),
+      body: JSON.stringify({ sub, ricerche }),
     });
     if (!r.ok) throw new Error('il servizio ha risposto ' + r.status);
     localStorage.setItem(SERVER_KEY, url);
-    esito.textContent = '✓ Notifiche attive. Ti avviso per: '
-      + (tipiRichiesti.size ? [...tipiRichiesti].join(', ') : 'tutte le tipologie')
-      + ($('#annunci-prezzo-max').value ? ', fino a €' + Number($('#annunci-prezzo-max').value).toLocaleString('it-IT') : '')
-      + '. Cambia i filtri e ripremi Attiva per aggiornarli.';
+    esito.textContent = '✓ Notifiche attive per: ' + ricerche.map(x => x.nome).join(' · ');
     $('#btn-spegni-notifiche').classList.remove('hidden');
   } catch (e) {
     esito.textContent = 'Non ha funzionato: ' + e.message;
+  }
+}
+
+// Rimanda al server l'elenco aggiornato, ma solo se il telefono è già
+// iscritto: altrimenti accendere una sveglia chiederebbe il permesso a
+// tradimento, senza che tu abbia premuto Attiva.
+async function inviaRicercheAlServer(messaggio) {
+  const esito = $('#imp-notifiche-esito');
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    const sub = await reg?.pushManager.getSubscription();
+    if (!sub) {
+      if (esito && messaggio) esito.textContent = messaggio
+        + ' Premi “Attiva le notifiche” per ricevere gli avvisi.';
+      return;
+    }
+    const ricerche = ricercheDaNotificare();
+    const r = await fetch(urlServer() + '/iscrivi', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sub, ricerche }),
+    });
+    if (esito) {
+      esito.textContent = r.ok
+        ? (messaggio || '') + ' Ti avviso per: ' + ricerche.map(x => x.nome).join(' · ')
+        : 'Non sono riuscita ad aggiornare il servizio notifiche.';
+    }
+  } catch (e) {
+    if (esito) esito.textContent = 'Non sono riuscita ad aggiornare il servizio: ' + e.message;
   }
 }
 
@@ -1939,11 +2096,17 @@ async function spegniNotifiche() {
 }
 
 $('#btn-attiva-notifiche')?.addEventListener('click', attivaNotifiche);
+$('#btn-salva-ricerca')?.addEventListener('click', chiediNomeRicerca);
+$('#btn-conferma-ricerca')?.addEventListener('click', salvaRicercaCorrente);
+$('#nome-ricerca')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); salvaRicercaCorrente(); }
+});
 $('#btn-spegni-notifiche')?.addEventListener('click', spegniNotifiche);
 
 async function riempiNotifiche() {
   const inp = $('#imp-server');
   if (inp && !inp.value) inp.value = urlServer();
+  renderRicerche();
   if (!('serviceWorker' in navigator)) return;
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = await reg?.pushManager.getSubscription();

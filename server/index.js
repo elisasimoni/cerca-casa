@@ -60,7 +60,19 @@ webpush.setVapidDetails(
   chiavi.publicKey, chiavi.privateKey);
 
 // ------------------------------------------------------------------- stato
-let iscrizioni = leggi('iscrizioni.json', []);   // [{sub, filtri, creata}]
+// [{sub, ricerche: [{id, nome, filtri}], creata}]
+let iscrizioni = leggi('iscrizioni.json', []);
+// Le prime iscrizioni avevano un solo `filtri` implicito: le converto in una
+// ricerca senza nome, così il resto del codice ragiona solo su `ricerche`.
+let daConvertire = false;
+iscrizioni.forEach(i => {
+  if (!i.ricerche) {
+    i.ricerche = [{ id: 'legacy', nome: 'La mia ricerca', filtri: i.filtri || {} }];
+    delete i.filtri;
+    daConvertire = true;
+  }
+});
+if (daConvertire) scrivi('iscrizioni.json', iscrizioni);
 let idVisti = new Set(leggi('id_visti.json', []));
 let ultimoControllo = null;
 let ultimoEsito = 'mai eseguito';
@@ -83,16 +95,24 @@ function interessa(a, f = {}) {
   return true;
 }
 
-function testoNotifica(nuovi) {
-  const n = nuovi.length;
-  const titolo = n === 1 ? 'Una casa nuova' : `${n} case nuove`;
-  const prima = nuovi[0];
-  const prezzo = prima.prezzo ? '€ ' + prima.prezzo.toLocaleString('it-IT') : 'prezzo su richiesta';
-  const dove = prima.quartiere || prima.comune || '';
-  const corpo = n === 1
-    ? `${prezzo}${prima.mq ? ' · ' + prima.mq + ' mq' : ''}${dove ? ' · ' + dove : ''}`
-    : `La prima: ${prezzo}${dove ? ' a ' + dove : ''}`;
-  return { titolo, corpo };
+const descriviCasa = a => {
+  const prezzo = a.prezzo ? '€ ' + a.prezzo.toLocaleString('it-IT') : 'prezzo su richiesta';
+  const dove = a.quartiere || a.comune || '';
+  return `${prezzo}${a.mq ? ' · ' + a.mq + ' mq' : ''}${dove ? ' · ' + dove : ''}`;
+};
+
+// `esiti` = [{nome, case}] — una voce per ricerca che ha trovato qualcosa.
+// Con una sola ricerca si dice quale casa; con più di una si dice quante per
+// ricerca, altrimenti arriverebbero tre notifiche per lo stesso annuncio.
+function testoNotifica(esiti) {
+  const tot = esiti.reduce((s, e) => s + e.case.length, 0);
+  const titolo = tot === 1 ? 'Una casa nuova' : `${tot} case nuove`;
+  if (esiti.length === 1) {
+    const { nome, case: c } = esiti[0];
+    const dettaglio = c.length === 1 ? descriviCasa(c[0]) : 'La prima: ' + descriviCasa(c[0]);
+    return { titolo, corpo: `${nome} — ${dettaglio}` };
+  }
+  return { titolo, corpo: esiti.map(e => `${e.nome}: ${e.case.length}`).join(' · ') };
 }
 
 // ------------------------------------------------------------- il controllo
@@ -128,12 +148,16 @@ async function controlla() {
 
     let inviate = 0;
     for (const isc of [...iscrizioni]) {
-      const suoi = nuovi.filter(a => interessa(a, isc.filtri));
-      if (!suoi.length) continue;
-      const { titolo, corpo } = testoNotifica(suoi);
+      const esiti = (isc.ricerche || [])
+        .map(r => ({ nome: r.nome || 'La mia ricerca', case: nuovi.filter(a => interessa(a, r.filtri)) }))
+        .filter(e => e.case.length);
+      if (!esiti.length) continue;
+      const { titolo, corpo } = testoNotifica(esiti);
+      console.log(`→ "${titolo}" · ${corpo}`);
       try {
         await webpush.sendNotification(isc.sub, JSON.stringify({
-          titolo, corpo, quanti: suoi.length,
+          titolo, corpo,
+          quanti: esiti.reduce((s, e) => s + e.case.length, 0),
           url: 'https://elisasimoni.github.io/cerca-casa/',
         }), { TTL: 6 * 3600 });
         inviate++;
@@ -183,18 +207,24 @@ http.createServer(async (req, res) => {
 
   if (url.pathname === '/iscrivi' && req.method === 'POST') {
     try {
-      const { sub, filtri } = await corpoDi(req);
+      const { sub, ricerche, filtri } = await corpoDi(req);
       if (!sub?.endpoint) return rispondi(res, 400, { errore: 'iscrizione non valida' });
+      const elenco = Array.isArray(ricerche) && ricerche.length
+        ? ricerche.map((r, i) => ({
+            id: String(r.id ?? i), nome: r.nome || 'La mia ricerca', filtri: r.filtri || {} }))
+        : [{ id: '0', nome: 'La mia ricerca', filtri: filtri || {} }];
       iscrizioni = iscrizioni.filter(x => x.sub.endpoint !== sub.endpoint);
-      iscrizioni.push({ sub, filtri: filtri || {}, creata: new Date().toISOString() });
+      iscrizioni.push({ sub, ricerche: elenco, creata: new Date().toISOString() });
       scrivi('iscrizioni.json', iscrizioni);
       // notifica di prova, così si vede subito che funziona
       await webpush.sendNotification(sub, JSON.stringify({
         titolo: 'Notifiche attivate ✅',
-        corpo: 'Ti avviso quando compaiono case nuove che rientrano nella tua ricerca.',
+        corpo: elenco.length === 1
+          ? `Ti avviso per: ${elenco[0].nome}.`
+          : `Ti avviso per ${elenco.length} ricerche: ${elenco.map(r => r.nome).join(', ')}.`,
         url: 'https://elisasimoni.github.io/cerca-casa/',
       })).catch(e => console.error('prova fallita:', e.statusCode));
-      return rispondi(res, 200, { ok: true, iscritti: iscrizioni.length });
+      return rispondi(res, 200, { ok: true, iscritti: iscrizioni.length, ricerche: elenco.length });
     } catch (e) {
       return rispondi(res, 400, { errore: String(e.message) });
     }
@@ -216,6 +246,7 @@ http.createServer(async (req, res) => {
     return rispondi(res, 200, {
       servizio: 'Cerca Casa — notifiche',
       iscritti: iscrizioni.length,
+      ricerche: iscrizioni.flatMap(i => (i.ricerche || []).map(r => r.nome)),
       annunciMemorizzati: idVisti.size,
       ultimoControllo, ultimoEsito,
       controllaOgni: OGNI_MINUTI + ' minuti',

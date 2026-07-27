@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=6e259666">
+  <link rel="stylesheet" href="css/style.css?v=51223252">
 </head>
 <body>
 
@@ -142,8 +142,13 @@
       </label>
       <p id="imp-lavoro-esito" class="hint"></p>
 
+      <h3 class="section-title">Le mie ricerche</h3>
+      <p class="hint">Ogni ricerca è un insieme di filtri con un nome. Tocca il nome per
+        applicarla, la campanella per farti avvisare quando esce qualcosa che le somiglia.</p>
+      <div id="lista-ricerche"></div>
+
       <h3 class="section-title">Notifiche</h3>
-      <p class="hint">Ti avvisano sul telefono quando compaiono case nuove che rientrano nella tua ricerca, anche fuori casa.</p>
+      <p class="hint">Arrivano sul telefono quando compaiono case nuove, anche fuori casa.</p>
       <button class="btn btn-primary" id="btn-attiva-notifiche">🔔 Attiva le notifiche</button>
       <p id="imp-notifiche-esito" class="hint"></p>
       <button id="btn-spegni-notifiche" class="btn btn-small hidden">🔕 Disattiva notifiche</button>
@@ -319,6 +324,11 @@
 
         </div>
         <div class="filtri-piede">
+          <div id="riga-nome-ricerca" class="inline-form hidden">
+            <input type="text" id="nome-ricerca" placeholder="Nome della ricerca">
+            <button id="btn-conferma-ricerca" class="btn btn-primary btn-small">Salva</button>
+          </div>
+          <button id="btn-salva-ricerca" class="btn btn-small btn-block">🔔 Salva questa ricerca e avvisami</button>
           <button id="btn-applica-filtri" class="btn btn-primary btn-block">Mostra <span id="conta-risultati">…</span></button>
         </div>
       </div>
@@ -428,6 +438,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=0b20145b"></script>
+  <script src="js/app.js?v=5b614597"></script>
 </body>
 </html>
