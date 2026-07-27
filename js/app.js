@@ -1861,9 +1861,11 @@ function riempiImpostazioni() {
 // Il telefono si iscrive al servizio su Railway; il servizio legge il file
 // pubblicato dallo scraper e avvisa quando compare qualcosa che interessa.
 const SERVER_KEY = 'cercacasa_server';
+const SERVER_DEFAULT = 'https://notifiche-production.up.railway.app';
 
 function urlServer() {
-  return (localStorage.getItem(SERVER_KEY) || '').replace(/\/+$/, '');
+  const salvato = localStorage.getItem(SERVER_KEY);
+  return (salvato || SERVER_DEFAULT).replace(/\/+$/, '');
 }
 
 function base64ToUint8(b64) {
@@ -1886,8 +1888,7 @@ function filtriCorrenti() {
 
 async function attivaNotifiche() {
   const esito = $('#imp-notifiche-esito');
-  const url = $('#imp-server').value.trim().replace(/\/+$/, '');
-  if (!url) { esito.textContent = 'Incolla l\'indirizzo del servizio (lo dà Railway dopo il deploy).'; return; }
+  const url = ($('#imp-server').value.trim() || SERVER_DEFAULT).replace(/\/+$/, '');
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
     esito.textContent = 'Questo browser non supporta le notifiche. Su iPhone: aggiungi prima l\'app alla schermata Home.';
     return;

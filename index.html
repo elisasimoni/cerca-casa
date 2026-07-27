@@ -128,14 +128,15 @@
 
       <h3 class="section-title">Notifiche</h3>
       <p class="hint">Ti avvisano sul telefono quando compaiono case nuove che rientrano nella tua ricerca, anche fuori casa.</p>
-      <label class="campo campo-impostazione">🔔 Indirizzo del servizio notifiche
-        <div class="inline-form">
-          <input type="text" id="imp-server" placeholder="https://…up.railway.app">
-          <button class="btn btn-primary btn-small" id="btn-attiva-notifiche">Attiva</button>
-        </div>
-      </label>
+      <button class="btn btn-primary" id="btn-attiva-notifiche">🔔 Attiva le notifiche</button>
       <p id="imp-notifiche-esito" class="hint"></p>
       <button id="btn-spegni-notifiche" class="btn btn-small hidden">🔕 Disattiva notifiche</button>
+      <p class="hint">Su iPhone funzionano solo se l'app è sulla schermata Home:
+        Condividi → Aggiungi a Home.</p>
+      <details class="campo-impostazione">
+        <summary class="hint">Indirizzo del servizio</summary>
+        <input type="text" id="imp-server" placeholder="https://…up.railway.app">
+      </details>
 
       <h3 class="section-title">Le mie zone</h3>
       <p class="hint">Le zone si creano anche in automatico quando salvi una casa.</p>
@@ -411,6 +412,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=ffaa2daa"></script>
+  <script src="js/app.js?v=2ebd022b"></script>
 </body>
 </html>
