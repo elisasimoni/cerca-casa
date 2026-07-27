@@ -629,16 +629,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-4530000781777993067": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1750003763466053212": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
 "trovit-IT-2760000783592212333": {
 "tipo": "appartamento",
 "avviso": null,
@@ -650,11 +640,6 @@
 "via": "ai"
 },
 "trovit-IT-8420002733316812587": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8030000783851530759": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -674,26 +659,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-3380000783073964786": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2140000782296370347": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8490000780741092541": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4460000781000337410": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-6290003747400452625": {
 "tipo": "appartamento",
 "avviso": null,
@@ -702,11 +667,6 @@
 "trovit-IT-4570000782987567292": {
 "tipo": "indipendente",
 "avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-7940000783419412147": {
-"tipo": "appartamento",
-"avviso": null,
 "via": "ai"
 },
 "trovit-IT-8610002733316812673": {
@@ -729,38 +689,8 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-3320000784369795589": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4270003756293241323": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3440000775125168264": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-2550000777630658429": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-9090003770979889013": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7120000773744143176": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5430000780654735679": {
-"tipo": "altro",
 "avviso": null,
 "via": "ai"
 },
@@ -799,16 +729,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-2060000783160238077": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8950000775125171821": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-7380000779272180767": {
 "tipo": "appartamento",
 "avviso": null,
@@ -826,21 +746,6 @@
 },
 "trovit-IT-3200000782987387317": {
 "tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5240004769856531337": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-4830000783678578456": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7050000783505820318": {
-"tipo": "appartamento",
 "avviso": null,
 "via": "ai"
 },
@@ -1364,11 +1269,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-4670000784542623702": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-8440000772793099417": {
 "tipo": "indipendente",
 "avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
@@ -1389,11 +1289,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-5810000781172960904": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-8350000775125114553": {
 "tipo": "indipendente",
 "avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
@@ -1407,16 +1302,6 @@
 "trovit-IT-1240003763636697700": {
 "tipo": "indipendente",
 "avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-6700000781864300882": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5480001734698822381": {
-"tipo": "appartamento",
-"avviso": null,
 "via": "ai"
 },
 "trovit-IT-2640000773400138239": {
@@ -1456,11 +1341,6 @@
 },
 "trovit-IT-5430001782641492383": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8180003758279719850": {
-"tipo": "rustico",
 "avviso": null,
 "via": "ai"
 },
@@ -1504,17 +1384,7 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-5780002729686212030": {
-"tipo": "terreno",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-2660004777803037140": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3800001779531253305": {
 "tipo": "altro",
 "avviso": null,
 "via": "ai"
@@ -2094,11 +1964,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-8130000782554954368": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-8570000781086201156": {
 "tipo": "rustico",
 "avviso": null,
@@ -2137,21 +2002,6 @@
 "trovit-IT-4950002762512856143": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "ai"
-},
-"trovit-IT-7370000781605156894": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5450000781605138646": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5420002733835339308": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
 "via": "ai"
 },
 "trovit-IT-2680000780136303873": {
@@ -2194,11 +2044,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-6710000778062481893": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-5640000781950678009": {
 "tipo": "altro",
 "avviso": null,
@@ -2220,11 +2065,6 @@
 "via": "ai"
 },
 "trovit-IT-1340001743511261767": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-9140000772015057422": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -2479,11 +2319,6 @@
 "avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
 "via": "ai"
 },
-"trovit-IT-8770002769597868804": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-7420000773484944395": {
 "tipo": "rustico",
 "avviso": null,
@@ -2494,32 +2329,12 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-4940000776248396157": {
-"tipo": "porzione",
-"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
-"via": "ai"
-},
-"trovit-IT-4170000783333119297": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4040000783333119288": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
 "trovit-IT-1660000781086046746": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
 },
 "trovit-IT-8570002771584986901": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4520000776766674916": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -2580,16 +2395,6 @@
 "via": "ai"
 },
 "subito-611441806": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611432596": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611430759": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -2749,11 +2554,6 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-4250000783333119303": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "casait-54468646": {
 "tipo": "porzione",
 "avviso": "titolo dice indipendente ma descrizione dice abbinata (semindipendente)",
@@ -2792,16 +2592,6 @@
 "trovit-IT-1820000781086381436": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "ai"
-},
-"trovit-IT-7500000784801790746": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5360002765967611420": {
-"tipo": "porzione",
-"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
 "via": "ai"
 },
 "casait-54469634": {
@@ -2915,31 +2705,6 @@
 "via": "ai"
 },
 "trovit-IT-3280000784801794187": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2990000782987567177": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2300000784110575333": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7920000783765168713": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3860000779445093589": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2180000784542641893": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -3169,22 +2934,7 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-3620000783765195147": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7810010723206720485": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "pvp-4614829": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2380000781086682625": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -3194,23 +2944,8 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-2130002747918020654": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-3610002745070135049": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-2630002758364387577": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3150004749555430394": {
-"tipo": "indipendente",
 "avviso": null,
 "via": "ai"
 },
@@ -3219,42 +2954,12 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-9200000784369814614": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-8470004770806759109": {
 "tipo": "porzione",
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-5740000779876880657": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4350000784974614058": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2330000784715627468": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1850001768388278122": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-1660004776852473937": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2960004775902065156": {
 "tipo": "porzione",
 "avviso": null,
 "via": "ai"
@@ -3265,11 +2970,6 @@
 "via": "ai"
 },
 "casait-54475901": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7980001749467598233": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -3285,11 +2985,6 @@
 "via": "ai"
 },
 "subito-610077390": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8580000784974669429": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -3311,11 +3006,6 @@
 },
 "trovit-IT-5660003765882010419": {
 "tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3970000781086185088": {
-"tipo": "appartamento",
 "avviso": null,
 "via": "ai"
 },
@@ -3354,40 +3044,10 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-7580000777544309606": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4380000773225445773": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2860001744120214404": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5180002730550474537": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8440000784974543246": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "trovit-IT-4220000775902539477": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-3730000782814586349": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "casait-54477581": {
 "tipo": "porzione",
@@ -3397,67 +3057,27 @@
 "subito-611676190": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "subito-611675985": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-4460000773225671404": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-1020002739969232016": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-3020002766228024492": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-5390000777457948900": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-3190001758194024312": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-2970000776420556065": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-4860000772274607476": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-7650000777112106433": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-2340000775643488726": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-3280000779272181449": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-3660000782987584734": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-7820000784024376452": {
 "tipo": "indipendente",
@@ -3467,130 +3087,370 @@
 "trovit-IT-9170005757501178945": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-7580000781605156910": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-6850002747155148625": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-6770000784110604343": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-5700000775643440809": {
 "tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-5540000781605138653": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "trovit-IT-4490000776766551619": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-2890000784974615491": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-3040000773744153561": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-7890000779704203103": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-5280000783937866633": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-4460003746984215367": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-2400000777457898605": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-9220000784283385395": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-6970002729339522652": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-5880002733316751940": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-5790001764155191056": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-2580000776507272917": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-1760000782382729434": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "regole"
-},
-"trovit-IT-8300000784110601522": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-7160000777371546802": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-4720005761045631318": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"trovit-IT-4710000783505786425": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
+"via": "ai"
 },
 "trovit-IT-4650000783678576943": {
 "tipo": "appartamento",
 "avviso": null,
+"via": "ai"
+},
+"trovit-IT-3510000778581030781": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-1290003759231324436": {
+"tipo": "altro",
+"avviso": "Palazzo/Stabile non rientra nelle categorie standard",
+"via": "ai"
+},
+"trovit-IT-8900001760612565360": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-7860003763636988939": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2060000782555519955": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8410000781000353663": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8240003759489880292": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-4000002732195371122": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2810005757501179158": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2700000774606867197": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2150000779099445375": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-3860004758710858760": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-3860002767178622669": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8980005733834941807": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8120005782382272296": {
+"tipo": "indipendente",
+"avviso": "Titolo generico 'Case e ville' — interpreto 'villa' come indipendente",
+"via": "ai"
+},
+"trovit-IT-4590005784628621944": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8980003781258829740": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2530000779185971131": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8910002740056591102": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-8020002755772761085": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-4370004757329451663": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-4010000773139039655": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2450000784629082678": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-1670002761822394165": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2030000784283390223": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-1970000784629047210": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-5370000776420563733": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2930000773400135675": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2980000776334722255": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-5130004783073303079": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2380002782036434399": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-7180000778321618701": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-7780000781000334049": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-5240001768388307651": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-6030009725108628827": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-1160000783592213720": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-2750000774952516094": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-1880000782469108242": {
+"tipo": "altro",
+"avviso": null,
+"via": "ai"
+},
+"trovit-IT-4330002767178721257": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"casait-54478530": {
+"tipo": "indipendente",
+"avviso": null,
 "via": "regole"
 },
-"trovit-IT-3910000778321608390": {
+"subito-611685812": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
 },
-"trovit-IT-3510000778581030781": {
+"subito-611680650": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1540002733834499905": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7030002739279625996": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6610002767178579831": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4170000775125156119": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7930003763466079308": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-8300005782382250072": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2430005777630412866": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1710002756206483743": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6530000771929111642": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6170000784369236151": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4800001750416918286": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-2980000777975939459": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7090003765709330677": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-7530000771325799371": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-5920002762427434548": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-1690000781086223547": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-3280003769511361996": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-6560002732798942129": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"trovit-IT-4760000777112094145": {
+"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 }
