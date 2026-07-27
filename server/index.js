@@ -246,7 +246,13 @@ http.createServer(async (req, res) => {
     return rispondi(res, 200, {
       servizio: 'Cerca Casa — notifiche',
       iscritti: iscrizioni.length,
-      ricerche: iscrizioni.flatMap(i => (i.ricerche || []).map(r => r.nome)),
+      // solo l'host del push service e la data: l'endpoint intero è una
+      // chiave d'accesso al telefono e non va esposto
+      dispositivi: iscrizioni.map(i => ({
+        via: (() => { try { return new URL(i.sub.endpoint).host; } catch (e) { return '?'; } })(),
+        dal: i.creata,
+        ricerche: (i.ricerche || []).map(r => r.nome),
+      })),
       annunciMemorizzati: idVisti.size,
       ultimoControllo, ultimoEsito,
       controllaOgni: OGNI_MINUTI + ' minuti',
