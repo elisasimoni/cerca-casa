@@ -138,7 +138,7 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     window.scrollTo(0, 0);
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
     if (btn.dataset.tab === 'case') renderHouses();
-    if (btn.dataset.tab === 'altro') aggiornaInfoSessione();
+    if (btn.dataset.tab === 'altro') { aggiornaInfoSessione(); riempiImpostazioni(); }
     else $('#header-count').textContent = '';
   });
 });
@@ -275,6 +275,24 @@ let annunciData = null;
 
 // Annunci scartati col cestino: restano nascosti anche dopo un aggiornamento
 // dei dati. Si possono sempre rivedere e ripristinare.
+// Annunci mai visti prima: è la domanda vera di ogni mattina ("cosa c'è di
+// nuovo?"), non "quali sono i 700 annunci". Gli id già visti stanno in memoria;
+// i nuovi restano marcati per tutta la sessione, poi diventano visti.
+const VISTI_KEY = 'cercacasa_id_visti';
+let nuoviIds = new Set();
+let soloNuovi = false;
+
+function calcolaNuovi(annunci) {
+  let visti;
+  try { visti = new Set(JSON.parse(localStorage.getItem(VISTI_KEY) || '[]')); }
+  catch (e) { visti = new Set(); }
+  const ids = annunci.map(a => a.id);
+  // primo avvio: non è "tutto nuovo", sarebbe rumore
+  nuoviIds = visti.size ? new Set(ids.filter(i => !visti.has(i))) : new Set();
+  localStorage.setItem(VISTI_KEY, JSON.stringify(ids));
+  return nuoviIds.size;
+}
+
 const SCARTATI_KEY = 'cercacasa_scartati';
 let scartati = new Set();
 try {
@@ -309,6 +327,12 @@ let mostraGps = false;         // mostra la distanza dalla posizione attuale
 let posGps = null;             // {lat, lon} posizione attuale
 let posGpsNome = '';           // dove ti ha localizzato (reverse geocoding)
 let posLavoro = LAVORO_DEFAULT; // {lat, lon, nome} salvata o predefinita
+let posCasa = null;            // dove abita adesso (impostabile)
+let mostraCasa = false;
+try {
+  const c = JSON.parse(localStorage.getItem('cercacasa_casa') || 'null');
+  if (c && c.lat) { posCasa = c; mostraCasa = true; }
+} catch (e) { /* nessuna casa impostata */ }
 try {
   const l = JSON.parse(localStorage.getItem('cercacasa_lavoro') || 'null');
   if (l && l.lat) posLavoro = riparaLavoro(l);
@@ -356,7 +380,9 @@ function distKmDa(p, a) {
 // Distanza per ordinare/filtrare: usa la strada quando è già stata calcolata,
 // altrimenti la linea d'aria (buona approssimazione per mettere in ordine).
 function distanzaKm(a) {
-  const p = (mostraGps && posGps) ? posGps : (mostraLavoro ? posLavoro : null);
+  const p = (mostraGps && posGps) ? posGps
+    : (mostraLavoro && posLavoro) ? posLavoro
+    : (mostraCasa ? posCasa : null);
   if (!p) return null;
   const s = cacheStrada.get(chiaveStrada(p, a));
   return s ? s.km : distKmDa(p, a);
@@ -402,6 +428,7 @@ function etichetteDistanza(a) {
     const km = distKmDa(p, a);
     if (km != null) out.push(`${icona} ${circa}${fmtKm(km)}`);
   };
+  if (mostraCasa) perRif(posCasa, '🏠');
   if (mostraLavoro) perRif(posLavoro, '💼');
   if (mostraGps) perRif(posGps, '📍');
   return out;
@@ -418,6 +445,7 @@ async function loadAnnunci(refetch) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       annunciData = await res.json();
       scaricatoIl = Date.now();
+      calcolaNuovi(annunciData.annunci || []);
       popolaFonti();
       costruisciCaratChips();
       ripristinaFiltri();
@@ -506,6 +534,7 @@ function testoMeta(a) {
 async function aggiornaDistanzeVisibili() {
   const visibili = itemsFiltrati.slice(0, mostrati);
   const punti = [];
+  if (mostraCasa && posCasa) punti.push(posCasa);
   if (mostraLavoro && posLavoro) punti.push(posLavoro);
   if (mostraGps && posGps) punti.push(posGps);
   if (!punti.length || !visibili.length) return;
@@ -589,8 +618,12 @@ function annuncioCard(a) {
   cornice.append(cuore);
 
   // un solo cartellino, per ordine di importanza
-  const avviso = a.avviso ? '⚠️ Attenzione' : (a.asta ? '⚖️ Asta' : null);
-  if (avviso) cornice.append(el('span', 'targhetta' + (a.avviso ? ' targhetta-avviso' : ''), avviso));
+  const avviso = a.avviso ? '⚠️ Attenzione'
+    : (a.asta ? '⚖️ Asta' : (nuoviIds.has(a.id) ? '🆕 Nuovo' : null));
+  if (avviso) {
+    const cl = a.avviso ? ' targhetta-avviso' : (avviso.includes('Nuovo') ? ' targhetta-nuovo' : '');
+    cornice.append(el('span', 'targhetta' + cl, avviso));
+  }
   card.append(cornice);
 
   // --- Corpo: quattro righe, niente di più ---
@@ -711,6 +744,18 @@ function apriDettaglio(a) {
 
 $('#btn-chiudi-dettaglio').addEventListener('click', () => $('#dettaglio-dialog').close());
 
+function aggiornaBadgeNuovi() {
+  const b = document.querySelector('.nav-btn[data-tab="annunci"]');
+  if (!b) return;
+  let pallino = b.querySelector('.nav-pallino');
+  if (nuoviIds.size && !pallino) {
+    pallino = el('span', 'nav-pallino');
+    b.append(pallino);
+  } else if (!nuoviIds.size && pallino) {
+    pallino.remove();
+  }
+}
+
 function aggiornaBadgeCase() {
   const b = $('#nav-badge-case');
   if (!b) return;
@@ -754,7 +799,7 @@ function filtraAnnunci(conArea) {
   const altMax = num('#annunci-alt-max');
   if (altMax) items = items.filter(a => a.alt == null || a.alt <= altMax);
   const kmMax = num('#annunci-km-max');
-  if (kmMax && (mostraGps && posGps || mostraLavoro && posLavoro)) {
+  if (kmMax && (mostraGps && posGps || mostraLavoro && posLavoro || mostraCasa && posCasa)) {
     items = items.filter(a => { const d = distanzaKm(a); return d != null && d <= kmMax; });
   }
   const condizione = $('#annunci-condizione').value;
@@ -770,6 +815,7 @@ function filtraAnnunci(conArea) {
   if (caratRichieste.size) {
     items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
   }
+  if (soloNuovi) items = items.filter(a => nuoviIds.has(a.id));
   if (conArea && areaPoligono) items = items.filter(a => dentroArea(a));
 
   const q = $('#annunci-q').value.trim().toLowerCase();
@@ -819,6 +865,7 @@ function renderAnnunci() {
 
   let items = filtraAnnunci(true);
   aggiornaContaFiltri();
+  aggiornaBadgeNuovi();
 
   const sort = $('#annunci-sort').value;
   const val = v => Number(v) || 0;
@@ -992,6 +1039,12 @@ $('#annunci-fibra-ok').addEventListener('change', () => { aggiornaVista(); salva
 
 // ---------- Punti di riferimento per la distanza ----------
 function aggiornaChipRif() {
+  const cc = $('#chip-casa');
+  if (cc) {
+    cc.classList.toggle('hidden', !posCasa);
+    cc.classList.toggle('active', mostraCasa);
+    cc.textContent = '🏠 ' + (posCasa?.nome || 'Casa');
+  }
   $('#chip-lavoro').classList.toggle('active', mostraLavoro);
   $('#chip-lavoro').textContent = '💼 ' + (posLavoro ? posLavoro.nome : 'Lavoro');
   const g = document.querySelector('.chip-rif[data-rif="gps"]');
@@ -999,6 +1052,10 @@ function aggiornaChipRif() {
   // riga di conferma: dove ti ha localizzato il GPS / che indirizzo ha trovato
   const conf = $('#rif-conferma');
   const righe = [];
+  if (mostraCasa && posCasa?.completo) {
+    righe.push('🏠 Casa: ' + posCasa.completo.split(',').slice(0, 3)
+      .map(x => x.trim()).filter(Boolean).join(', '));
+  }
   if (mostraLavoro && posLavoro?.completo) {
     const via = posLavoro.completo.split(',').slice(0, 4)
       .map(s => s.trim()).filter(Boolean).join(', ');
@@ -1051,6 +1108,13 @@ async function nomeDaCoord(lat, lon) {
       .filter(Boolean).slice(0, 2).join(', ') || 'posizione rilevata';
   } catch (e) { return 'posizione rilevata'; }
 }
+
+$('#chip-casa')?.addEventListener('click', () => {
+  if (!posCasa) { alert('Prima imposta l\'indirizzo di casa in Altro → I miei indirizzi.'); return; }
+  mostraCasa = !mostraCasa;
+  aggiornaChipRif();
+  renderAnnunci();
+});
 
 $('#chip-lavoro').addEventListener('click', () => {
   // se è già l'unico riferimento attivo, un tocco apre l'editor
@@ -1227,6 +1291,12 @@ function aggiornaContaFiltri() {
     bar.append(c);
   };
 
+  if (nuoviIds.size && !mostraScartati) {
+    const c = el('button', 'attivo-chip attivo-nuovi' + (soloNuovi ? ' acceso' : ''),
+      `🆕 ${nuoviIds.size} nuovi`);
+    c.addEventListener('click', () => { soloNuovi = !soloNuovi; renderAnnunci(); });
+    bar.append(c);
+  }
   tipiRichiesti.forEach(k => chip(TIPI_LABEL[k] || k, () => {
     tipiRichiesti.delete(k);
     costruisciTipoChips();
@@ -1389,6 +1459,7 @@ function disegnaPinSuMappa() {
 
   // Punti di riferimento: lavoro e posizione attuale
   const rif = [];
+  if (mostraCasa && posCasa) rif.push([posCasa, '🏠', posCasa.nome]);
   if (posLavoro) rif.push([posLavoro, '💼', posLavoro.nome]);
   if (mostraGps && posGps) rif.push([posGps, '📍', posGpsNome || 'La mia posizione']);
   rif.forEach(([p, icona, nome]) => {
@@ -1737,6 +1808,53 @@ function aggiornaInfoSessione() {
   p.textContent = g
     ? `Resti dentro senza PIN ancora ${g} ${g === 1 ? 'giorno' : 'giorni'} (si rinnova a ogni apertura).`
     : 'Sessione scaduta: al prossimo avvio serve il PIN.';
+}
+
+// --- Impostazioni: i miei indirizzi ---
+async function salvaIndirizzo(quale) {
+  const inp = $(quale === 'casa' ? '#imp-casa' : '#imp-lavoro');
+  const esito = $(quale === 'casa' ? '#imp-casa-esito' : '#imp-lavoro-esito');
+  let testo = inp.value.trim();
+  if (!testo) { esito.textContent = 'Scrivi un indirizzo.'; return; }
+
+  // "Perfect Pack, Via Borghetto 4 Rimini" → etichetta + indirizzo
+  let etichetta = null;
+  const pezzi = testo.split(',').map(x => x.trim()).filter(Boolean);
+  if (pezzi.length > 1 && !/\d/.test(pezzi[0]) &&
+      !/^(via|viale|piazza|corso|largo|strada|vicolo|contrada|localit)/i.test(pezzi[0])) {
+    etichetta = pezzi[0];
+    testo = pezzi.slice(1).join(', ');
+  }
+  esito.textContent = 'Cerco…';
+  const p = await geocodaIndirizzo(testo).catch(() => null);
+  if (!p) { esito.textContent = 'Indirizzo non trovato. Aggiungi la città.'; return; }
+  if (etichetta) p.nome = etichetta;
+
+  if (quale === 'casa') {
+    posCasa = p; mostraCasa = true;
+    localStorage.setItem('cercacasa_casa', JSON.stringify(p));
+  } else {
+    posLavoro = p; mostraLavoro = true;
+    localStorage.setItem('cercacasa_lavoro', JSON.stringify(p));
+  }
+  esito.textContent = '✓ ' + p.nome + ' — ' + p.completo.split(',').slice(0, 3).map(x=>x.trim()).join(', ');
+  cacheStrada.clear();          // le distanze vanno ricalcolate dal punto nuovo
+  aggiornaChipRif();
+  renderAnnunci();
+}
+
+$('#btn-salva-casa')?.addEventListener('click', () => salvaIndirizzo('casa'));
+$('#btn-salva-lavoro-imp')?.addEventListener('click', () => salvaIndirizzo('lavoro'));
+['#imp-casa', '#imp-lavoro'].forEach(sel => {
+  $(sel)?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') salvaIndirizzo(sel === '#imp-casa' ? 'casa' : 'lavoro');
+  });
+});
+
+function riempiImpostazioni() {
+  const c = $('#imp-casa'), l = $('#imp-lavoro');
+  if (c && posCasa) c.value = [posCasa.nome, posCasa.completo].filter(Boolean).join(', ');
+  if (l && posLavoro) l.value = [posLavoro.nome, posLavoro.completo].filter(Boolean).join(', ');
 }
 
 $('#btn-export').addEventListener('click', () => {

@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=5aedaad2">
+  <link rel="stylesheet" href="css/style.css?v=bb09949d">
 </head>
 <body>
 
@@ -109,6 +109,23 @@
       <div id="agenzie-list" class="agenzie"></div>
       </details>
 
+      <h3 class="section-title">I miei indirizzi</h3>
+      <p class="hint">Servono a calcolare quanto dista ogni casa, in chilometri e minuti di strada.</p>
+      <label class="campo campo-impostazione">🏠 Dove abito adesso
+        <div class="inline-form">
+          <input type="text" id="imp-casa" placeholder="Es. Via Roma 5, Cesena">
+          <button class="btn btn-primary btn-small" id="btn-salva-casa">Salva</button>
+        </div>
+      </label>
+      <p id="imp-casa-esito" class="hint"></p>
+      <label class="campo campo-impostazione">💼 Dove lavoro
+        <div class="inline-form">
+          <input type="text" id="imp-lavoro" placeholder="Es. Perfect Pack, Via Borghetto 4 Rimini">
+          <button class="btn btn-primary btn-small" id="btn-salva-lavoro-imp">Salva</button>
+        </div>
+      </label>
+      <p id="imp-lavoro-esito" class="hint"></p>
+
       <h3 class="section-title">Le mie zone</h3>
       <p class="hint">Le zone si creano anche in automatico quando salvi una casa.</p>
       <form id="zona-form" class="inline-form">
@@ -158,6 +175,7 @@
 
         <div class="rif-row">
           <span class="rif-label">Distanza da:</span>
+          <button class="chip chip-rif hidden" data-rif="casa" id="chip-casa">🏠 Casa</button>
           <button class="chip chip-rif active" data-rif="lavoro" id="chip-lavoro">💼 Lavoro</button>
           <button class="chip chip-rif" data-rif="gps">📍 La mia posizione</button>
           <button class="chip chip-rif-set" id="btn-edit-lavoro" title="Cambia l'indirizzo del lavoro">✏️</button>
@@ -382,6 +400,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=e6416879"></script>
+  <script src="js/app.js?v=397a3004"></script>
 </body>
 </html>
