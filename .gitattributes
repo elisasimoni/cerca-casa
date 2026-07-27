@@ -1,0 +1,6 @@
+# I file di dati li rigenera lo scraper: in caso di conflitto vince sempre
+# la versione remota (quella pubblicata dal bot), mai un merge a metà.
+data/annunci.json    merge=ours -diff
+scraper/tipi_cache.json  merge=ours -diff
+scraper/geo_cache.json   merge=ours -diff
+scraper/visti_cache.json merge=ours -diff

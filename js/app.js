@@ -1515,9 +1515,17 @@ function avviaDisegno() {
   // riabilita i gesti, e riaprendo il pannello si riparte puliti
 }
 
-$('#btn-mappa').addEventListener('click', apriMappa);
+$('#btn-mappa').addEventListener('click', () => {
+  // se arrivo dal pannello filtri lo chiudo: niente finestre annidate
+  if ($('#filtri-dialog').open) $('#filtri-dialog').close();
+  apriMappa();
+});
+$('#btn-mappa-top').addEventListener('click', apriMappa);
 $('#btn-disegna').addEventListener('click', avviaDisegno);
-$('#btn-chiudi-mappa').addEventListener('click', () => $('#mappa-dialog').close());
+$('#btn-chiudi-mappa').addEventListener('click', () => {
+  $('#mappa-dialog').close();
+  renderAnnunci();
+});
 $('#btn-cancella-area').addEventListener('click', () => {
   areaPoligono = null;
   disegnaAreaSuMappa();
