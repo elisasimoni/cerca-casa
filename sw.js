@@ -1,9 +1,9 @@
-const CACHE = 'cercacasa-35f0e428';
+const CACHE = 'cercacasa-50f5a7ce';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css?v=bb09949d',
-  './js/app.js?v=397a3004',
+  './js/app.js?v=ffaa2daa',
   './vendor/leaflet.js?v=35b48eb9',
   './vendor/leaflet.css?v=c02c12fe',
   './manifest.json',
@@ -88,4 +88,34 @@ self.addEventListener('fetch', e => {
       })
     )
   );
+});
+
+// ---------- Notifiche di case nuove ----------
+// Il server (Railway) manda l'avviso; qui lo si mostra. Se il messaggio
+// arriva senza testo, si va comunque a leggere i dati per dire qualcosa.
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (err) { /* payload assente */ }
+  const titolo = d.titolo || 'Case nuove su Cerca Casa';
+  const opzioni = {
+    body: d.corpo || 'Apri per vedere le novità.',
+    icon: './icons/icon-192.png',
+    badge: './icons/icon-192.png',
+    tag: 'case-nuove',
+    renotify: true,
+    data: { url: d.url || './' },
+  };
+  e.waitUntil(self.registration.showNotification(titolo, opzioni));
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url || './';
+  e.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(lista => {
+    // se l'app è già aperta la porto in primo piano invece di aprirne un'altra
+    for (const c of lista) {
+      if (c.url.includes('cerca-casa') && 'focus' in c) return c.focus();
+    }
+    return clients.openWindow(url);
+  }));
 });

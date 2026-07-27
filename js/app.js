@@ -138,7 +138,7 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     window.scrollTo(0, 0);
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
     if (btn.dataset.tab === 'case') renderHouses();
-    if (btn.dataset.tab === 'altro') { aggiornaInfoSessione(); riempiImpostazioni(); }
+    if (btn.dataset.tab === 'altro') { aggiornaInfoSessione(); riempiImpostazioni(); riempiNotifiche(); }
     else $('#header-count').textContent = '';
   });
 });
@@ -1855,6 +1855,98 @@ function riempiImpostazioni() {
   const c = $('#imp-casa'), l = $('#imp-lavoro');
   if (c && posCasa) c.value = [posCasa.nome, posCasa.completo].filter(Boolean).join(', ');
   if (l && posLavoro) l.value = [posLavoro.nome, posLavoro.completo].filter(Boolean).join(', ');
+}
+
+// --- Notifiche di case nuove -----------------------------------------
+// Il telefono si iscrive al servizio su Railway; il servizio legge il file
+// pubblicato dallo scraper e avvisa quando compare qualcosa che interessa.
+const SERVER_KEY = 'cercacasa_server';
+
+function urlServer() {
+  return (localStorage.getItem(SERVER_KEY) || '').replace(/\/+$/, '');
+}
+
+function base64ToUint8(b64) {
+  const s = (b64 + '='.repeat((4 - b64.length % 4) % 4)).replace(/-/g, '+').replace(/_/g, '/');
+  return Uint8Array.from(atob(s), c => c.charCodeAt(0));
+}
+
+// I criteri con cui filtrare le notifiche = quelli che hai impostato ora
+function filtriCorrenti() {
+  return {
+    tipi: [...tipiRichiesti],
+    prezzoMax: Number($('#annunci-prezzo-max').value) || null,
+    prezzoMin: Number($('#annunci-prezzo-min').value) || null,
+    mqMin: Number($('#annunci-mq-min').value) || null,
+    soloConPrezzo: $('#annunci-con-prezzo').checked,
+    evitaCentri: $('#annunci-no-centro').checked,
+    comuni: zonaAttiva ? [zonaAttiva] : [],
+  };
+}
+
+async function attivaNotifiche() {
+  const esito = $('#imp-notifiche-esito');
+  const url = $('#imp-server').value.trim().replace(/\/+$/, '');
+  if (!url) { esito.textContent = 'Incolla l\'indirizzo del servizio (lo dà Railway dopo il deploy).'; return; }
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+    esito.textContent = 'Questo browser non supporta le notifiche. Su iPhone: aggiungi prima l\'app alla schermata Home.';
+    return;
+  }
+  esito.textContent = 'Attivo…';
+  try {
+    const permesso = await Notification.requestPermission();
+    if (permesso !== 'granted') { esito.textContent = 'Permesso negato dal telefono.'; return; }
+
+    const rk = await fetch(url + '/chiave').then(r => r.json());
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: base64ToUint8(rk.chiave),
+    });
+    const r = await fetch(url + '/iscrivi', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sub, filtri: filtriCorrenti() }),
+    });
+    if (!r.ok) throw new Error('il servizio ha risposto ' + r.status);
+    localStorage.setItem(SERVER_KEY, url);
+    esito.textContent = '✓ Notifiche attive. Ti avviso per: '
+      + (tipiRichiesti.size ? [...tipiRichiesti].join(', ') : 'tutte le tipologie')
+      + ($('#annunci-prezzo-max').value ? ', fino a €' + Number($('#annunci-prezzo-max').value).toLocaleString('it-IT') : '')
+      + '. Cambia i filtri e ripremi Attiva per aggiornarli.';
+    $('#btn-spegni-notifiche').classList.remove('hidden');
+  } catch (e) {
+    esito.textContent = 'Non ha funzionato: ' + e.message;
+  }
+}
+
+async function spegniNotifiche() {
+  const esito = $('#imp-notifiche-esito');
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription();
+    if (sub) {
+      await fetch(urlServer() + '/disiscrivi', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: sub.endpoint }),
+      }).catch(() => {});
+      await sub.unsubscribe();
+    }
+    esito.textContent = 'Notifiche disattivate.';
+    $('#btn-spegni-notifiche').classList.add('hidden');
+  } catch (e) { esito.textContent = 'Errore: ' + e.message; }
+}
+
+$('#btn-attiva-notifiche')?.addEventListener('click', attivaNotifiche);
+$('#btn-spegni-notifiche')?.addEventListener('click', spegniNotifiche);
+
+async function riempiNotifiche() {
+  const inp = $('#imp-server');
+  if (inp && !inp.value) inp.value = urlServer();
+  if (!('serviceWorker' in navigator)) return;
+  const reg = await navigator.serviceWorker.getRegistration();
+  const sub = await reg?.pushManager.getSubscription();
+  $('#btn-spegni-notifiche')?.classList.toggle('hidden', !sub);
+  if (sub) $('#imp-notifiche-esito').textContent = '✓ Notifiche attive su questo dispositivo.';
 }
 
 $('#btn-export').addEventListener('click', () => {
