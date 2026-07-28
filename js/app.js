@@ -285,6 +285,7 @@ let annunciData = null;
 const VISTI_KEY = 'cercacasa_id_visti';
 let nuoviIds = new Set();
 let soloNuovi = false;
+let soloAste = false;
 
 function calcolaNuovi(annunci) {
   let visti;
@@ -868,6 +869,7 @@ function filtraAnnunci(conArea) {
     items = items.filter(a => [...caratRichieste].every(c => (a.carat || []).includes(c)));
   }
   if (soloNuovi) items = items.filter(a => nuoviIds.has(a.id));
+  if (soloAste) items = items.filter(a => a.asta);
   if (conArea && areaPoligono) items = items.filter(a => dentroArea(a));
 
   const q = $('#annunci-q').value.trim().toLowerCase();
@@ -1355,6 +1357,30 @@ function aggiornaContaFiltri() {
       `🆕 ${nuoviIds.size} nuovi`);
     c.addEventListener('click', () => { soloNuovi = !soloNuovi; renderAnnunci(); });
     bar.append(c);
+  }
+  // Quante aste sopravvivono ai filtri di adesso. Serve perché con
+  // "indipendente" più una zona le aste sono zero, e senza dirlo sembra
+  // che siano sparite dal portale.
+  if (!mostraScartati) {
+    const quante = filtraAnnunci(true).filter(a => a.asta).length;
+    const totali = (annunciData?.annunci || []).filter(a => a.asta && !scartati.has(a.id)).length;
+    if (quante || (totali && soloAste)) {
+      const c = el('button', 'attivo-chip attivo-aste' + (soloAste ? ' acceso' : ''),
+        `⚖️ ${quante} aste`);
+      c.addEventListener('click', () => { soloAste = !soloAste; renderAnnunci(); });
+      bar.append(c);
+    } else if (totali) {
+      const c = el('button', 'attivo-chip attivo-aste',
+        `⚖️ ${totali} aste, nessuna coi filtri di adesso`);
+      c.title = 'Tocca per vedere tutte le aste';
+      c.addEventListener('click', () => {
+        FILTRI_ID.forEach(id => { $('#' + id).value = ''; });
+        tipiRichiesti.clear(); comuniRichiesti.clear(); caratRichieste.clear();
+        zonaAttiva = ''; soloAste = true;
+        costruisciTipoChips(); costruisciComuneChips(); salvaFiltri(); renderAnnunci();
+      });
+      bar.append(c);
+    }
   }
   tipiRichiesti.forEach(k => chip(TIPI_LABEL[k] || k, () => {
     tipiRichiesti.delete(k);

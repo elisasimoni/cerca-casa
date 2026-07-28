@@ -681,6 +681,8 @@ dialog::backdrop { background: rgba(44, 31, 20, 0.45); }
 .riga-fonte.fresco { color: var(--green-d); font-weight: 700; }
 .attivo-nuovi { background: var(--green); color: #fff; }
 .attivo-nuovi.acceso { background: var(--green-d); box-shadow: 0 0 0 2px var(--green-l); }
+.attivo-aste { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.attivo-aste.acceso { background: var(--accent); color: #fff; }
 .targhetta-nuovo { background: var(--green); }
 .nav-pallino {
   position: absolute; top: 4px; right: 26px; width: 9px; height: 9px;
