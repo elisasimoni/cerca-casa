@@ -2803,6 +2803,12 @@ function renderAll() {
   renderVisite();
   renderZoneManage();
   renderPortali();
+  // Il numeretto sulla scheda "Le mie case" si aggiornava solo quando salvavi
+  // col cuore da un annuncio: aprendo l'app restava spento anche con le case
+  // dentro, e dopo un'eliminazione continuava a contare quella tolta. Sta
+  // qui perché renderAll passa da tutte le strade — avvio, salva a mano,
+  // elimina, importa, sincronia.
+  aggiornaBadgeCase();
 }
 
 load();
