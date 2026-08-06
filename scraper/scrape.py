@@ -5,6 +5,9 @@ Legge config/ricerche.json, interroga Casa.it (HTML → __INITIAL_STATE__) e
 Subito.it (API hades), scrive data/annunci.json. Solo libreria standard.
 Nota: Immobiliare.it, Idealista e Wikicasa bloccano le richieste automatiche
 (403 anti-bot), quindi le fonti sono Casa.it (agenzie) e Subito.it (privati).
+Da agosto 2026 anche Casa.it risponde 403 e Trovit 401: finché reggono così,
+Subito è la fonte che porta quasi tutto, ed è per questo che viene chiesta
+per tutte le categorie residenziali e su più pagine.
 """
 import json
 import re
@@ -150,11 +153,57 @@ def subito_feature(ad, uri):
     return None
 
 
+# Le categorie immobiliari di Subito che ci interessano. Per un anno si è
+# chiesta solo "Appartamenti": le case indipendenti e i rustici — cioè quello
+# che Elisa guarda di più — non venivano proprio domandati, arrivavano solo da
+# Casa.it, e quando Casa.it ha cominciato a rispondere 403 sono spariti.
+# (31 sarebbe "Garage e box": quello no.)
+SUBITO_CATEGORIE = [
+    ("7", "Appartamenti"),
+    ("29", "Ville singole e a schiera"),
+    ("30", "Terreni e rustici"),
+]
+SUBITO_PER_PAGINA = 100
+SUBITO_PAGINE_MAX = 5   # 500 per categoria: più giù ci sono solo annunci vecchi
+
+
+def subito_annuncio(ad):
+    urn = ad.get("urn", "")
+    m_id = re.search(r"id:ad:(\d+)", urn)
+    imgs = ad.get("images") or []
+    foto = (imgs[0].get("cdn_base_url") + "?rule=large-fixed-card-1x-auto")\
+        if imgs and imgs[0].get("cdn_base_url") else None
+    town = ((ad.get("geo") or {}).get("town") or {}).get("value")
+    piano = subito_feature(ad, "/floor")
+    return {
+        "id": f"subito-{m_id.group(1) if m_id else urn}",
+        "fonte": "Subito.it",
+        "titolo": ad.get("subject") or "Annuncio",
+        "prezzo": to_int(subito_feature(ad, "/price")),
+        "mq": to_int(subito_feature(ad, "/size")),
+        "locali": to_int(subito_feature(ad, "/room")),
+        "bagni": to_int(subito_feature(ad, "/bathrooms")),
+        "piano": ("T" if str(piano) == "0" else piano) if piano is not None else None,
+        "indirizzo": None,
+        "quartiere": None,
+        "comune": town,
+        "lat": None,
+        "lon": None,
+        "url": (ad.get("urls") or {}).get("default"),
+        "foto": foto,
+        "asta": False,
+        "data": (ad.get("dates") or {}).get("display_iso8601"),
+        "descr": (ad.get("body") or "")[:400].replace("\n", " "),
+    }
+
+
 def scrape_subito(ricerca):
     conf = ricerca.get("subito")
     if not conf:
         return []
     canale = "affitto" if ricerca["contratto"] == "affitto" else "vendita"
+    # La pagina serve solo a farsi dire gli id del posto: valgono per tutte le
+    # categorie, quindi si carica una volta sola.
     page_url = (f"https://www.subito.it/annunci-{conf['regione']}/{canale}/"
                 f"appartamenti/{conf['provincia']}/")
     if conf.get("comune"):
@@ -166,47 +215,39 @@ def scrape_subito(ricerca):
         raise RuntimeError("NEXT_DATA subito non trovato (layout cambiato?)")
     nd = json.loads(m.group(1))
     geo = nd["props"]["pageProps"]["initialState"]["search"]["geo"]
-    params = {
-        "c": "7",  # categoria Appartamenti
+    base = {
         "t": "u" if canale == "affitto" else "s",
         "r": geo["region"]["id"],
         "ci": geo["city"]["id"],
-        "lim": "100",
+        "lim": str(SUBITO_PER_PAGINA),
         "sort": "datedesc",
     }
     if geo.get("town"):  # assente per ricerche su tutta la provincia
-        params["to"] = geo["town"]["id"]
-    api = "https://hades.subito.it/v1/search/items?" + urllib.parse.urlencode(params)
-    data = json.loads(fetch(api, accept="application/json"))
+        base["to"] = geo["town"]["id"]
+
+    scelte = conf.get("categorie")
+    categorie = ([(str(c), str(c)) for c in scelte] if scelte else SUBITO_CATEGORIE)
+    pagine_max = conf.get("pagine") or SUBITO_PAGINE_MAX
+
     out = []
-    for ad in data.get("ads") or []:
-        urn = ad.get("urn", "")
-        m_id = re.search(r"id:ad:(\d+)", urn)
-        imgs = ad.get("images") or []
-        foto = (imgs[0].get("cdn_base_url") + "?rule=large-fixed-card-1x-auto")\
-            if imgs and imgs[0].get("cdn_base_url") else None
-        town = ((ad.get("geo") or {}).get("town") or {}).get("value")
-        piano = subito_feature(ad, "/floor")
-        out.append({
-            "id": f"subito-{m_id.group(1) if m_id else urn}",
-            "fonte": "Subito.it",
-            "titolo": ad.get("subject") or "Annuncio",
-            "prezzo": to_int(subito_feature(ad, "/price")),
-            "mq": to_int(subito_feature(ad, "/size")),
-            "locali": to_int(subito_feature(ad, "/room")),
-            "bagni": to_int(subito_feature(ad, "/bathrooms")),
-            "piano": ("T" if str(piano) == "0" else piano) if piano is not None else None,
-            "indirizzo": None,
-            "quartiere": None,
-            "comune": town,
-            "lat": None,
-            "lon": None,
-            "url": (ad.get("urls") or {}).get("default"),
-            "foto": foto,
-            "asta": False,
-            "data": (ad.get("dates") or {}).get("display_iso8601"),
-            "descr": (ad.get("body") or "")[:400].replace("\n", " "),
-        })
+    for cat, nome in categorie:
+        presi = 0
+        for pagina in range(pagine_max):
+            params = dict(base, c=cat, start=str(pagina * SUBITO_PER_PAGINA))
+            api = "https://hades.subito.it/v1/search/items?" + urllib.parse.urlencode(params)
+            try:
+                data = json.loads(fetch(api, accept="application/json"))
+            except RuntimeError as e:
+                # Una pagina che non risponde non butta via quelle già prese.
+                print(f"    Subito {nome} pagina {pagina + 1}: {e} — tengo i {presi} già presi")
+                break
+            ads = data.get("ads") or []
+            out.extend(subito_annuncio(ad) for ad in ads)
+            presi += len(ads)
+            if len(ads) < SUBITO_PER_PAGINA:   # ultima pagina
+                break
+        if presi:
+            print(f"    Subito · {nome}: {presi}")
     return out
 
 
