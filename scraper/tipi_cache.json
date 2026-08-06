@@ -1343,5 +1343,5310 @@
 "tipo": "indipendente",
 "avviso": null,
 "via": "ai"
+},
+"subito-611441821": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611418413": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611100558": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610341700": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077461": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-610018299": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610018248": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609896891": {
+"tipo": "altro",
+"avviso": "È un'officina/locale commerciale, non residenziale",
+"via": "ai"
+},
+"subito-611872547": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611777514": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611761656": {
+"tipo": "porzione",
+"avviso": "Titolo dice 'indipendente' ma descrizione rivela 'abbinata su due lati'",
+"via": "ai"
+},
+"subito-611663142": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611624463": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611612713": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595250": {
+"tipo": "porzione",
+"avviso": "Titolo dice 'indipendente' ma descrizione rivela 'abbinata ad un lato'",
+"via": "ai"
+},
+"subito-611594879": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594774": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594509": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595320": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595309": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595287": {
+"tipo": "porzione",
+"avviso": "Titolo dice 'indipendente' ma descrizione rivela 'abbinata ai lati'",
+"via": "ai"
+},
+"subito-611595253": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595248": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595237": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595154": {
+"tipo": "porzione",
+"avviso": "Titolo dice 'indipendente' ma descrizione rivela 'abbinata ai lati'",
+"via": "ai"
+},
+"subito-611595103": {
+"tipo": "porzione",
+"avviso": "Titolo promette indipendente, descrizione rivela libera su 3 lati",
+"via": "ai"
+},
+"subito-611595077": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595066": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595042": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595035": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611595029": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594968": {
+"tipo": "porzione",
+"avviso": "Titolo promette indipendente, descrizione rivela libera su 3 lati",
+"via": "ai"
+},
+"subito-611594923": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594859": {
+"tipo": "porzione",
+"avviso": "Titolo promette indipendente, descrizione rivela libera su 3 lati",
+"via": "ai"
+},
+"subito-611594801": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594714": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594709": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594682": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594638": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594542": {
+"tipo": "porzione",
+"avviso": "Titolo promette singola, descrizione rivela due case abbinate",
+"via": "ai"
+},
+"subito-611594471": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594464": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594446": {
+"tipo": "porzione",
+"avviso": "Titolo dice schiera, descrizione dice indipendente",
+"via": "ai"
+},
+"subito-611565286": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611528319": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611522322": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611516968": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611493917": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611416242": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611370265": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611275982": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611203159": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611203044": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202992": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è trifamiliare",
+"via": "ai"
+},
+"subito-611202922": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611203037": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202915": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202560": {
+"tipo": "porzione",
+"avviso": "porzione centrale in schiera",
+"via": "ai"
+},
+"subito-611202674": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è appartamento in bifamiliare",
+"via": "ai"
+},
+"subito-611202777": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è bifamiliare",
+"via": "ai"
+},
+"subito-611202582": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202683": {
+"tipo": "porzione",
+"avviso": "titolo dice 'indipendente' ma è 'abbinata su un lato'",
+"via": "ai"
+},
+"subito-611202864": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-611202389": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202449": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202397": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è bifamiliare",
+"via": "ai"
+},
+"subito-611202306": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è trifamiliare",
+"via": "ai"
+},
+"subito-611202161": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611202108": {
+"tipo": "porzione",
+"avviso": "titolo dice 'Villa' ma è trifamiliare angolare",
+"via": "ai"
+},
+"subito-611197744": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611198058": {
+"tipo": "porzione",
+"avviso": "titolo dice 'CASA INDIPENDENTE' ma è 'Porzione di casa'",
+"via": "ai"
+},
+"subito-611113946": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611097499": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611097085": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611092915": {
+"tipo": "altro",
+"avviso": "complesso di immobili eterogenei, non una singola villa",
+"via": "ai"
+},
+"subito-611092297": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611031636": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610946456": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610946381": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610859745": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610811044": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610809805": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610739211": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610707445": {
+"tipo": "porzione",
+"avviso": "titolo dice 'a schiera', descrizione dice 'indipendente'",
+"via": "ai"
+},
+"subito-610677072": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610651484": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610561005": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610538212": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610418655": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610393613": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610368583": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610348172": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610348061": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610347922": {
+"tipo": "porzione",
+"avviso": "titolo dice 'villa', descrizione rivela 'bifamiliare' (due unità)",
+"via": "ai"
+},
+"subito-610347897": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610347779": {
+"tipo": "porzione",
+"avviso": "titolo dice 'villa', descrizione rivela 'villa angolare' (porzione)",
+"via": "ai"
+},
+"subito-610234623": {
+"tipo": "altro",
+"avviso": "titolo dice 'villa singola', è in realtà edificio quadrifamiliare (4 unità)",
+"via": "ai"
+},
+"subito-610233610": {
+"tipo": "altro",
+"avviso": "annuncio di ricerca, non di vendita",
+"via": "ai"
+},
+"subito-610207025": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610188012": {
+"tipo": "porzione",
+"avviso": "titolo dice 'villa', descrizione rivela 'porzione di quadrifamiliare'",
+"via": "ai"
+},
+"subito-610187753": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma descrizione rivela porzione di quadrifamiliare",
+"via": "ai"
+},
+"subito-610187572": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610094879": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma descrizione menziona più ville costruite insieme",
+"via": "ai"
+},
+"subito-610094863": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma descrizione menziona più ville costruite insieme",
+"via": "ai"
+},
+"subito-610078276": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078173": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-610078366": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078356": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma descrizione menziona più ville",
+"via": "ai"
+},
+"subito-610078292": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078279": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa indipendente, ma è villa trifamiliare",
+"via": "ai"
+},
+"subito-610078268": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma sono villette trifamiliari",
+"via": "ai"
+},
+"subito-610078259": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-610078255": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078086": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è casa bifamiliare",
+"via": "ai"
+},
+"subito-610077932": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-610077891": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077802": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078214": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078206": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077659": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078201": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077635": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078193": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078182": {
+"tipo": "porzione",
+"avviso": "Titolo dice casa indipendente, ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-610077429": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è porzione di bifamiliare",
+"via": "ai"
+},
+"subito-610078121": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078092": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078101": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610078018": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077968": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077963": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077969": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077862": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077835": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077822": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077794": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077787": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077774": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077768": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077738": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077733": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077735": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077704": {
+"tipo": "appartamento",
+"avviso": "Titolo dichiara villa, ma è appartamento in bifamiliare",
+"via": "ai"
+},
+"subito-610077646": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077615": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077578": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077548": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara indipendente, ma è porzione di casa singola",
+"via": "ai"
+},
+"subito-610077533": {
+"tipo": "rustico",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077531": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077497": {
+"tipo": "porzione",
+"avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
+"via": "ai"
+},
+"subito-610077483": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077449": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077468": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077465": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è trifamiliare",
+"via": "ai"
+},
+"subito-610077377": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077368": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è bifamiliare",
+"via": "ai"
+},
+"subito-610077354": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077340": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610077304": {
+"tipo": "porzione",
+"avviso": "Titolo dice villa, ma è trifamiliare",
+"via": "ai"
+},
+"subito-610045256": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610045489": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610045450": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-610039435": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-610017888": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609988929": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-609877005": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609836751": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609813898": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609695129": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609668723": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-609624221": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609590529": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-609522448": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609509743": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-609510812": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611594804": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594842": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594788": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594671": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594594": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594479": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594491": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594478": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594458": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594453": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594448": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594442": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611533863": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611532462": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611532420": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611532236": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517770": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517462": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517111": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611517083": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611466302": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611446045": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441806": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441130": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441060": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441008": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611433315": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611432596": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430759": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430757": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611430662": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611427208": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611418517": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611417983": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611415666": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611414392": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611413687": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611406785": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611406367": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611402665": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611372872": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611370350": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611370344": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611367035": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611353947": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611353082": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611334177": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611334081": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611327327": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611303289": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611276793": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611276276": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611276043": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611261288": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611257399": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611251300": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611251214": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611249378": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611216897": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611215190": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611215153": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611215040": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611214925": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202969": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202282": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202316": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202490": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202387": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611197720": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611197704": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611178019": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611141811": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611140655": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610831779": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611117802": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611113539": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611110852": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611100611": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611099852": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611099811": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611099255": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611098700": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611098538": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611098064": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611097676": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611097375": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611079451": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610985904": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610977000": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610962581": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610962454": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946416": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946415": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946396": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946368": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610937753": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610937235": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610884495": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610884077": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610877274": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610876537": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610859218": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610855940": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610835041": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809654": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809645": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809627": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809597": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809553": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809515": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809458": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809415": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610783175": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610781110": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610745131": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610731107": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610725365": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610701318": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610700973": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610700708": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610700624": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610677431": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610677168": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610651288": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610651264": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610584103": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610564089": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610563022": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610227911": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610538116": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610538059": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610537894": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610537651": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610505430": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509934": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509850": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509644": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509330": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509233": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509029": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508844": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508753": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508742": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508660": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508119": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610507911": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610478068": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610476641": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610469191": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610454322": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610435750": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610418460": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610415857": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610399845": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610394205": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610394186": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610393814": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610393510": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610390295": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610380768": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610369049": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610368707": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610348031": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347269": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610341928": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610321501": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610315112": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314949": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314715": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314693": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314557": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610275545": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610275537": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610269193": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610256789": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610240247": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610220996": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610214880": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610214772": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610214751": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610214229": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610207081": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610206859": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610206723": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609552809": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610179467": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610179241": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610152723": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610152530": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610099847": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610096688": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610096694": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610096663": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078365": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078348": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078234": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078224": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078052": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078002": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077994": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077964": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077877": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077693": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077692": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077609": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077518": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077503": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077439": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077431": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077436": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077395": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077390": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077227": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077215": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045878": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045870": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045601": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045581": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045570": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045021": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610044925": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610017619": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609984298": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609971312": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948833": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948558": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948524": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948368": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609930824": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609930769": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609927512": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609901737": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609901191": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609891604": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609863755": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-606419480": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609850143": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609847599": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609847602": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609842631": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611855143": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611835663": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611835312": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611808205": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611757733": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611757508": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611752013": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607367842": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611690662": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611674345": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611658851": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611638991": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611633426": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611595254": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611594562": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611595258": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611595209": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611595178": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611595111": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611595033": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594944": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594892": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611594662": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594533": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611594435": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611493950": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611493650": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611469715": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611466138": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611441646": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611441510": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611441488": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611441339": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611440910": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611437512": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611436892": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611434335": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611433653": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611431380": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611276362": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611276065": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611271620": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611262697": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611260926": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611256913": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611211787": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611203120": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202589": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202502": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202487": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611197358": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-611179184": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611176652": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611141274": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611140755": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611102573": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611102525": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611011093": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946446": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946440": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610900537": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610884541": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610883870": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610840571": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610840330": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610835124": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610835682": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610835332": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610820839": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610815564": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809920": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809494": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610806719": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610745429": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610724808": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610696060": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609883745": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610648194": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610538129": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610537951": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509820": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508731": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610482879": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610471742": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610418159": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610418415": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610369113": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610368539": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610348281": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347937": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347857": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610341351": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610327935": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610314502": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610259155": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610240245": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610234117": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610217239": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610179284": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610179071": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610006033": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610116107": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610100174": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610099749": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610078039": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078045": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610077931": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610077914": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077896": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077892": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077872": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610077721": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610077713": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077666": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610077564": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077454": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077447": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-610077446": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610045900": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610029088": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609989178": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-609988619": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948595": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-609948770": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609931531": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609931181": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609849390": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609824766": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609813160": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-609812909": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-609812836": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609694757": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609662885": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609616705": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-609590386": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609523193": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-609510557": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609510371": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609510184": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609270584": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609454228": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609453740": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609453659": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609402659": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-609387414": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609373655": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609350046": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609350009": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609269360": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609260487": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609241845": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609224855": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609125881": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-609117878": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609102387": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609102142": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609073752": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609073614": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609053686": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609044612": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609009180": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608989614": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-608940656": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-608915937": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883564": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884064": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608883488": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608884623": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884285": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884262": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883958": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608883642": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883521": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883438": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608845411": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608826563": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608750045": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-608725039": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608720557": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608693376": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608682222": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608667392": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608527240": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608527195": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608483546": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608453676": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608427057": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-603973724": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608343381": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608345895": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608319108": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608251786": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608188246": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608112329": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608088378": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-608035553": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-608035005": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607988821": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607961000": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607893247": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607821033": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607809629": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607790607": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607792941": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-607792021": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607790817": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607761662": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-607760862": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607754125": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607752972": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607748835": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607747565": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607621818": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607566219": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-607565435": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607420910": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-607382787": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607382774": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607328524": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607295775": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607256256": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172423": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172369": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607171924": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607074908": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681122": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-605006339": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681233": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681156": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-607034342": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607034273": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681158": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681144": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681121": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604748782": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606948207": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-606925849": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606894704": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-606831970": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-606807307": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606738678": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606706971": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-606585503": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-606548386": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-606430802": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606318901": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-606288398": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-606256335": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-606142224": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-606008025": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-605972618": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-605893616": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-605838108": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-586405500": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-605602420": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-605285973": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-605131839": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-605005632": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604988827": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604447516": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-604147135": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-603908127": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-603907929": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-603609201": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-603514856": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-551201478": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-602394135": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-601841197": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-580460897": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-601268834": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-601002649": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-600771931": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-600665226": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-600156202": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-600147513": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-599863051": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-599857890": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-599778517": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-578187809": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-599299680": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-599113493": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-598366043": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-597225684": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-597153910": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-596453742": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-573209502": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-532956293": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-477860680": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-526611050": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-590464640": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-589894957": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-589128458": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611869044": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611855131": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611855047": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611839177": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-600777581": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611710637": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611700323": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611690166": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611627007": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611595229": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594598": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611594403": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611570080": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611538670": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611448123": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611438457": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611436818": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611429828": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611353313": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-594469654": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611276053": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202831": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202504": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611202545": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611196414": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611140652": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611113895": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-611098369": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610048833": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610061368": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611021902": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-601038862": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610962197": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610946372": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-364796671": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809881": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610809767": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610762350": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610762224": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610726190": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610700603": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610700481": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610674043": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610651558": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610644456": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610595784": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610549975": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610546769": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610509669": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610508487": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-578323019": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607613792": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-601346537": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610348076": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347967": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347942": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347828": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347522": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610347240": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610341333": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610298280": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610279464": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-610259030": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610252472": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610240104": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610234090": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610206857": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-610206212": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610206211": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-610094940": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078364": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078245": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078229": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078221": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078191": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078187": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078185": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078176": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078126": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078123": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078100": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078090": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078057": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610078033": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077995": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077946": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077918": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077912": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077901": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077846": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077844": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077840": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077819": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077789": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077792": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077766": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077763": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077728": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077717": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077670": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077639": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077629": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077576": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077580": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077555": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077513": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077523": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077526": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077532": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077487": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077462": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077353": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077322": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077308": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077327": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077296": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077288": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077272": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077267": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077266": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077233": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077241": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-610077209": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-610018380": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609988311": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-609950921": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609948718": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-607599149": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609848030": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-609814337": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-609623971": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609746279": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609743784": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-609732820": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609317137": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609559884": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609517450": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609500498": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609367868": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-596307147": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609293942": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609271679": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609195950": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-609116933": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-609102127": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609047692": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608976418": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608939711": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608901466": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883981": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883865": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-608826634": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-608549369": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-608472154": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608404795": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-608382519": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608369924": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608277850": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-608252154": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-608250969": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-608048134": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-607972222": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607925373": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607907472": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607851360": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-607830600": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-607790668": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607750919": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607748872": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-607747355": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607533672": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607499932": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607402395": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607373670": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-607256481": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681151": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-606792188": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-606757517": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-606654659": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-606431456": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-606359339": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-606148134": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-606040940": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-605884915": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-605534944": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-594297914": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-566889957": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-585910588": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-605188744": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-604491166": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-604447678": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-506993805": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-584191005": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-604014685": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-387618336": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-603312732": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-582795521": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-602926744": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-602861016": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-593224601": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-602639275": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-602635605": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-551564916": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-602469244": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-550099777": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-601890893": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-499900697": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-601105237": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-600676003": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-600676000": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-600323594": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-546704342": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-599864172": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-599684977": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-577600133": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-598334268": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-575799859": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-597393544": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-597077543": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-540078440": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-541341373": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-483609714": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-572565448": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-571328451": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-595231700": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-595074298": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-595071802": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-480611111": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-594519235": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-592889202": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-590217092": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-590160904": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-563706142": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-589473866": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-526590997": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-589189843": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-557204946": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-560578478": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-559876510": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609746575": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609629298": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609506074": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609454349": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609349911": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609294136": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609242014": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609208774": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-609073728": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884654": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884487": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884444": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608884239": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883937": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883597": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883580": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608883442": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608827022": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608797699": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608725046": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608725031": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-608724979": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608724945": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607903266": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608373874": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608188185": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608072343": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-608051215": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607961377": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607761635": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607753278": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607748824": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607745761": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-606609287": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-605556879": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-603530333": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-570208605": {
+"tipo": "appartamento",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
+"via": "regole"
+},
+"subito-609743559": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609587036": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-609616393": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609510796": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609461635": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609453776": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609402173": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609402171": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609402172": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609387399": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609127724": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609045139": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609045061": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-609044487": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-608845653": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608827070": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608802249": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608802217": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608708559": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608617458": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608597045": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608595378": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608594651": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-608544803": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-608243082": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607961554": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607875307": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607875284": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607793725": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607753758": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607751253": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607750613": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607750201": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607746227": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607746291": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607594936": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607566230": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-607495447": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607441600": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607441051": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607421062": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607420735": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-607420892": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607420828": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607420754": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607328495": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607328491": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172436": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172422": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172407": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172402": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-607172367": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172352": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-607172341": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604681112": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604420794": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-604420806": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-606666372": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-606626198": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-606183032": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-605838163": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-605821316": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-605428311": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-605051004": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604690804": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604393615": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-601346189": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-604068798": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-603512021": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-602305097": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-602023342": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-602023141": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-601939527": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-601190071": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-596811077": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-595669765": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-472253829": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-591357077": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
 }
 }
