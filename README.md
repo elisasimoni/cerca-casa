@@ -11,6 +11,7 @@ PWA personale per organizzare la ricerca casa: annunci salvati per zona con prez
 - 🏠 Lista case raggruppate per zona, con prezzo, €/mq, mq, locali, bagni, piano
 - 📍 Indirizzo cliccabile → si apre su Google Maps
 - 🏷️ Stato per ogni casa: da valutare, contattata, visita fissata, visitata, ⭐ preferita, scartata
+- 👟 **Visite**: dopo aver visto una casa si segnano i pro, i contro e il verdetto (✅ promossa, 🤔 in forse, ❌ bocciata); il verdetto aggiorna da solo lo stato della casa salvata
 - 🔍 Ricerca rapida per zona su Immobiliare.it, Idealista, Casa.it, Subito.it, Wikicasa, Trovit, Bakeca e Google (compra o affitto)
 - 📲 Installabile come app (PWA) e funziona offline
 - 💾 Dati in localStorage sul dispositivo + esporta/importa backup JSON

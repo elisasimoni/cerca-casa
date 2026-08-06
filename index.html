@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cerca Casa">
   <link rel="stylesheet" href="vendor/leaflet.css?v=c02c12fe">
-  <link rel="stylesheet" href="css/style.css?v=e0e385ff">
+  <link rel="stylesheet" href="css/style.css?v=4e7ebf9c">
 </head>
 <body>
 
@@ -108,6 +108,16 @@
 
 
 
+    <!-- TAB: Visite -->
+    <main id="tab-visite" class="tab">
+      <div class="titolo-sezione-riga">
+        <h2 class="titolo-sezione">Le visite <span id="visite-count" class="header-count"></span></h2>
+        <button id="btn-add-visita" class="btn btn-small">＋ Segna una visita</button>
+      </div>
+      <div id="visite-chips" class="chips chips-wrap"></div>
+      <div id="visite-list"></div>
+    </main>
+
     <!-- TAB: Altro -->
     <main id="tab-altro" class="tab">
       <details class="sezione-portali">
@@ -192,6 +202,7 @@
     <nav class="bottom-nav">
       <button class="nav-btn active" data-tab="annunci"><span>📰</span>Annunci</button>
       <button class="nav-btn" data-tab="case"><span>🏠</span>Le mie case<span id="nav-badge-case" class="nav-badge hidden"></span></button>
+      <button class="nav-btn" data-tab="visite"><span>👟</span>Visite</button>
       <button class="nav-btn" data-tab="altro"><span>⚙️</span>Altro</button>
     </nav>
 
@@ -441,9 +452,61 @@
         </div>
       </form>
     </dialog>
+
+    <!-- Dialog visita: pro, contro e verdetto -->
+    <dialog id="visita-dialog">
+      <form id="visita-form" method="dialog">
+        <h2 id="visita-dialog-title">Segna una visita</h2>
+        <input type="hidden" id="v-id">
+        <input type="hidden" id="v-house">
+        <label>Che casa hai visitato *
+          <input type="text" id="v-titolo" placeholder="es. Villetta in via Roma, Cesena" required>
+        </label>
+        <div class="form-grid">
+          <label>Quando
+            <input type="date" id="v-data">
+          </label>
+          <label>Prezzo (€)
+            <input type="number" id="v-prezzo" min="0" step="1000" placeholder="250000">
+          </label>
+        </div>
+        <label>Indirizzo
+          <input type="text" id="v-indirizzo" placeholder="es. Via Roma 12, Cesena">
+        </label>
+
+        <span class="etichetta-gruppo">Com'è andata?</span>
+        <div class="esito-toggle" id="v-esito">
+          <button type="button" data-esito="promossa">✅ Promossa</button>
+          <button type="button" data-esito="forse" class="active">🤔 In forse</button>
+          <button type="button" data-esito="bocciata">❌ Bocciata</button>
+        </div>
+
+        <span class="etichetta-gruppo">👍 Cosa ci è piaciuto</span>
+        <div id="v-pro-lista" class="voci"></div>
+        <div class="inline-form">
+          <input type="text" id="v-pro-input" placeholder="es. giardino grande, luminosa…">
+          <button type="button" class="btn btn-small" id="v-pro-add">＋ Aggiungi</button>
+        </div>
+
+        <span class="etichetta-gruppo">👎 Cosa non ci è piaciuto</span>
+        <div id="v-contro-lista" class="voci"></div>
+        <div class="inline-form">
+          <input type="text" id="v-contro-input" placeholder="es. bagno da rifare, strada rumorosa…">
+          <button type="button" class="btn btn-small" id="v-contro-add">＋ Aggiungi</button>
+        </div>
+
+        <label>Note
+          <textarea id="v-note" rows="2" placeholder="es. l'agente richiama lunedì, si tratta sul prezzo…"></textarea>
+        </label>
+        <div class="btn-row dialog-actions">
+          <button type="button" class="btn" id="btn-visita-cancel">Annulla</button>
+          <button type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </form>
+    </dialog>
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=28847ab8"></script>
+  <script src="js/app.js?v=788dc2db"></script>
 </body>
 </html>

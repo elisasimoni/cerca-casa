@@ -205,9 +205,23 @@ http.createServer(async (req, res) => {
     return rispondi(res, 200, { chiave: chiavi.publicKey });
   }
 
+  // L'app chiede se questo telefono risulta ancora iscritto qui. Serve perché
+  // iOS lascia cadere l'iscrizione dopo un po' che non apri la PWA (e dopo gli
+  // aggiornamenti di sistema): il telefono non se ne accorge, il suo
+  // PushManager continua a dire di sì e le notifiche smettono in silenzio.
+  if (url.pathname === '/iscritto' && req.method === 'POST') {
+    const { endpoint } = await corpoDi(req).catch(() => ({}));
+    const isc = iscrizioni.find(x => x.sub.endpoint === endpoint);
+    return rispondi(res, 200, {
+      iscritto: !!isc,
+      ricerche: (isc?.ricerche || []).map(r => r.nome),
+      iscritti: iscrizioni.length,
+    });
+  }
+
   if (url.pathname === '/iscrivi' && req.method === 'POST') {
     try {
-      const { sub, ricerche, filtri } = await corpoDi(req);
+      const { sub, ricerche, filtri, silenzioso } = await corpoDi(req);
       if (!sub?.endpoint) return rispondi(res, 400, { errore: 'iscrizione non valida' });
       const elenco = Array.isArray(ricerche) && ricerche.length
         ? ricerche.map((r, i) => ({
@@ -216,14 +230,18 @@ http.createServer(async (req, res) => {
       iscrizioni = iscrizioni.filter(x => x.sub.endpoint !== sub.endpoint);
       iscrizioni.push({ sub, ricerche: elenco, creata: new Date().toISOString() });
       scrivi('iscrizioni.json', iscrizioni);
-      // notifica di prova, così si vede subito che funziona
-      await webpush.sendNotification(sub, JSON.stringify({
-        titolo: 'Notifiche attivate ✅',
-        corpo: elenco.length === 1
-          ? `Ti avviso per: ${elenco[0].nome}.`
-          : `Ti avviso per ${elenco.length} ricerche: ${elenco.map(r => r.nome).join(', ')}.`,
-        url: 'https://elisasimoni.github.io/cerca-casa/',
-      })).catch(e => console.error('prova fallita:', e.statusCode));
+      // Notifica di conferma solo quando è stata premuta "Attiva": l'app si
+      // riscrive da sola ogni volta che apre le impostazioni, e senza questo
+      // arriverebbe un "Notifiche attivate ✅" a ogni giro.
+      if (!silenzioso) {
+        await webpush.sendNotification(sub, JSON.stringify({
+          titolo: 'Notifiche attivate ✅',
+          corpo: elenco.length === 1
+            ? `Ti avviso per: ${elenco[0].nome}.`
+            : `Ti avviso per ${elenco.length} ricerche: ${elenco.map(r => r.nome).join(', ')}.`,
+          url: 'https://elisasimoni.github.io/cerca-casa/',
+        })).catch(e => console.error('prova fallita:', e.statusCode));
+      }
       return rispondi(res, 200, { ok: true, iscritti: iscrizioni.length, ricerche: elenco.length });
     } catch (e) {
       return rispondi(res, 400, { errore: String(e.message) });

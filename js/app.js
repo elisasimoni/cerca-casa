@@ -32,6 +32,17 @@ const STATI = {
   'scartata': 'Scartata',
 };
 
+// Il verdetto dopo una visita. Tre soli esiti: di più non servono, e "in
+// forse" è quello che capita più spesso quando si esce da una casa.
+const ESITI = {
+  promossa: '✅ Promossa',
+  forse: '🤔 In forse',
+  bocciata: '❌ Bocciata',
+};
+// Il verdetto della visita è anche lo stato della casa: tenerli separati
+// vorrebbe dire aggiornare due volte la stessa cosa e dimenticarsene una.
+const STATO_DA_ESITO = { promossa: 'preferita', forse: 'visitata', bocciata: 'scartata' };
+
 // ---------- Portali immobiliari ----------
 function slug(z) {
   return z.trim().toLowerCase()
@@ -71,17 +82,19 @@ const AGENZIE = [
 const SITI_OPZIONI = ['Immobiliare.it', 'Idealista', 'Casa.it', 'Subito.it', 'Wikicasa', 'Bakeca', 'Agenzia', 'Altro'];
 
 // ---------- Stato ----------
-let state = { houses: [], extraZones: [], contract: 'vendita', zoneFilter: '' };
+let state = { houses: [], visite: [], extraZones: [], contract: 'vendita', zoneFilter: '' };
 
 function load() {
   try {
     const raw = localStorage.getItem(LS_KEY);
     if (raw) state = Object.assign(state, JSON.parse(raw));
   } catch (e) { /* dati corrotti: si riparte vuoti */ }
+  if (!Array.isArray(state.visite)) state.visite = [];   // backup di prima delle visite
 }
 function save() {
   localStorage.setItem(LS_KEY, JSON.stringify({
-    houses: state.houses, extraZones: state.extraZones, contract: state.contract,
+    houses: state.houses, visite: state.visite,
+    extraZones: state.extraZones, contract: state.contract,
   }));
 }
 
@@ -138,6 +151,7 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     window.scrollTo(0, 0);
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
     if (btn.dataset.tab === 'case') renderHouses();
+    if (btn.dataset.tab === 'visite') renderVisite();
     if (btn.dataset.tab === 'altro') { aggiornaInfoSessione(); riempiImpostazioni(); riempiNotifiche(); }
     else $('#header-count').textContent = '';
   });
@@ -186,12 +200,29 @@ function houseCard(h) {
 
   if (h.note) card.append(el('div', 'card-note', '📝 ' + h.note));
 
+  // Se l'abbiamo già vista, il verdetto si legge da qui senza cambiare scheda
+  const visita = visitaDiCasa(h.id);
+  if (visita) {
+    const conti = [];
+    if (visita.pro?.length) conti.push(visita.pro.length + ' pro');
+    if (visita.contro?.length) conti.push(visita.contro.length + ' contro');
+    const riga = el('button', 'riga-visita esito-riga-' + visita.esito,
+      (ESITI[visita.esito] || visita.esito)
+      + (conti.length ? ' · ' + conti.join(', ') : ' · nessuna nota'));
+    riga.title = 'Apri la visita';
+    riga.addEventListener('click', () => apriVisita(visita.id));
+    card.append(riga);
+  }
+
   const actions = el('div', 'card-actions');
   if (h.link) {
     const a = el('a', 'primary', 'Annuncio ↗');
     a.href = h.link; a.target = '_blank'; a.rel = 'noopener';
     actions.append(a);
   }
+  const vis = el('button', null, visita ? '👟 Visita' : '👟 Segna visita');
+  vis.addEventListener('click', () => apriVisita(visita?.id || null, h));
+  actions.append(vis);
   const edit = el('button', null, 'Modifica');
   edit.addEventListener('click', () => openDialog(h.id));
   actions.append(edit);
@@ -273,6 +304,246 @@ function renderZoneChips() {
     wrap.append(c);
   });
 }
+
+// ---------- Visite ----------
+// Una visita è quello che resta dopo essere entrati in una casa: due liste
+// (cosa ci è piaciuto, cosa no) e un verdetto. Sta attaccata alla casa
+// salvata quando c'è, ma può anche vivere da sola: capita di visitare
+// qualcosa vista in giro, senza annuncio.
+let visiteFiltro = '';
+
+function visitaDiCasa(houseId) {
+  return houseId ? state.visite.find(v => v.houseId === houseId) : null;
+}
+
+// Le più recenti in cima: la visita di ieri conta più di quella di marzo.
+function visiteOrdinate() {
+  return [...state.visite].sort((a, b) =>
+    (b.data || '').localeCompare(a.data || '') || (b.created || 0) - (a.created || 0));
+}
+
+function dataItaliana(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function elencoVoci(voci, cls, titolo) {
+  const box = el('div', 'voci-lette ' + cls);
+  box.append(el('div', 'voci-titolo', titolo));
+  const ul = el('ul');
+  voci.forEach(t => ul.append(el('li', null, t)));
+  box.append(ul);
+  return box;
+}
+
+function visitaCard(v) {
+  const card = el('div', 'card visita-card esito-bordo-' + v.esito);
+
+  const top = el('div', 'card-top');
+  top.append(el('div', 'card-title', v.titolo));
+  top.append(el('span', 'stato-badge esito-' + v.esito, ESITI[v.esito] || v.esito));
+  card.append(top);
+
+  const riga = [];
+  if (v.data) riga.push('📅 ' + dataItaliana(v.data));
+  if (v.prezzo) riga.push('€ ' + Number(v.prezzo).toLocaleString('it-IT'));
+  if (riga.length) card.append(el('div', 'card-meta', riga.join('  ·  ')));
+
+  if (v.indirizzo) {
+    const addr = el('div', 'card-addr');
+    const a = el('a', null, '📍 ' + v.indirizzo);
+    a.href = 'https://www.google.com/maps/search/?api=1&query=' + enc(v.indirizzo);
+    a.target = '_blank'; a.rel = 'noopener';
+    addr.append(a);
+    card.append(addr);
+  }
+
+  if (v.pro?.length) card.append(elencoVoci(v.pro, 'voci-pro', '👍 Ci è piaciuto'));
+  if (v.contro?.length) card.append(elencoVoci(v.contro, 'voci-contro', '👎 Non ci è piaciuto'));
+  if (!v.pro?.length && !v.contro?.length) {
+    card.append(el('p', 'hint', 'Nessun pro e nessun contro segnato. Tocca Modifica per aggiungerli.'));
+  }
+
+  if (v.note) card.append(el('div', 'card-note', '📝 ' + v.note));
+
+  const actions = el('div', 'card-actions');
+  if (v.link) {
+    const a = el('a', 'primary', 'Annuncio ↗');
+    a.href = v.link; a.target = '_blank'; a.rel = 'noopener';
+    actions.append(a);
+  }
+  const edit = el('button', null, 'Modifica');
+  edit.addEventListener('click', () => apriVisita(v.id));
+  actions.append(edit);
+  const del = el('button', 'danger', 'Elimina');
+  del.addEventListener('click', () => {
+    if (!confirm('Eliminare questa visita? La casa resta tra le tue case.')) return;
+    state.visite = state.visite.filter(x => x.id !== v.id);
+    save(); renderAll();
+  });
+  actions.append(del);
+  card.append(actions);
+
+  return card;
+}
+
+function renderVisiteChips() {
+  const wrap = $('#visite-chips');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  const voci = [['', 'Tutte', state.visite.length]];
+  Object.keys(ESITI).forEach(k => {
+    voci.push([k, ESITI[k], state.visite.filter(v => v.esito === k).length]);
+  });
+  voci.forEach(([val, testo, n]) => {
+    const c = el('button', 'chip' + (visiteFiltro === val ? ' active' : ''),
+      testo + (n ? ' ' + n : ''));
+    c.addEventListener('click', () => { visiteFiltro = val; renderVisite(); });
+    wrap.append(c);
+  });
+}
+
+function renderVisite() {
+  const list = $('#visite-list');
+  if (!list) return;
+  renderVisiteChips();
+  list.innerHTML = '';
+
+  let visite = visiteOrdinate();
+  if (visiteFiltro) visite = visite.filter(v => v.esito === visiteFiltro);
+
+  const c = $('#visite-count');
+  if (c) c.textContent = state.visite.length
+    ? state.visite.length + (state.visite.length === 1 ? ' casa vista' : ' case viste') : '';
+
+  if (!visite.length) {
+    const empty = el('div', 'empty-state');
+    empty.append(el('div', 'big', '👟'));
+    empty.append(el('div', null, state.visite.length
+      ? 'Nessuna visita con questo verdetto.'
+      : 'Ancora nessuna visita. Dopo che hai visto una casa segna qui i pro, '
+        + 'i contro e com\'è andata: fra dieci case non te lo ricordi più.'));
+    list.append(empty);
+    return;
+  }
+
+  visite.forEach(v => list.append(visitaCard(v)));
+}
+
+// --- Dialog visita ---
+const visitaDialog = $('#visita-dialog');
+let vPro = [];
+let vContro = [];
+
+function disegnaVoci(quale) {
+  const voci = quale === 'pro' ? vPro : vContro;
+  const box = $(quale === 'pro' ? '#v-pro-lista' : '#v-contro-lista');
+  box.innerHTML = '';
+  voci.forEach((t, i) => {
+    const riga = el('div', 'voce voce-' + quale);
+    riga.append(el('span', 'voce-testo', t));
+    const x = el('button', 'voce-x', '✕');
+    x.type = 'button';
+    x.title = 'Togli';
+    x.addEventListener('click', () => { voci.splice(i, 1); disegnaVoci(quale); });
+    riga.append(x);
+    box.append(riga);
+  });
+}
+
+function aggiungiVoce(quale) {
+  const inp = $(quale === 'pro' ? '#v-pro-input' : '#v-contro-input');
+  const testo = inp.value.trim();
+  if (!testo) return;
+  (quale === 'pro' ? vPro : vContro).push(testo);
+  inp.value = '';
+  disegnaVoci(quale);
+  inp.focus();
+}
+
+function segnaEsito(esito) {
+  document.querySelectorAll('#v-esito button').forEach(b =>
+    b.classList.toggle('active', b.dataset.esito === esito));
+}
+function esitoScelto() {
+  return document.querySelector('#v-esito button.active')?.dataset.esito || 'forse';
+}
+
+// `id` per modificare una visita esistente, `casa` per partire da una casa
+// salvata (i dati che già conosciamo si scrivono da soli).
+function apriVisita(id, casa) {
+  const v = id ? state.visite.find(x => x.id === id) : null;
+  $('#visita-dialog-title').textContent = v ? 'Modifica visita' : 'Segna una visita';
+  $('#v-id').value = v ? v.id : '';
+  $('#v-house').value = v?.houseId || casa?.id || '';
+  $('#v-titolo').value = v?.titolo
+    || (casa ? (casa.titolo || [casa.zona, casa.indirizzo].filter(Boolean).join(' — ')) : '');
+  $('#v-data').value = v?.data || new Date().toISOString().slice(0, 10);
+  $('#v-prezzo').value = v?.prezzo ?? casa?.prezzo ?? '';
+  $('#v-indirizzo').value = v?.indirizzo || casa?.indirizzo || '';
+  $('#v-note').value = v?.note || '';
+  vPro = [...(v?.pro || [])];
+  vContro = [...(v?.contro || [])];
+  $('#v-pro-input').value = '';
+  $('#v-contro-input').value = '';
+  disegnaVoci('pro');
+  disegnaVoci('contro');
+  segnaEsito(v?.esito || 'forse');
+  visitaDialog.showModal();
+}
+
+document.querySelectorAll('#v-esito button').forEach(b =>
+  b.addEventListener('click', () => segnaEsito(b.dataset.esito)));
+$('#v-pro-add').addEventListener('click', () => aggiungiVoce('pro'));
+$('#v-contro-add').addEventListener('click', () => aggiungiVoce('contro'));
+// Invio aggiunge la voce invece di mandare avanti il modulo: si scrivono
+// una dietro l'altra senza mai staccare le mani dalla tastiera.
+['pro', 'contro'].forEach(quale => {
+  $(quale === 'pro' ? '#v-pro-input' : '#v-contro-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); aggiungiVoce(quale); }
+  });
+});
+
+$('#btn-add-visita').addEventListener('click', () => apriVisita(null, null));
+$('#btn-visita-cancel').addEventListener('click', () => visitaDialog.close());
+
+$('#visita-form').addEventListener('submit', e => {
+  const titolo = $('#v-titolo').value.trim();
+  if (!titolo) { e.preventDefault(); return; }
+  // quello che sta ancora nella casella lo salvo lo stesso: sennò sparisce
+  // e sembra che l'app se lo sia mangiato
+  aggiungiVoce('pro');
+  aggiungiVoce('contro');
+
+  const id = $('#v-id').value || 'v' + Date.now();
+  const esistente = state.visite.find(x => x.id === id);
+  const houseId = $('#v-house').value || null;
+  const casa = houseId ? state.houses.find(h => h.id === houseId) : null;
+  const v = {
+    id,
+    created: esistente?.created || Date.now(),
+    houseId,
+    titolo,
+    data: $('#v-data').value,
+    prezzo: Number($('#v-prezzo').value) || null,
+    indirizzo: $('#v-indirizzo').value.trim(),
+    link: esistente?.link || casa?.link || '',
+    esito: esitoScelto(),
+    pro: [...vPro],
+    contro: [...vContro],
+    note: $('#v-note').value.trim(),
+  };
+  if (esistente) Object.assign(esistente, v);
+  else state.visite.push(v);
+
+  // il verdetto ricade sulla casa salvata, così le due schede si raccontano
+  // la stessa storia
+  if (casa) casa.stato = STATO_DA_ESITO[v.esito] || casa.stato;
+
+  save(); renderAll();
+});
 
 // ---------- Render: annunci (scraper automatico) ----------
 let annunciData = null;
@@ -2157,7 +2428,7 @@ async function inviaRicercheAlServer(messaggio) {
     const ricerche = ricercheDaNotificare();
     const r = await fetch(urlServer() + '/iscrivi', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sub, ricerche }),
+      body: JSON.stringify({ sub, ricerche, silenzioso: true }),
     });
     if (esito) {
       esito.textContent = r.ok
@@ -2211,6 +2482,36 @@ $('#nome-ricerca')?.addEventListener('keydown', e => {
 });
 $('#btn-spegni-notifiche')?.addEventListener('click', spegniNotifiche);
 
+// Non basta chiedere al telefono se è iscritto: dice di sì anche quando il
+// servizio l'ha già dimenticato (iOS lascia cadere l'iscrizione da solo, e
+// il servizio la butta al primo invio fallito). Finiva che l'app scriveva
+// "✓ notifiche attive" e non arrivava mai niente. Quindi si chiede al
+// servizio, e se non ci conosce più ci si riscrive senza disturbare: il
+// permesso c'è già, non compare nessuna richiesta.
+async function verificaIscrizione(sub) {
+  const url = urlServer();
+  try {
+    const r = await fetch(url + '/iscritto', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ endpoint: sub.endpoint }),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    if (d.iscritto) return '✓ Notifiche attive. Ti avviso per: ' + (d.ricerche.join(' · ') || 'tutti gli annunci');
+  } catch (e) {
+    return 'Non riesco a parlare con il servizio notifiche: ' + e.message;
+  }
+  const ricerche = ricercheDaNotificare();
+  const r = await fetch(url + '/iscrivi', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sub, ricerche, silenzioso: true }),
+  }).catch(() => null);
+  return r?.ok
+    ? '✓ Notifiche riattivate (il servizio ci aveva persi). Ti avviso per: '
+      + ricerche.map(x => x.nome).join(' · ')
+    : 'Il servizio non ti ha più fra i dispositivi: premi “Attiva le notifiche”.';
+}
+
 async function riempiNotifiche() {
   const inp = $('#imp-server');
   if (inp && !inp.value) inp.value = urlServer();
@@ -2220,11 +2521,15 @@ async function riempiNotifiche() {
   const sub = await reg?.pushManager.getSubscription();
   $('#btn-spegni-notifiche')?.classList.toggle('hidden', !sub);
   $('#btn-prova-notifica')?.classList.toggle('hidden', !sub);
-  if (sub) $('#imp-notifiche-esito').textContent = '✓ Notifiche attive su questo dispositivo.';
+  if (!sub) return;
+  const esito = $('#imp-notifiche-esito');
+  esito.textContent = 'Controllo le notifiche…';
+  esito.textContent = await verificaIscrizione(sub);
 }
 
 $('#btn-export').addEventListener('click', () => {
-  const blob = new Blob([JSON.stringify({ houses: state.houses, extraZones: state.extraZones }, null, 2)],
+  const blob = new Blob([JSON.stringify(
+    { houses: state.houses, visite: state.visite, extraZones: state.extraZones }, null, 2)],
     { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -2240,8 +2545,12 @@ $('#import-file').addEventListener('change', async e => {
   try {
     const data = JSON.parse(await file.text());
     if (!Array.isArray(data.houses)) throw new Error('formato non valido');
-    if (confirm(`Importare ${data.houses.length} case? I dati attuali verranno sostituiti.`)) {
+    const nVisite = Array.isArray(data.visite) ? data.visite.length : 0;
+    const quante = `${data.houses.length} case`
+      + (nVisite ? ` e ${nVisite} visit${nVisite === 1 ? 'a' : 'e'}` : '');
+    if (confirm(`Importare ${quante}? I dati attuali verranno sostituiti.`)) {
       state.houses = data.houses;
+      state.visite = Array.isArray(data.visite) ? data.visite : [];
       state.extraZones = data.extraZones || [];
       save(); renderAll();
     }
@@ -2280,6 +2589,7 @@ $('#sort-by').addEventListener('change', renderHouses);
 function renderAll() {
   renderZoneChips();
   renderHouses();
+  renderVisite();
   renderZoneManage();
   renderPortali();
 }

@@ -592,13 +592,14 @@ dialog {
   background: var(--card); color: var(--text);
 }
 dialog::backdrop { background: rgba(44, 31, 20, 0.45); }
-#house-form { padding: 22px; overflow-y: auto; max-height: 88vh; }
-#house-form h2 { font-size: 20px; margin-bottom: 16px; font-weight: 800; letter-spacing: -0.02em; }
-#house-form label {
+#house-form, #visita-form { padding: 22px; overflow-y: auto; max-height: 88vh; }
+#house-form h2, #visita-form h2 { font-size: 20px; margin-bottom: 16px; font-weight: 800; letter-spacing: -0.02em; }
+#house-form label, #visita-form label {
   display: block; font-size: 10.5px; font-weight: 700; color: var(--muted);
   margin-bottom: 12px; text-transform: uppercase; letter-spacing: var(--tracking-wider);
 }
-#house-form input, #house-form select, #house-form textarea {
+#house-form input, #house-form select, #house-form textarea,
+#visita-form input, #visita-form select, #visita-form textarea {
   margin-top: 5px; font-size: 15px; text-transform: none; letter-spacing: 0;
 }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -690,3 +691,71 @@ dialog::backdrop { background: rgba(44, 31, 20, 0.45); }
 }
 .campo-impostazione { margin: 12px 0 4px; }
 .campo-impostazione .inline-form { margin-top: 4px; }
+
+/* ---------- Visite ---------- */
+.esito-promossa { background: var(--green-l); color: var(--green-d); }
+.esito-forse { background: var(--amber-l); color: var(--amber-d); }
+.esito-bocciata { background: var(--coral-l); color: var(--coral-d); }
+
+/* una riga di colore sul fianco: il verdetto si vede scorrendo, senza leggere */
+.visita-card { border-left: 4px solid var(--border); }
+.esito-bordo-promossa { border-left-color: var(--green); }
+.esito-bordo-forse { border-left-color: var(--amber); }
+.esito-bordo-bocciata { border-left-color: var(--coral); }
+
+.voci-lette { margin-top: 10px; }
+.voci-titolo {
+  font-size: 10.5px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: var(--tracking-wider); margin-bottom: 4px;
+}
+.voci-lette ul { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.voci-lette li {
+  font-size: 13.5px; line-height: 1.4; padding-left: 16px; position: relative;
+}
+.voci-lette li::before { position: absolute; left: 0; font-weight: 700; }
+.voci-pro li::before { content: '+'; color: var(--green); }
+.voci-contro li::before { content: '–'; color: var(--coral); }
+
+/* riga del verdetto dentro la card della casa */
+.riga-visita {
+  display: block; width: 100%; text-align: left; margin-top: 10px; cursor: pointer;
+  font-size: 12.5px; font-weight: 700; font-family: inherit;
+  padding: 8px 11px; border-radius: var(--rm); border: 1px solid transparent;
+}
+.esito-riga-promossa { background: var(--green-l); color: var(--green-d); }
+.esito-riga-forse { background: var(--amber-l); color: var(--amber-d); }
+.esito-riga-bocciata { background: var(--coral-l); color: var(--coral-d); }
+
+/* ---------- Dialog visita: verdetto e voci ---------- */
+.esito-toggle {
+  display: flex; background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin: 0 0 14px;
+}
+.esito-toggle button {
+  flex: 1; padding: 11px 4px; border: none; background: transparent;
+  font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--muted);
+  font-family: inherit;
+}
+.esito-toggle button.active { background: var(--accent); color: #fff; }
+
+/* al buio il calendario di sistema resterebbe bianco accecante */
+#v-data { color-scheme: light dark; }
+
+.voci { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+.voce {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 8px 8px 12px; border-radius: var(--rm);
+  background: var(--bg); border: 1px solid var(--border);
+}
+.voce-pro { border-left: 3px solid var(--green); }
+.voce-contro { border-left: 3px solid var(--coral); }
+.voce-testo { flex: 1; min-width: 0; font-size: 14px; line-height: 1.35; }
+.voce-x {
+  flex: 0 0 auto; width: 30px; height: 30px; border-radius: var(--r-sm);
+  border: none; background: none; color: var(--muted);
+  font-size: 14px; cursor: pointer; font-family: inherit;
+}
+.voce-x:active { background: var(--accent-soft); }
+#visita-form .etichetta-gruppo { margin-top: 4px; }
+#visita-form .inline-form { margin: 0 0 14px; }
+#visita-form .inline-form .btn { flex: 0 0 auto; }
