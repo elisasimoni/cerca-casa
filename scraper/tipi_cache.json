@@ -1,159 +1,4 @@
 {
-"casait-54457435": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457434": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457420": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457417": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54456770": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54456347": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54456025": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54454101": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54453996": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54453533": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54452941": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54451382": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54451381": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54451378": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54450667": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54450649": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54450053": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449894": {
-"tipo": "appartamento",
-"avviso": "Titolo dice bilocale ma descrizione rivela monolocale",
-"via": "ai"
-},
-"casait-54449873": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449867": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449680": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449653": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449601": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54449589": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54448150": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54447736": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54447432": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54447165": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54445832": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54444785": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54443673": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611602824": {
 "tipo": "appartamento",
 "avviso": null,
@@ -324,11 +169,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611595003": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611594993": {
 "tipo": "appartamento",
 "avviso": null,
@@ -369,16 +209,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611594932": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594919": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611594858": {
 "tipo": "indipendente",
 "avviso": "Titolo dichiara 'Appartamento' ma descrizione specifica 'casa indipendente'",
@@ -400,16 +230,6 @@
 "via": "ai"
 },
 "subito-611594862": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594804": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594842": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -439,11 +259,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611594788": {
-"tipo": "appartamento",
-"avviso": "Ampio appartamento (335 mq) con giardino privato 470 mq ha caratteristiche semi-indipendenti",
-"via": "ai"
-},
 "subito-611594760": {
 "tipo": "appartamento",
 "avviso": null,
@@ -459,22 +274,12 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611594733": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611594735": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
 },
 "subito-611594716": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594671": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -500,11 +305,6 @@
 "via": "ai"
 },
 "subito-611594607": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594594": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -571,156 +371,6 @@
 },
 "subito-611594501": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594479": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594491": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594458": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611594442": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611582215": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6420000783592204214": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2760000783592212333": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7550000776420540405": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8420002733316812587": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5100001749553787567": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1210000779790819263": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1110000781000337162": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6290003747400452625": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4570000782987567292": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-8610002733316812673": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2400002747316817792": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4150002733230747026": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8260002733316812548": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-9090003770979889013": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3970000779272187092": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8700002733316812685": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7280000783592217452": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4270002733230747043": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3990000779272187094": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3020000778840341626": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2510000775902581312": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7380000779272180767": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7110000772187744073": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-2100000779358107161": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3200000782987387317": {
-"tipo": "porzione",
 "avviso": null,
 "via": "ai"
 },
@@ -834,296 +484,6 @@
 "avviso": null,
 "via": "ai"
 },
-"pvp-4578815": {
-"tipo": "porzione",
-"avviso": "Attenzione: vendita della sola nuda proprietà",
-"via": "ai"
-},
-"pvp-4587165": {
-"tipo": "rustico",
-"avviso": "Fabbricato rurale privo di agibilità",
-"via": "ai"
-},
-"pvp-4566595": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"pvp-4566523": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"pvp-4579050": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457514": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54435670": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54434418": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54421433": {
-"tipo": "appartamento",
-"avviso": "titolo: monolocale, descrizione: bilocale",
-"via": "ai"
-},
-"casait-54415899": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54414682": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54406896": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54404172": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54387314": {
-"tipo": "appartamento",
-"avviso": "titolo: trilocale, descrizione: bilocale",
-"via": "ai"
-},
-"casait-54383919": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54381461": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54377077": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54376824": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54375148": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54364641": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54354875": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54354664": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54353120": {
-"tipo": "appartamento",
-"avviso": "Ingresso indipendente al piano terra con giardino può indicare una porzione",
-"via": "ai"
-},
-"casait-54311322": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54295581": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54294686": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54293042": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54292965": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54292201": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54290582": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54290176": {
-"tipo": "appartamento",
-"avviso": "titolo: trilocale, descrizione: bilocale",
-"via": "ai"
-},
-"casait-54281945": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54276284": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54274863": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54265709": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54265258": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54263292": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54249577": {
-"tipo": "indipendente",
-"avviso": "titolo promette casa singola, descrizione rivela potenziale per due unità separate",
-"via": "ai"
-},
-"casait-54233853": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-54173057": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54168273": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54168123": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54167930": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54167713": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-54167409": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54167041": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54165915": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54153897": {
-"tipo": "porzione",
-"avviso": "titolo dice appartamento, descrizione 'fabbricato da cielo a terra' suggerisce struttura singola/semi-indipendente",
-"via": "ai"
-},
-"casait-54153637": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-54153621": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54129190": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54117515": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54107038": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54088262": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54063792": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54035666": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54012931": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53966889": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
 "subito-611533157": {
 "tipo": "appartamento",
 "avviso": null,
@@ -1145,11 +505,6 @@
 "via": "ai"
 },
 "subito-610481183": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610469445": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -1197,271 +552,6 @@
 "subito-604903683": {
 "tipo": "altro",
 "avviso": "Locale commerciale con laboratorio, non abitazione",
-"via": "ai"
-},
-"trovit-IT-1580000782814592670": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1060000780568299450": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5430000783765071287": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5220000772101067273": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2380000779790857004": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3270004760181291448": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7260000775125193828": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8440000772793099417": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-8350000775125114553": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-1440005757587431739": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-1240003763636697700": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-2640000773400138239": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4520002732798941830": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-4510002732798941829": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-8580003748096949042": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5440001782641492384": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1740005778666859599": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7150004762946654308": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-5430001782641492383": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2250000782901160554": {
-"tipo": "porzione",
-"avviso": "Tipologia corretta leggendo lo stesso immobile su Casa.it: là la descrizione dice «porzione»",
-"via": "ai"
-},
-"trovit-IT-4990000779358589285": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4550002732798941834": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-1400005777630412641": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-8210083727700985159": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-2660003757074464489": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-7090005756985758194": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-7150000782642037254": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2660004777803037140": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"casait-54441767": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54438852": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54438796": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54435608": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54434774": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54432280": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54430317": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54430315": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54430144": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54429479": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54428786": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54428526": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54427038": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54421439": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54421144": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54421043": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54418761": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54416395": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54409530": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54409304": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54407930": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54407432": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54406242": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54405829": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611437551": {
-"tipo": "appartamento",
-"avviso": null,
 "via": "ai"
 },
 "subito-611410700": {
@@ -1804,11 +894,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-610078012": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-610078000": {
 "tipo": "appartamento",
 "avviso": null,
@@ -1899,211 +984,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-610077518": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077439": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6380000771672477554": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54441684": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54437957": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54425901": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54423910": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54407119": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54370735": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54337032": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54327531": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54311346": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54311297": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54286998": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54282225": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54266803": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54260699": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-54241591": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54223781": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54136699": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54133064": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54133042": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54096792": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54088242": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54076835": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54038718": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53980355": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-53977860": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-53967750": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53947033": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-53922525": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-53875438": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-53812751": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53786140": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53749874": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53736545": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-53736539": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53736528": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53736490": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53719579": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-53695843": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-610664545": {
 "tipo": "appartamento",
 "avviso": null,
@@ -2124,122 +1004,7 @@
 "avviso": "Locali ad uso ufficio/commerciale, non residenziali",
 "via": "ai"
 },
-"trovit-IT-7340002738241339548": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3300008724935136747": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2790000779876908022": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-7420000773484944395": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8880001743080457932": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1660000781086046746": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8570002771584986901": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5300002729686155912": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-3750000771929154649": {
-"tipo": "indipendente",
-"avviso": "Tipologia dal titolo (annuncio via Trovit): apri l'annuncio per la descrizione completa",
-"via": "ai"
-},
-"trovit-IT-4130000783333119295": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1040000782469105742": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6010000774520087149": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8300000781086033696": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611533863": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611517770": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611517462": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611446045": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611441821": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"subito-611441806": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5540000782382598880": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5440000782382598873": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1360002767178663335": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611618948": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457785": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -2254,46 +1019,6 @@
 "avviso": null,
 "via": "ai"
 },
-"casait-54458550": {
-"tipo": "porzione",
-"avviso": "titolo dice villa ma è villa d'angolo (attaccata)",
-"via": "ai"
-},
-"casait-54458224": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54458223": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54458222": {
-"tipo": "altro",
-"avviso": "Uso commerciale (ristorante), non residenziale",
-"via": "ai"
-},
-"casait-54458221": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54458219": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54458218": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54458037": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611612990": {
 "tipo": "porzione",
 "avviso": null,
@@ -2301,131 +1026,6 @@
 },
 "subito-611612206": {
 "tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54459110": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54459106": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54459105": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54463461": {
-"tipo": "porzione",
-"avviso": "titolo dice schiera ma è porzione di bifamiliare",
-"via": "ai"
-},
-"casait-54463349": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54462344": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54457798": {
-"tipo": "porzione",
-"avviso": "titolo dice villa ma è villa bifamiliare",
-"via": "ai"
-},
-"casait-53625637": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7370001759749545022": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54468646": {
-"tipo": "porzione",
-"avviso": "titolo dice indipendente ma descrizione dice abbinata (semindipendente)",
-"via": "ai"
-},
-"casait-54466745": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54466744": {
-"tipo": "appartamento",
-"avviso": "titolo dice bilocale ma descrizione dice monolocale",
-"via": "ai"
-},
-"casait-54466743": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54466598": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54466201": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1820000781086381436": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469634": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469633": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469156": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611640755": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54465481": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54464629": {
-"tipo": "rustico",
-"avviso": "Titolo promette 'indipendente' ma è un casale da ristrutturare",
-"via": "ai"
-},
-"casait-54463347": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54462172": {
-"tipo": "appartamento",
-"avviso": "Descrizione dice 'indipendente' ma è al piano primo di condominio",
-"via": "ai"
-},
-"casait-54457806": {
-"tipo": "appartamento",
 "avviso": null,
 "via": "ai"
 },
@@ -2469,57 +1069,7 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-1920000772793094180": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-9170000781000338934": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611662193": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474588": {
-"tipo": "appartamento",
-"avviso": "Pubblicità ingannevole: promette 'oasi indipendente' ma è un quadrilocale in condominio",
-"via": "ai"
-},
-"casait-54474137": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474130": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474128": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54473825": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54472445": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54470254": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54470010": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -2534,224 +1084,9 @@
 "avviso": null,
 "via": "ai"
 },
-"casait-54474886": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474851": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474849": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474306": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474153": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474152": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474151": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54474124": {
-"tipo": "indipendente",
-"avviso": "Titolo dice appartamento, descrizione rivela villa completamente indipendente",
-"via": "ai"
-},
-"casait-54474123": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54473471": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54473104": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54472939": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54472687": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54472631": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54472626": {
-"tipo": "altro",
-"avviso": "Titolo promette bifamiliare ma descrizione rivela 4 soluzioni abitative",
-"via": "ai"
-},
-"casait-54472469": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54471994": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54471840": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54471241": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54470822": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54470078": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469996": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469913": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469818": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469801": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54469536": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "ai"
-},
-"casait-54469356": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"subito-611659170": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "pvp-4614829": {
 "tipo": "appartamento",
 "avviso": null,
-"via": "ai"
-},
-"trovit-IT-4330000783333119309": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077461": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8470004770806759109": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1660004776852473937": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3730005779531230467": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54475901": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077431": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077436": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077390": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5660003765882010419": {
-"tipo": "altro",
-"avviso": null,
-"via": "ai"
-},
-"casait-54477044": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54476952": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54476597": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54475549": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54475342": {
-"tipo": "appartamento",
-"avviso": "Titolo promette 'indipendente' ma è un piccolo appartamento al piano terra",
 "via": "ai"
 },
 "subito-611673472": {
@@ -2761,11 +1096,6 @@
 },
 "subito-611663811": {
 "tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54477581": {
-"tipo": "porzione",
 "avviso": null,
 "via": "ai"
 },
@@ -2779,277 +1109,7 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-4860000772274607476": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3280000779272181449": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3040000773744153561": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1290003759231324436": {
-"tipo": "altro",
-"avviso": "Palazzo/Stabile non rientra nelle categorie standard",
-"via": "ai"
-},
-"trovit-IT-8900001760612565360": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7860003763636988939": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2060000782555519955": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8410000781000353663": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8240003759489880292": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4000002732195371122": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2150000779099445375": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3860004758710858760": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3860002767178622669": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2450000784629082678": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1670002761822394165": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-5130004783073303079": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2380002782036434399": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54478530": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "subito-611685812": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-611680650": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1540002733834499905": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7030002739279625996": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6610002767178579831": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4170000775125156119": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7930003763466079308": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-2430005777630412866": {
-"tipo": "porzione",
-"avviso": "Titolo dice 'Villa bifamiliare' (è una bifamiliare, non indipendente)",
-"via": "ai"
-},
-"trovit-IT-1690000781086223547": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3280003769511361996": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6560002732798942129": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482120": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482087": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482085": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54481604": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54480326": {
-"tipo": "porzione",
-"avviso": "Titolo dice 'Casa indipendente' ma è 'abbinata su un lato'",
-"via": "ai"
-},
-"trovit-IT-5180001768388307646": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-3520002783505238355": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"casait-54479452": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-4460000773225671404": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1020002739969232016": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-6640000783159822737": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7260000780136302953": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
-"casait-54481507": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54480414": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-1230003770980024444": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7890000779704203103": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54483931": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54483339": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54483337": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482769": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482661": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482598": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54482508": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54481061": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"casait-54481047": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"casait-54480246": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -3059,23 +1119,228 @@
 "avviso": null,
 "via": "ai"
 },
-"trovit-IT-1780001744723092455": {
-"tipo": "rustico",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-8260002737635899610": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"trovit-IT-7580000777544309606": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "pvp-4616054": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611858187": {
+"tipo": "porzione",
+"avviso": "Titolo: 'Appartamento', realtà: porzione di bifamiliare",
+"via": "ai"
+},
+"subito-611793944": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611777028": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "ai"
+},
+"subito-611715458": {
+"tipo": "porzione",
+"avviso": "Titolo: 'Appartamento', realtà: porzione di trifamiliare",
+"via": "ai"
+},
+"pvp-4613346": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611710963": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611710869": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611710739": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611710641": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"pvp-4616367": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"subito-611872490": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611872233": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611863940": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611839294": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611839240": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611839206": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611827988": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611796055": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611777229": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611748021": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611742526": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611740154": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611740073": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611735213": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611735079": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611734638": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611731225": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611731202": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611875165": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611858377": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611855236": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611854959": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611854813": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611809894": {
+"tipo": "porzione",
+"avviso": "Titolo dice appartamento, ma è terra-cielo abbinata su due lati",
+"via": "ai"
+},
+"subito-611808598": {
+"tipo": "porzione",
+"avviso": "Titolo nasconde che è ad angolo (attaccata su 2 lati)",
+"via": "ai"
+},
+"subito-611796089": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611795829": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611735578": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611735233": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"subito-611710890": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "ai"
+},
+"pvp-4619863": {
+"tipo": "terreno",
+"avviso": null,
+"via": "ai"
+},
+"pvp-4620879": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"pvp-4617802": {
+"tipo": "porzione",
+"avviso": null,
+"via": "ai"
+},
+"pvp-4619200": {
+"tipo": "indipendente",
 "avviso": null,
 "via": "ai"
 }
