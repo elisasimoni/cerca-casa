@@ -9,11 +9,22 @@ cd "$REPO"
 
 echo "=== $(date '+%Y-%m-%d %H:%M:%S') avvio aggiornamento"
 
-# --autostash può lasciare marcatori di conflitto dentro i file: meglio
-# buttare le modifiche locali ai dati (li rigenera lo scraper) e ripartire
-# puliti dal remoto.
-git checkout -- data/ scraper/tipi_cache.json scraper/geo_cache.json 2>/dev/null || true
-git pull --rebase --quiet || { git rebase --abort 2>/dev/null || true; git reset --hard origin/main --quiet; }
+# I file che lo scraper riscrive a ogni giro: si buttano prima di sincronizzare
+# e si pubblicano tutti insieme dopo. Devono essere lo stesso elenco nei due
+# posti: visti_cache.json era rimasto fuori, restava sporco per sempre e da
+# solo bloccava il pull — quindi il push — di tutti i giri successivi.
+DATI=(data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json scraper/visti_cache.json)
+
+if ! git fetch --quiet origin; then
+  echo "Non riesco a leggere GitHub (rete assente?): non pubblico niente."
+  exit 0
+fi
+# Questa copia non ha lavoro suo da difendere: riparte sempre da quello che c'è
+# online, appena scaricato. Prima si tentava un pull --rebase con un reset di
+# riserva su origin/main, ma senza fetch quel riferimento era vecchio: il bot
+# committava su una base sorpassata e il push veniva respinto ogni volta.
+git checkout -- "${DATI[@]}" 2>/dev/null || true
+git reset --hard origin/main --quiet
 
 if ! python3 scraper/scrape.py; then
   echo "Scraper fallito (offline o portali giù): non committo nulla."
@@ -22,7 +33,7 @@ fi
 
 # Rete di sicurezza: mai pubblicare un JSON rotto (l'app smetterebbe di
 # funzionare finché non arriva il giro successivo).
-for f in data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json; do
+for f in "${DATI[@]}"; do
   [ -f "$f" ] || continue
   if ! python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f"; then
     echo "ERRORE: $f non è JSON valido — non pubblico niente."
@@ -39,11 +50,19 @@ if [ "$N" -lt 50 ]; then
   exit 1
 fi
 
-if git diff --quiet -- data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json; then
+if git diff --quiet -- "${DATI[@]}"; then
   echo "Nessun cambiamento negli annunci."
 else
-  git add data/annunci.json scraper/tipi_cache.json scraper/geo_cache.json
+  git add "${DATI[@]}"
   git commit --quiet -m "Aggiorna annunci ($(date '+%Y-%m-%d %H:%M') · $N annunci)"
-  git push --quiet
+  # Se nel frattempo è arrivato altro su GitHub il push viene respinto: si
+  # riprova una volta sola ripartendo dal remoto, invece di restare indietro
+  # per sempre come è successo dal 27 luglio in poi.
+  if ! git push --quiet; then
+    echo "Push respinto: risincronizzo e riprovo."
+    git fetch --quiet origin
+    git rebase --quiet origin/main || { git rebase --abort 2>/dev/null || true; exit 1; }
+    git push --quiet
+  fi
   echo "Annunci pubblicati: $N annunci."
 fi
