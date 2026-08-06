@@ -1602,6 +1602,7 @@ function costruisciCaratChips() {
   if (wrap.children.length) return;
   Object.entries(CARAT_LABEL).forEach(([k, label]) => {
     const c = el('button', 'chip' + (caratRichieste.has(k) ? ' active' : ''), label);
+    c.dataset.carat = k;
     c.addEventListener('click', () => {
       caratRichieste.has(k) ? caratRichieste.delete(k) : caratRichieste.add(k);
       c.classList.toggle('active');
@@ -1609,6 +1610,35 @@ function costruisciCaratChips() {
     });
     wrap.append(c);
   });
+}
+
+// Queste chip si costruiscono una volta sola, quindi quando i filtri
+// cambiano da fuori (una ricerca salvata, l'azzera) vanno riallineate a mano.
+function sincronizzaCaratChips() {
+  document.querySelectorAll('#carat-chips .chip').forEach(c => {
+    c.classList.toggle('active', caratRichieste.has(c.dataset.carat));
+  });
+}
+
+// Due stati sono "la stessa ricerca" se filtrano allo stesso modo: l'ordine
+// in cui hai acceso le chip e l'ordinamento della lista non contano.
+function firmaStato(s) {
+  if (!s) return '';
+  const insieme = v => [...(v || [])].map(String).sort().join(',');
+  return [
+    insieme(s.tipi), insieme(s.comuni), insieme(s.carat), s.zona || '',
+    !!s.noCentro, !!s.conPrezzo, !!s.fibraOk,
+    FILTRI_ID.map(id => s[id] || '').join('|'),
+  ].join('§');
+}
+
+function applicaRicercaSalvata(r) {
+  applicaStato(r.stato);
+  costruisciTipoChips();
+  costruisciComuneChips();
+  sincronizzaCaratChips();
+  salvaFiltri();
+  renderAnnunci();
 }
 
 // Col pannello aperto basta aggiornare il numero: ridisegnare la lista
@@ -1625,6 +1655,21 @@ function aggiornaContaFiltri() {
   const bar = $('#riga-chip');
   bar.innerHTML = '';
   let nFiltri = 0;
+
+  // Le ricerche salvate stanno qui in testa, non solo in Altro: sono il modo
+  // in cui ci si muove davvero, saltando fra "indipendenti sotto i 250" e
+  // "rustici da sistemare". Un tocco le accende, un altro le spegne.
+  const firmaOra = firmaStato(statoFiltri());
+  leggiRicerche().forEach(r => {
+    const attiva = firmaStato(r.stato) === firmaOra;
+    const c = el('button', 'chip chip-ricerca' + (attiva ? ' active' : ''), '🔖 ' + r.nome);
+    c.title = attiva ? 'Tocca per togliere questa ricerca' : descriviStato(r.stato);
+    c.addEventListener('click', () => {
+      if (attiva) $('#btn-azzera').click();
+      else applicaRicercaSalvata(r);
+    });
+    bar.append(c);
+  });
 
   const chip = (testo, rimuovi) => {
     nFiltri++;
@@ -1679,9 +1724,7 @@ function aggiornaContaFiltri() {
   });
   caratRichieste.forEach(k => chip(CARAT_LABEL[k] || k, () => {
     caratRichieste.delete(k);
-    document.querySelectorAll('#carat-chips .chip').forEach(c => {
-      if ((CARAT_LABEL[k] || k) === c.textContent) c.classList.remove('active');
-    });
+    sincronizzaCaratChips();
   }));
   if ($('#annunci-no-centro').checked) chip('🚫 Fuori dai centri', () => { $('#annunci-no-centro').checked = false; });
   if ($('#annunci-con-prezzo').checked) chip('💶 Con prezzo', () => { $('#annunci-con-prezzo').checked = false; });
@@ -1765,7 +1808,7 @@ $('#btn-azzera').addEventListener('click', () => {
   zonaAttiva = '';
   areaPoligono = null;
   salvaArea();
-  document.querySelectorAll('#carat-chips .chip').forEach(c => c.classList.remove('active'));
+  sincronizzaCaratChips();
   salvaFiltri();
   renderAnnunci();
 });
@@ -2332,11 +2375,8 @@ function renderRicerche() {
     testo.append(el('strong', '', r.nome), el('span', 'hint', descriviStato(r.stato)));
     testo.title = 'Applica questa ricerca';
     testo.addEventListener('click', () => {
-      applicaStato(r.stato);
-      costruisciTipoChips();
-      salvaFiltri();
       vaiA('annunci');
-      renderAnnunci();
+      applicaRicercaSalvata(r);
     });
 
     const campanella = el('button', 'ricerca-sveglia' + (r.notifica ? ' attiva' : ''),

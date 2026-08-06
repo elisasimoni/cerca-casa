@@ -280,6 +280,13 @@ select:focus, input:focus, textarea:focus {
   font-family: inherit;
 }
 .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* Il nome proposto per una ricerca è la sua descrizione ("🏡 Indipendente,
+   🌾 Rustico · ≤ €250.000"): per intero occuperebbe tutta la riga. */
+.chip-ricerca {
+  max-width: 38vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  border-color: var(--accent-soft); color: var(--accent-dark); font-weight: 700;
+}
+.chip-ricerca.active { color: #fff; }
 .chip .chip-x { margin-left: 6px; font-weight: 700; }
 
 .filter-row { display: flex; gap: 8px; }
