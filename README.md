@@ -15,6 +15,7 @@ PWA personale per organizzare la ricerca casa: annunci salvati per zona con prez
 - 🔍 Ricerca rapida per zona su Immobiliare.it, Idealista, Casa.it, Subito.it, Wikicasa, Trovit, Bakeca e Google (compra o affitto)
 - 📲 Installabile come app (PWA) e funziona offline
 - 💾 Dati in localStorage sul dispositivo + esporta/importa backup JSON
+- ☁️ **Salvataggio online** (Supabase, progetto `casa-vita`): case, visite, zone e ricerche salvate viaggiano anche online, così non si perdono svuotando Safari e iPhone e Mac vedono le stesse cose. Il cassetto è riconosciuto da un codice lungo generato dal browser — nel repo pubblico ci sono solo indirizzo e chiave pubblica del progetto, che da soli non aprono niente
 
 ## Struttura
 
@@ -30,4 +31,6 @@ cerca-casa/
 
 ## Nota sulla privacy
 
-Il sito è pubblico su GitHub Pages: il PIN tiene lontani i curiosi, ma non è una protezione forte (il codice è visibile a chiunque). I dati delle case però **non sono nel repo**: restano solo in localStorage del dispositivo.
+Il sito è pubblico su GitHub Pages: il PIN tiene lontani i curiosi, ma non è una protezione forte (il codice è visibile a chiunque). I dati delle case **non sono nel repo**: stanno in localStorage del dispositivo e, se accendi il salvataggio online, in una riga su Supabase riconosciuta dal *codice del cassetto*.
+
+Quel codice è l'unica cosa che protegge i dati online, quindi: non è ricavato dal PIN (del PIN nel repo c'è l'impronta, e un PIN corto si indovina in un attimo a partire da quella), lo genera il browser a caso ed è lungo 48 caratteri. La tabella ha RLS acceso e nessuna policy: con la chiave pubblica non si legge niente in diretta, si passa solo da due funzioni che pretendono il codice giusto. Chi ha il codice vede tutto: va trattato come una password.

@@ -180,6 +180,28 @@
       </form>
       <div id="zone-manage" class="chips chips-wrap"></div>
 
+      <h3 class="section-title">Salvataggio online</h3>
+      <p class="hint">Case, visite, zone e ricerche salvate viaggiano anche online:
+        se svuoti Safari o cambi telefono le ritrovi, e il Mac e l'iPhone vedono
+        le stesse cose.</p>
+      <p id="sincro-stato" class="hint"></p>
+      <div class="btn-row">
+        <button id="btn-accendi-sincro" class="btn btn-primary hidden">☁️ Accendi il salvataggio online</button>
+        <button id="btn-sincronizza" class="btn hidden">☁️ Sincronizza adesso</button>
+      </div>
+      <details class="campo-impostazione" id="dett-chiave">
+        <summary class="hint">Codice del cassetto (per collegare un altro dispositivo)</summary>
+        <div class="inline-form">
+          <input type="text" id="imp-chiave" placeholder="il codice dell'altro dispositivo">
+          <button class="btn btn-primary btn-small" id="btn-salva-chiave">Usa</button>
+        </div>
+        <div class="btn-row">
+          <button id="btn-copia-chiave" class="btn btn-small">📋 Copia il codice di questo dispositivo</button>
+        </div>
+        <p class="hint">Chi ha questo codice vede le tue case: trattalo come una password.
+          Sull'altro dispositivo incollalo qui e premi Usa.</p>
+      </details>
+
       <h3 class="section-title">Backup</h3>
       <div class="btn-row">
         <button id="btn-export" class="btn">⬇️ Esporta dati</button>
@@ -507,6 +529,6 @@
   </div>
 
   <script src="vendor/leaflet.js?v=35b48eb9"></script>
-  <script src="js/app.js?v=788dc2db"></script>
+  <script src="js/app.js?v=e14cda84"></script>
 </body>
 </html>

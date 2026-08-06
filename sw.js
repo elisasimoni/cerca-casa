@@ -1,9 +1,9 @@
-const CACHE = 'cercacasa-c91b67a2';
+const CACHE = 'cercacasa-c24cf51e';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css?v=4e7ebf9c',
-  './js/app.js?v=788dc2db',
+  './js/app.js?v=e14cda84',
   './vendor/leaflet.js?v=35b48eb9',
   './vendor/leaflet.css?v=c02c12fe',
   './manifest.json',

@@ -91,11 +91,18 @@ function load() {
   } catch (e) { /* dati corrotti: si riparte vuoti */ }
   if (!Array.isArray(state.visite)) state.visite = [];   // backup di prima delle visite
 }
-function save() {
+function salvaLocale() {
   localStorage.setItem(LS_KEY, JSON.stringify({
     houses: state.houses, visite: state.visite,
     extraZones: state.extraZones, contract: state.contract,
   }));
+}
+// Ogni modifica va sul dispositivo subito e online poco dopo: se la rete non
+// c'è resta segnato che c'è qualcosa da mandare, e riparte alla prossima
+// apertura.
+function save() {
+  salvaLocale();
+  programmaSincronia();
 }
 
 function zonesList() {
@@ -125,6 +132,8 @@ function unlock() {
   renderAll();
   loadAnnunci();
   controllaHelper();
+  // prima si guarda cosa ha fatto l'altro dispositivo, poi si lavora
+  sincronizza();
 }
 
 $('#pin-form').addEventListener('submit', async e => {
@@ -152,7 +161,9 @@ document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
     if (btn.dataset.tab === 'annunci') loadAnnunci(true);
     if (btn.dataset.tab === 'case') renderHouses();
     if (btn.dataset.tab === 'visite') renderVisite();
-    if (btn.dataset.tab === 'altro') { aggiornaInfoSessione(); riempiImpostazioni(); riempiNotifiche(); }
+    if (btn.dataset.tab === 'altro') {
+      aggiornaInfoSessione(); riempiImpostazioni(); riempiNotifiche(); aggiornaRigaSincro();
+    }
     else $('#header-count').textContent = '';
   });
 });
@@ -2526,6 +2537,166 @@ async function riempiNotifiche() {
   esito.textContent = 'Controllo le notifiche…';
   esito.textContent = await verificaIscrizione(sub);
 }
+
+// ---------- Salvataggio online (Supabase) ----------
+// I dati restano sul dispositivo, ma una copia sta anche online: bastava
+// svuotare Safari o cambiare telefono per perdere tutto, e adesso che ci
+// sono le visite scritte a mano sarebbe un peccato serio.
+//
+// Come si tengono privati: nel progetto c'è una riga sola per "cassetto",
+// riconosciuto da un codice lungo e casuale generato qui dentro. Il repo è
+// pubblico, quindi nel codice ci sono solo l'indirizzo del progetto e la
+// chiave pubblica: senza il codice del cassetto non aprono niente. Non l'ho
+// legato al PIN apposta — del PIN nel repo c'è l'impronta, e un PIN corto si
+// indovina in un attimo a partire da quella.
+const SB_URL = 'https://rnmucfjgxayvbfjnkamf.supabase.co';
+const SB_KEY = 'sb_publishable_DEbzGUVaag6qh3nSuqbZzg_tdfA6cCY';
+const CHIAVE_KEY = 'cercacasa_chiave';
+const SINCRO_KEY = 'cercacasa_sincronizzato';   // ora del server dell'ultima sincronia
+const DAINVIARE_KEY = 'cercacasa_da_inviare';
+
+let sincroStato = '';
+let timerSincro = null;
+
+const chiaveCassetto = () => localStorage.getItem(CHIAVE_KEY) || '';
+
+function nuovoCodice() {
+  const b = crypto.getRandomValues(new Uint8Array(24));
+  return [...b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+async function rpcSupabase(nome, corpo) {
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${nome}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY,
+    },
+    body: JSON.stringify(corpo),
+  });
+  if (!r.ok) throw new Error('il servizio ha risposto ' + r.status);
+  return r.json();
+}
+
+const datiDaSalvare = () => ({
+  houses: state.houses, visite: state.visite,
+  extraZones: state.extraZones, ricerche: leggiRicerche(),
+});
+
+function applicaDati(d) {
+  state.houses = Array.isArray(d.houses) ? d.houses : [];
+  state.visite = Array.isArray(d.visite) ? d.visite : [];
+  state.extraZones = Array.isArray(d.extraZones) ? d.extraZones : [];
+  if (Array.isArray(d.ricerche)) scriviRicerche(d.ricerche);
+  salvaLocale();
+  renderAll();
+  renderRicerche();
+}
+
+function programmaSincronia() {
+  if (!chiaveCassetto()) return;
+  localStorage.setItem(DAINVIARE_KEY, '1');
+  clearTimeout(timerSincro);
+  // qualche secondo di attesa: si scrive una visita in tre tocchi, non serve
+  // una chiamata per ognuno
+  timerSincro = setTimeout(() => sincronizza(), 2500);
+}
+
+// A blocco unico: vince l'ultima scrittura. Con due dispositivi in casa è
+// quello che serve; il caso brutto è solo quando tutti e due hanno scritto
+// senza vedersi, e lì si chiede invece di decidere di testa propria.
+async function sincronizza(manuale) {
+  const chiave = chiaveCassetto();
+  if (!chiave) { sincroStato = 'spento'; return aggiornaRigaSincro(); }
+  clearTimeout(timerSincro);
+  sincroStato = 'in corso'; aggiornaRigaSincro();
+  try {
+    const righe = await rpcSupabase('leggi_cassetta', { p_chiave: chiave });
+    const remoto = righe?.[0] || null;
+    const visto = localStorage.getItem(SINCRO_KEY) || '';
+    const daInviare = localStorage.getItem(DAINVIARE_KEY) === '1' || !remoto;
+    const remotoNuovo = remoto && remoto.aggiornato !== visto;
+
+    let prendiRemoto = remotoNuovo && !daInviare;
+    if (remotoNuovo && daInviare) {
+      const quando = new Date(remoto.aggiornato).toLocaleString('it-IT');
+      prendiRemoto = confirm(
+        `Online c'è una versione più recente (${quando}), fatta da un altro dispositivo, `
+        + 'e anche qui ci sono modifiche non ancora mandate.\n\n'
+        + 'OK = tengo quella online (perdi le modifiche fatte qui)\n'
+        + 'Annulla = tengo queste e sovrascrivo quella online');
+    }
+
+    if (prendiRemoto) {
+      applicaDati(remoto.dati || {});
+      localStorage.setItem(SINCRO_KEY, remoto.aggiornato);
+      localStorage.removeItem(DAINVIARE_KEY);
+      sincroStato = 'scaricato';
+    } else if (daInviare || remotoNuovo) {
+      const quando = await rpcSupabase('scrivi_cassetta',
+        { p_chiave: chiave, p_dati: datiDaSalvare() });
+      localStorage.setItem(SINCRO_KEY, quando);
+      localStorage.removeItem(DAINVIARE_KEY);
+      sincroStato = 'inviato';
+    } else {
+      sincroStato = 'aggiornato';
+    }
+  } catch (e) {
+    sincroStato = 'errore: ' + e.message;
+  }
+  aggiornaRigaSincro();
+  if (manuale) renderAll();
+}
+
+function aggiornaRigaSincro() {
+  const p = $('#sincro-stato');
+  if (!p) return;
+  const acceso = !!chiaveCassetto();
+  $('#btn-accendi-sincro')?.classList.toggle('hidden', acceso);
+  $('#btn-sincronizza')?.classList.toggle('hidden', !acceso);
+  $('#dett-chiave')?.classList.toggle('hidden', !acceso);
+  if (!acceso) {
+    p.textContent = 'Spento: i dati stanno solo su questo dispositivo.';
+    return;
+  }
+  const quando = localStorage.getItem(SINCRO_KEY);
+  const ora = quando ? new Date(quando).toLocaleString('it-IT') : null;
+  const testi = {
+    'in corso': '⏳ Sto sincronizzando…',
+    'inviato': ora ? '✓ Salvato online il ' + ora : '✓ Salvato online.',
+    'scaricato': '✓ Scaricato quello che avevi fatto sull\'altro dispositivo.',
+    'aggiornato': ora ? '✓ Tutto sincronizzato (ultima volta ' + ora + ').' : '✓ Tutto sincronizzato.',
+  };
+  p.textContent = testi[sincroStato]
+    || (sincroStato.startsWith('errore')
+      ? '⚠️ Non sono riuscita a salvare online: ' + sincroStato.slice(8)
+        + (localStorage.getItem(DAINVIARE_KEY) ? ' — le modifiche partono al prossimo tentativo.' : '')
+      : (ora ? 'Ultimo salvataggio online: ' + ora : 'Mai sincronizzato.'));
+}
+
+$('#btn-accendi-sincro')?.addEventListener('click', () => {
+  if (!chiaveCassetto()) localStorage.setItem(CHIAVE_KEY, nuovoCodice());
+  localStorage.setItem(DAINVIARE_KEY, '1');
+  sincronizza(true);
+});
+$('#btn-sincronizza')?.addEventListener('click', () => sincronizza(true));
+$('#btn-copia-chiave')?.addEventListener('click', () => {
+  copiaNegliAppunti(chiaveCassetto());
+  const b = $('#btn-copia-chiave');
+  b.textContent = '📋 Copiato — incollalo sull\'altro dispositivo';
+  setTimeout(() => { b.textContent = '📋 Copia il codice di questo dispositivo'; }, 3000);
+});
+$('#btn-salva-chiave')?.addEventListener('click', () => {
+  const c = $('#imp-chiave').value.trim();
+  if (c.length < 32) { sincroStato = 'errore: codice troppo corto'; return aggiornaRigaSincro(); }
+  if (!confirm('Collego questo dispositivo a quel cassetto: le case e le visite '
+    + 'che ci sono qui adesso vengono sostituite da quelle online. Procedo?')) return;
+  localStorage.setItem(CHIAVE_KEY, c);
+  localStorage.removeItem(SINCRO_KEY);
+  localStorage.removeItem(DAINVIARE_KEY);
+  $('#imp-chiave').value = '';
+  sincronizza(true);
+});
 
 $('#btn-export').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(
