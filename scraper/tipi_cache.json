@@ -349,11 +349,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611594530": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
 "subito-611594519": {
 "tipo": "appartamento",
 "avviso": null,
@@ -1137,11 +1132,6 @@
 "subito-611777028": {
 "tipo": "indipendente",
 "avviso": null,
-"via": "ai"
-},
-"subito-611715458": {
-"tipo": "porzione",
-"avviso": "Titolo: 'Appartamento', realtà: porzione di trifamiliare",
 "via": "ai"
 },
 "pvp-4613346": {
@@ -2609,11 +2599,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-611099852": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-611099811": {
 "tipo": "appartamento",
 "avviso": null,
@@ -2675,11 +2660,6 @@
 "via": "regole"
 },
 "subito-610946416": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-610946415": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
@@ -3024,11 +3004,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-610368707": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-610348031": {
 "tipo": "appartamento",
 "avviso": null,
@@ -3339,11 +3314,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609948833": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609948558": {
 "tipo": "appartamento",
 "avviso": null,
@@ -3384,11 +3354,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609891604": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609863755": {
 "tipo": "appartamento",
 "avviso": null,
@@ -3403,16 +3368,6 @@
 "tipo": "porzione",
 "avviso": null,
 "via": "ai"
-},
-"subito-609847599": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-609847602": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
 },
 "subito-611855143": {
 "tipo": "porzione",
@@ -4579,11 +4534,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-604681121": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
 "subito-604748782": {
 "tipo": "altro",
 "avviso": null,
@@ -4956,11 +4906,6 @@
 },
 "subito-611436818": {
 "tipo": "porzione",
-"avviso": null,
-"via": "regole"
-},
-"subito-611429828": {
-"tipo": "altro",
 "avviso": null,
 "via": "regole"
 },
@@ -5544,11 +5489,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609317137": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
-},
 "subito-609559884": {
 "tipo": "rustico",
 "avviso": null,
@@ -6089,11 +6029,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609349911": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609294136": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6280,11 +6215,6 @@
 "via": "regole"
 },
 "subito-609453776": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-609402173": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
@@ -6646,6 +6576,91 @@
 },
 "subito-611879981": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611902469": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611902343": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611889606": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611889441": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611889222": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611887274": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611885334": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611884099": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-66": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611892808": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611892772": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611889626": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-611885167": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611884308": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-id:ad:ee906613-a76e-4e6f-9b79-fed1048e34fe:list:656660487": {
+"tipo": "terreno",
+"avviso": null,
+"via": "regole"
+},
+"subito-611889429": {
+"tipo": "altro",
+"avviso": null,
+"via": "regole"
+},
+"subito-611883942": {
+"tipo": "rustico",
 "avviso": null,
 "via": "regole"
 }
