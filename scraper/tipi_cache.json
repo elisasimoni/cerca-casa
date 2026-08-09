@@ -3344,11 +3344,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-606419480": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-611855143": {
 "tipo": "porzione",
 "avviso": null,
@@ -4608,11 +4603,6 @@
 "tipo": "porzione",
 "avviso": null,
 "via": "regole"
-},
-"subito-605602420": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
 },
 "subito-605285973": {
 "tipo": "rustico",
@@ -6661,6 +6651,16 @@
 },
 "subito-id:ad:e295d942-06a6-4aae-9257-c9468c7cb84e:list:656736488": {
 "tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611917401": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611917285": {
+"tipo": "appartamento",
 "avviso": null,
 "via": "regole"
 }
