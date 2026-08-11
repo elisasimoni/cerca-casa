@@ -2619,11 +2619,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-611079451": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-610985904": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6666,6 +6661,21 @@
 },
 "subito-611918274": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611937493": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611937416": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611937369": {
+"tipo": "porzione",
 "avviso": null,
 "via": "regole"
 }
