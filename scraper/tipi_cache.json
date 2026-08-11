@@ -484,11 +484,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611179178": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-610962228": {
 "tipo": "appartamento",
 "avviso": null,
@@ -900,11 +895,6 @@
 "via": "ai"
 },
 "subito-610077902": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077889": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -6676,6 +6666,16 @@
 },
 "subito-611937369": {
 "tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611944413": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-id:ad:f779d046-cfbb-4f5d-8066-6c8b13328a96:list:657013102": {
+"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 }
