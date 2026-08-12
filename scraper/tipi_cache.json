@@ -3304,11 +3304,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-609930769": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609927512": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6676,6 +6671,11 @@
 },
 "subito-id:ad:f779d046-cfbb-4f5d-8066-6c8b13328a96:list:657013102": {
 "tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-611950444": {
+"tipo": "appartamento",
 "avviso": null,
 "via": "regole"
 }
