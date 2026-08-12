@@ -509,17 +509,7 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-610077851": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-610077808": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
-"subito-610077452": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "ai"
@@ -1814,11 +1804,6 @@
 "avviso": "Titolo dice villa, ma descrizione rivela porzione di quadrifamiliare",
 "via": "ai"
 },
-"subito-610187572": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
 "subito-610094879": {
 "tipo": "porzione",
 "avviso": "Titolo dice villa, ma descrizione menziona più ville costruite insieme",
@@ -1982,11 +1967,6 @@
 "subito-610077822": {
 "tipo": "porzione",
 "avviso": "Titolo dichiara villa, ma è porzione bifamiliare",
-"via": "ai"
-},
-"subito-610077794": {
-"tipo": "porzione",
-"avviso": null,
 "via": "ai"
 },
 "subito-610077787": {
@@ -4011,11 +3991,6 @@
 },
 "subito-609510184": {
 "tipo": "porzione",
-"avviso": null,
-"via": "regole"
-},
-"subito-609270584": {
-"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
@@ -6664,17 +6639,17 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-611944413": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-id:ad:f779d046-cfbb-4f5d-8066-6c8b13328a96:list:657013102": {
 "tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
 "subito-611950444": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-606419480": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
