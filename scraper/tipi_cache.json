@@ -999,11 +999,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-611636297": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-611636008": {
 "tipo": "appartamento",
 "avviso": null,
@@ -2084,11 +2079,6 @@
 "avviso": "Titolo dice villa, ma è trifamiliare",
 "via": "ai"
 },
-"subito-610045256": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "ai"
-},
 "subito-610045489": {
 "tipo": "indipendente",
 "avviso": null,
@@ -2295,16 +2285,6 @@
 "via": "ai"
 },
 "subito-611433315": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-611432596": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-611430759": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
@@ -3636,11 +3616,6 @@
 },
 "subito-610835332": {
 "tipo": "porzione",
-"avviso": null,
-"via": "regole"
-},
-"subito-610820839": {
-"tipo": "altro",
 "avviso": null,
 "via": "regole"
 },
@@ -5714,11 +5689,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-602926744": {
-"tipo": "altro",
-"avviso": null,
-"via": "regole"
-},
 "subito-602861016": {
 "tipo": "terreno",
 "avviso": null,
@@ -6439,11 +6409,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-603512021": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-602305097": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6651,6 +6616,26 @@
 },
 "subito-606419480": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611962803": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611962685": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611961576": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611962722": {
+"tipo": "porzione",
 "avviso": null,
 "via": "regole"
 }
