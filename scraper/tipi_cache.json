@@ -804,11 +804,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-610116164": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "ai"
-},
 "subito-610078360": {
 "tipo": "appartamento",
 "avviso": null,
@@ -3779,11 +3774,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-610100174": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "regole"
-},
 "subito-610099749": {
 "tipo": "porzione",
 "avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
@@ -4139,11 +4129,6 @@
 "avviso": null,
 "via": "ai"
 },
-"subito-608826563": {
-"tipo": "porzione",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "regole"
-},
 "subito-608750045": {
 "tipo": "appartamento",
 "avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
@@ -4346,11 +4331,6 @@
 },
 "subito-607382787": {
 "tipo": "porzione",
-"avviso": null,
-"via": "regole"
-},
-"subito-607382774": {
-"tipo": "terreno",
 "avviso": null,
 "via": "regole"
 },
@@ -5614,11 +5594,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-605884915": {
-"tipo": "terreno",
-"avviso": null,
-"via": "regole"
-},
 "subito-605534944": {
 "tipo": "terreno",
 "avviso": null,
@@ -6609,11 +6584,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-606419480": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-611962803": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6631,6 +6601,21 @@
 },
 "subito-611962722": {
 "tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611981042": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611978743": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611978467": {
+"tipo": "appartamento",
 "avviso": null,
 "via": "regole"
 }
