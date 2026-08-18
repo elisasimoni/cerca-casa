@@ -3219,11 +3219,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-610017619": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609984298": {
 "tipo": "appartamento",
 "avviso": null,
@@ -3245,16 +3240,6 @@
 "via": "regole"
 },
 "subito-609948368": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-609930824": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
-"subito-609927512": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
@@ -4218,11 +4203,6 @@
 "tipo": "porzione",
 "avviso": "Titolo dice 'casa indipendente', ma è porzione di trifamiliare",
 "via": "ai"
-},
-"subito-608088378": {
-"tipo": "appartamento",
-"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: appartamento",
-"via": "regole"
 },
 "subito-608035553": {
 "tipo": "appartamento",
@@ -6615,6 +6595,71 @@
 "via": "regole"
 },
 "subito-611978467": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612005284": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612005240": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612005142": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-611989575": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-611988748": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-id:ad:d57b9dd9-9242-457a-8935-fa6c0953e619:list:657341146": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612005162": {
+"tipo": "porzione",
+"avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
+"via": "regole"
+},
+"subito-612005248": {
+"tipo": "indipendente",
+"avviso": null,
+"via": "regole"
+},
+"subito-32": {
+"tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"subito-612001766": {
+"tipo": "rustico",
+"avviso": null,
+"via": "regole"
+},
+"subito-612007532": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612007478": {
+"tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612007496": {
 "tipo": "appartamento",
 "avviso": null,
 "via": "regole"
