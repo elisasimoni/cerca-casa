@@ -3234,16 +3234,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609948524": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
-"subito-609948368": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609901737": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6502,11 +6492,6 @@
 "subito-611905453": {
 "tipo": "porzione",
 "avviso": "Il titolo dice \"indipendente\" ma il testo suggerisce: porzione",
-"via": "regole"
-},
-"subito-611908907": {
-"tipo": "appartamento",
-"avviso": null,
 "via": "regole"
 },
 "subito-611909341": {
