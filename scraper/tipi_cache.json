@@ -3224,11 +3224,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609971312": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-609948558": {
 "tipo": "appartamento",
 "avviso": null,
@@ -4556,11 +4551,6 @@
 },
 "subito-600156202": {
 "tipo": "porzione",
-"avviso": null,
-"via": "regole"
-},
-"subito-600147513": {
-"tipo": "indipendente",
 "avviso": null,
 "via": "regole"
 },
@@ -6636,6 +6626,11 @@
 },
 "subito-612020256": {
 "tipo": "porzione",
+"avviso": null,
+"via": "regole"
+},
+"pvp-4622645": {
+"tipo": "appartamento",
 "avviso": null,
 "via": "regole"
 }
