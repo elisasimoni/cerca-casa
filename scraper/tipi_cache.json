@@ -3944,11 +3944,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-609402659": {
-"tipo": "porzione",
-"avviso": null,
-"via": "ai"
-},
 "subito-609387414": {
 "tipo": "rustico",
 "avviso": null,
@@ -4553,11 +4548,6 @@
 "tipo": "porzione",
 "avviso": null,
 "via": "ai"
-},
-"subito-601002649": {
-"tipo": "indipendente",
-"avviso": null,
-"via": "regole"
 },
 "subito-600771931": {
 "tipo": "indipendente",
@@ -6154,11 +6144,6 @@
 "avviso": null,
 "via": "regole"
 },
-"subito-607753758": {
-"tipo": "appartamento",
-"avviso": null,
-"via": "regole"
-},
 "subito-607751253": {
 "tipo": "appartamento",
 "avviso": null,
@@ -6646,6 +6631,11 @@
 },
 "subito-612007496": {
 "tipo": "appartamento",
+"avviso": null,
+"via": "regole"
+},
+"subito-612020256": {
+"tipo": "porzione",
 "avviso": null,
 "via": "regole"
 }
